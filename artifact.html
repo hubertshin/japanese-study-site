@@ -1,0 +1,1415 @@
+<title>赤ペン 번역노트</title>
+<link rel="manifest" href="./manifest.webmanifest">
+<meta name="theme-color" content="#2B4C7E">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="赤ペン">
+<link rel="apple-touch-icon" href="./icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap">
+<style>
+  :root {
+    --bg: #EDF0F3;
+    --surface: #FFFFFF;
+    --surface-2: #F5F7F9;
+    --line: #D5DBE2;
+    --line-strong: #B9C2CC;
+    --ink: #1B2430;
+    --ink-2: #4A5563;
+    --ink-3: #7A8491;
+    --accent: #2B4C7E;
+    --accent-ink: #FFFFFF;
+    --accent-soft: #E3EAF5;
+    --red: #C0432B;
+    --red-soft: #FBE7E2;
+    --green: #2E7D5B;
+    --green-soft: #E1F2EA;
+    --amber: #A86F14;
+    --amber-soft: #FBF0D9;
+    --focus: #2B4C7E;
+    --shadow: 0 1px 2px rgba(27,36,48,.06), 0 8px 24px rgba(27,36,48,.06);
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #12171E;
+      --surface: #1A2129;
+      --surface-2: #202934;
+      --line: #2E3843;
+      --line-strong: #40505E;
+      --ink: #E6EAEF;
+      --ink-2: #AEB8C4;
+      --ink-3: #7F8A97;
+      --accent: #86A8DC;
+      --accent-ink: #0F1621;
+      --accent-soft: #223247;
+      --red: #E8836D;
+      --red-soft: #3B2520;
+      --green: #6CC19A;
+      --green-soft: #1C3328;
+      --amber: #E0B25B;
+      --amber-soft: #3A2F18;
+      --focus: #86A8DC;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #12171E;
+    --surface: #1A2129;
+    --surface-2: #202934;
+    --line: #2E3843;
+    --line-strong: #40505E;
+    --ink: #E6EAEF;
+    --ink-2: #AEB8C4;
+    --ink-3: #7F8A97;
+    --accent: #86A8DC;
+    --accent-ink: #0F1621;
+    --accent-soft: #223247;
+    --red: #E8836D;
+    --red-soft: #3B2520;
+    --green: #6CC19A;
+    --green-soft: #1C3328;
+    --amber: #E0B25B;
+    --amber-soft: #3A2F18;
+    --focus: #86A8DC;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Noto Sans KR", "Noto Sans JP", "Apple SD Gothic Neo", "Hiragino Sans", system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .ja { font-family: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", "Noto Sans KR", sans-serif; }
+  .mincho { font-family: "Shippori Mincho B1", "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif; }
+
+  .wrap { max-width: 760px; margin: 0 auto; padding: 20px 16px 72px; }
+
+  /* top bar */
+  .top { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; margin-bottom: 20px; }
+  .brand { display: flex; align-items: baseline; gap: 10px; }
+  .brand h1 { font-size: 20px; margin: 0; letter-spacing: -.01em; font-weight: 700; }
+  .brand h1 .mincho { color: var(--red); font-weight: 700; }
+  .brand .sub { font-size: 12px; color: var(--ink-3); letter-spacing: .04em; text-transform: uppercase; }
+  .top-right { margin-left: auto; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+  .progress { font-size: 12px; color: var(--ink-2); font-variant-numeric: tabular-nums; display: flex; align-items: center; gap: 8px; }
+  .bar { width: 96px; height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; }
+  .bar > i { display: block; height: 100%; background: var(--accent); width: 0; transition: width .3s; }
+  select {
+    font: inherit; font-size: 13px; color: var(--ink); background: var(--surface);
+    border: 1px solid var(--line-strong); border-radius: 6px; padding: 6px 28px 6px 10px; max-width: 100%;
+    appearance: none; -webkit-appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, var(--ink-3) 50%), linear-gradient(135deg, var(--ink-3) 50%, transparent 50%);
+    background-position: calc(100% - 15px) 55%, calc(100% - 10px) 55%; background-size: 5px 5px; background-repeat: no-repeat;
+  }
+
+  /* question card */
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow); }
+  .q { padding: 22px 24px 20px; }
+  .q-meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+  .chip { font-size: 12px; padding: 3px 9px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-weight: 500; }
+  .chip.muted { background: var(--surface-2); color: var(--ink-3); font-variant-numeric: tabular-nums; }
+  .q-ko { font-size: 22px; line-height: 1.5; font-weight: 500; margin: 0; text-wrap: balance; }
+  .hint-row { margin-top: 12px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .linkbtn { background: none; border: 0; padding: 0; color: var(--accent); font: inherit; font-size: 13px; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+  .linkbtn:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 2px; }
+  .hint { font-size: 13px; color: var(--ink-2); }
+  .hint b { color: var(--ink); font-weight: 500; }
+
+  .answer { border-top: 1px solid var(--line); padding: 18px 24px 20px; background: var(--surface-2); border-radius: 0 0 10px 10px; }
+  label.lbl { display: block; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 8px; font-weight: 500; }
+  .lbl-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+  .lbl-row label.lbl { margin-bottom: 0; }
+  .mic {
+    display: inline-flex; align-items: center; gap: 6px; font: inherit; font-size: 12px; font-weight: 500;
+    padding: 4px 10px; border-radius: 999px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink-2); cursor: pointer;
+  }
+  .mic:hover { border-color: var(--ink-3); color: var(--ink); }
+  .mic:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+  .mic[aria-pressed="true"] { background: var(--red-soft); color: var(--red); border-color: var(--red); animation: pulse 1.2s ease-in-out infinite; }
+  @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(192,67,43,.35); } 50% { box-shadow: 0 0 0 6px rgba(192,67,43,0); } }
+  @media (prefers-reduced-motion: reduce) { .mic[aria-pressed="true"] { animation: none; } }
+  .interim { color: var(--ink-3); }
+  .k-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .mic.speak { font-size: 11px; padding: 2px 8px; text-transform: none; letter-spacing: 0; }
+  .mic.speak[aria-pressed="true"] { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); animation: none; }
+  textarea {
+    width: 100%; min-height: 84px; resize: vertical; font: inherit; font-size: 19px; line-height: 1.6;
+    color: var(--ink); background: var(--surface); border: 1px solid var(--line-strong); border-radius: 8px; padding: 12px 14px;
+  }
+  textarea:focus { outline: 2px solid var(--focus); outline-offset: 1px; border-color: transparent; }
+  textarea::placeholder { color: var(--ink-3); }
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; align-items: center; }
+  .btn {
+    font: inherit; font-size: 14px; font-weight: 500; border-radius: 8px; padding: 9px 16px; cursor: pointer;
+    border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink);
+  }
+  .btn:hover { border-color: var(--ink-3); }
+  .btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+  .btn:disabled { opacity: .5; cursor: not-allowed; }
+  .btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  .btn.primary:hover { filter: brightness(1.08); }
+  .btn.danger { color: var(--red); border-color: var(--red); background: transparent; }
+  .kbd { font-size: 12px; color: var(--ink-3); margin-left: auto; }
+  .kbd kbd { font: inherit; border: 1px solid var(--line-strong); border-bottom-width: 2px; border-radius: 4px; padding: 0 5px; }
+
+  /* result */
+  .result { margin-top: 18px; display: grid; gap: 14px; }
+  .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 18px 22px; }
+  .panel h2 { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); margin: 0 0 12px; font-weight: 500; display: flex; align-items: center; gap: 8px; }
+  .panel h2 .tag { font-size: 11px; letter-spacing: 0; text-transform: none; color: var(--ink-3); background: var(--surface-2); padding: 1px 7px; border-radius: 999px; }
+
+  .verdict { display: flex; align-items: flex-start; gap: 14px; flex-wrap: wrap; }
+  .pill { font-size: 13px; font-weight: 700; padding: 5px 12px; border-radius: 999px; white-space: nowrap; }
+  .pill.correct { background: var(--green-soft); color: var(--green); }
+  .pill.minor { background: var(--amber-soft); color: var(--amber); }
+  .pill.major { background: var(--red-soft); color: var(--red); }
+  .pill.pending { background: var(--surface-2); color: var(--ink-2); }
+  .verdict p { margin: 0; flex: 1 1 240px; }
+  .score { font-variant-numeric: tabular-nums; color: var(--ink-3); font-size: 13px; margin-left: 6px; font-weight: 500; }
+
+  .compare { display: grid; gap: 12px; grid-template-columns: 1fr 1fr; }
+  @media (max-width: 560px) { .compare { grid-template-columns: 1fr; } }
+  .cmp { background: var(--surface-2); border-radius: 8px; padding: 12px 14px; }
+  .cmp .k { font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 6px; }
+  .cmp .v { font-size: 18px; line-height: 1.7; word-break: break-all; }
+  .cmp .v.model { font-family: "Shippori Mincho B1", "Hiragino Mincho ProN", "Yu Mincho", serif; font-weight: 500; }
+  .cmp .r { font-size: 12px; color: var(--ink-3); margin-top: 6px; }
+  .del { background: var(--red-soft); color: var(--red); text-decoration: line-through; text-decoration-thickness: 1.5px; border-radius: 2px; }
+  .ins { background: var(--green-soft); color: var(--green); border-radius: 2px; }
+  .legend { font-size: 12px; color: var(--ink-3); margin-top: 10px; display: flex; gap: 14px; flex-wrap: wrap; }
+  .legend i { font-style: normal; padding: 0 5px; border-radius: 2px; }
+  .panel.ok .del, .panel.ok .ins { background: var(--accent-soft); color: var(--accent); text-decoration: none; }
+  .panel.ok .legend .del, .panel.ok .legend .ins { background: var(--accent-soft); color: var(--accent); text-decoration: none; }
+  .accept-row { margin-top: 12px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .accept-row .btn { padding: 6px 12px; font-size: 13px; }
+  .alts li.acc .tag { font-size: 11px; color: var(--green); background: var(--green-soft); padding: 1px 7px; border-radius: 999px; margin-left: 4px; }
+  .alts li.acc .linkbtn { font-size: 12px; color: var(--ink-3); margin-left: 6px; }
+  .okline { margin: 0; padding: 10px 12px; background: var(--green-soft); color: var(--green); border-radius: 8px; font-size: 14px; }
+
+  .model-big { font-size: 24px; line-height: 1.6; margin: 0; font-weight: 500; }
+  .reading { color: var(--ink-3); font-size: 13px; margin-top: 4px; }
+  .alts { margin: 12px 0 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+  .alts li { font-size: 16px; color: var(--ink-2); padding-left: 14px; position: relative; }
+  .alts li::before { content: "・"; position: absolute; left: 0; color: var(--ink-3); }
+
+  .ai { display: grid; gap: 14px; }
+  .ai h3 { font-size: 13px; margin: 0 0 6px; color: var(--ink-2); font-weight: 700; }
+  .ai ul { margin: 0; padding-left: 18px; }
+  .ai li { margin: 4px 0; }
+  .diffs { display: grid; gap: 8px; }
+  .diff { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; font-size: 14px; padding: 10px 12px; background: var(--surface-2); border-radius: 8px; border-left: 3px solid var(--red); }
+  .diff .k { color: var(--ink-3); font-size: 12px; align-self: center; }
+  .diff .mine { color: var(--red); }
+  .diff .model { color: var(--green); }
+  .diff .why { grid-column: 1 / -1; color: var(--ink-2); }
+  .corrected { font-size: 19px; padding: 12px 14px; background: var(--green-soft); border-radius: 8px; color: var(--ink); }
+  .thinking { display: flex; align-items: center; gap: 10px; color: var(--ink-2); font-size: 14px; }
+  .spin { width: 14px; height: 14px; border: 2px solid var(--line-strong); border-top-color: var(--accent); border-radius: 50%; animation: spin .8s linear infinite; flex: none; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { .spin { animation: none; } .bar > i { transition: none; } }
+  .note { font-size: 13px; color: var(--ink-3); }
+  .err { font-size: 13px; color: var(--red); }
+
+  .gram .pt { font-size: 18px; font-weight: 700; margin: 0 0 6px; }
+  .gram p { margin: 0; color: var(--ink-2); }
+
+  .vocab { display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+  .vw { background: var(--surface-2); border-radius: 8px; padding: 10px 12px; display: grid; gap: 2px; }
+  .vw .w { font-size: 18px; font-weight: 500; }
+  .vw .w small { font-size: 12px; color: var(--ink-3); font-weight: 400; margin-left: 6px; }
+  .vw .m { font-size: 14px; color: var(--ink); }
+  .vw .n { font-size: 12px; color: var(--ink-2); }
+
+  .tip p { margin: 0; color: var(--ink-2); }
+
+  .empty { padding: 40px 24px; text-align: center; color: var(--ink-2); }
+  .empty .btn { margin-top: 12px; }
+
+  .foot { margin-top: 28px; font-size: 12px; color: var(--ink-3); display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  .foot .linkbtn { color: var(--ink-3); font-size: 12px; }
+
+  /* view switch */
+  .tabs { display: inline-flex; border: 1px solid var(--line-strong); border-radius: 8px; overflow: hidden; }
+  .tabs button { font: inherit; font-size: 13px; padding: 6px 12px; border: 0; background: var(--surface); color: var(--ink-2); cursor: pointer; }
+  .tabs button + button { border-left: 1px solid var(--line-strong); }
+  .tabs button[aria-selected="true"] { background: var(--accent); color: var(--accent-ink); }
+  .tabs button:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+  .tabs .cnt { font-variant-numeric: tabular-nums; opacity: .8; margin-left: 4px; }
+
+  /* notebook */
+  .nb-head { display: grid; gap: 14px; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+  .stat { background: var(--surface-2); border-radius: 8px; padding: 10px 14px; }
+  .stat .n { font-size: 24px; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.2; }
+  .stat .l { font-size: 12px; color: var(--ink-3); }
+  .weak { display: flex; flex-wrap: wrap; gap: 8px; }
+  .weak .chip { display: inline-flex; gap: 6px; align-items: center; }
+  .weak .chip b { font-variant-numeric: tabular-nums; }
+  .nb-tools { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .nb-tools .right { margin-left: auto; display: flex; gap: 10px; flex-wrap: wrap; }
+  .nb-list { display: grid; gap: 12px; margin-top: 14px; }
+  .nb { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px 20px; display: grid; gap: 10px; }
+  .nb.resolved { opacity: .75; }
+  .nb-meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 12px; color: var(--ink-3); }
+  .nb-meta .pill { font-size: 11px; padding: 2px 9px; }
+  .nb-meta .when { margin-left: auto; font-variant-numeric: tabular-nums; }
+  .nb .ko { font-size: 17px; font-weight: 500; margin: 0; }
+  .nb .pair { display: grid; gap: 4px 12px; grid-template-columns: auto 1fr; font-size: 16px; }
+  .nb .pair .k { font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); align-self: center; }
+  .nb .pair .model { font-family: "Shippori Mincho B1", "Hiragino Mincho ProN", "Yu Mincho", serif; font-weight: 500; }
+  .nb .why { font-size: 13px; color: var(--ink-2); margin: 0; padding-left: 18px; }
+  .nb .why li { margin: 2px 0; }
+  .nb .why .mine { color: var(--red); }
+  .nb .why .model { color: var(--green); font-family: inherit; }
+  .nb-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .nb-actions .btn { padding: 5px 11px; font-size: 13px; }
+  .summary { display: grid; gap: 14px; }
+  .summary h3 { font-size: 14px; margin: 0 0 4px; }
+  .summary .pat { background: var(--surface-2); border-radius: 8px; padding: 12px 14px; border-left: 3px solid var(--accent); }
+  .summary .pat p { margin: 4px 0 0; color: var(--ink-2); font-size: 14px; }
+  .summary .pat .ex { font-size: 13px; color: var(--ink-3); margin-top: 6px; }
+  .summary ol, .summary ul { margin: 0; padding-left: 20px; }
+  .summary li { margin: 4px 0; }
+
+  dialog.dlg { border: 1px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--ink); padding: 20px 22px; max-width: 440px; width: calc(100% - 32px); box-shadow: var(--shadow); }
+  dialog.dlg::backdrop { background: rgba(0,0,0,.35); }
+  dialog.dlg input:focus { outline: 2px solid var(--focus); outline-offset: 1px; }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <h1><span class="mincho">赤ペン</span> 번역노트</h1>
+      <span class="sub">한→일 작문 연습</span>
+    </div>
+    <div class="top-right">
+      <div class="tabs" role="tablist" aria-label="화면">
+        <button type="button" role="tab" id="tabPractice" aria-selected="true">연습</button>
+        <button type="button" role="tab" id="tabNotebook" aria-selected="false">오답 노트<span class="cnt" id="nbCount"></span></button>
+      </div>
+      <label for="setFilter" class="hint" style="font-size:12px;">세트</label>
+      <select id="setFilter" aria-label="연습 세트 선택"></select>
+      <div class="progress" aria-live="polite">
+        <span id="progressText">0 / 0</span>
+        <span class="bar" aria-hidden="true"><i id="progressBar"></i></span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="card" id="qcard">
+      <div class="q">
+        <div class="q-meta">
+          <span class="chip" id="qSet">세트</span>
+          <span class="chip muted" id="qId">—</span>
+        </div>
+        <p class="q-ko" id="qKo">문장을 불러오는 중…</p>
+        <div class="hint-row">
+          <button type="button" class="linkbtn" id="hintBtn">문형 힌트 보기</button>
+          <span class="hint" id="hintText" hidden></span>
+        </div>
+      </div>
+      <div class="answer">
+        <div class="lbl-row">
+          <label class="lbl" for="jaInput">일본어 번역</label>
+          <button type="button" class="mic" id="micBtn" hidden aria-pressed="false" title="일본어로 말하기 (음성 인식)">
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 15a4 4 0 0 0 4-4V6a4 4 0 1 0-8 0v5a4 4 0 0 0 4 4Zm6-4a6 6 0 0 1-12 0H4a8 8 0 0 0 7 7.93V22h2v-3.07A8 8 0 0 0 20 11h-2Z"/></svg>
+            <span id="micLabel">말하기</span>
+          </button>
+          <span class="hint" id="micHint" hidden></span>
+        </div>
+        <textarea id="jaInput" class="ja" lang="ja" placeholder="ここに日本語訳を入力してください" autocomplete="off" autocapitalize="off" spellcheck="false"></textarea>
+        <div class="actions">
+          <button type="button" class="btn primary" id="gradeBtn">채점하기</button>
+          <button type="button" class="btn" id="revealBtn">모범 답안 보기</button>
+          <button type="button" class="btn" id="prevBtn" disabled>← 이전 문장</button>
+          <button type="button" class="btn" id="nextBtn">다음 문장 →</button>
+          <span class="kbd"><kbd>⌘</kbd>/<kbd>Ctrl</kbd>+<kbd>Enter</kbd> 채점 · <kbd>Alt</kbd>+<kbd>←</kbd><kbd>→</kbd> 이동</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="result" id="result" hidden>
+      <div class="panel" id="verdictPanel">
+        <h2>판정 <span class="tag" id="verdictMode">AI 채점</span></h2>
+        <div class="verdict">
+          <span class="pill pending" id="verdictPill">채점 중</span>
+          <p id="verdictText"></p>
+        </div>
+        <div class="accept-row" id="acceptRow" hidden></div>
+      </div>
+
+      <div class="panel" id="comparePanel">
+        <h2>내 답 ↔ 모범 답안</h2>
+        <div class="compare">
+          <div class="cmp"><div class="k">내 답</div><div class="v ja" id="cmpMine"></div></div>
+          <div class="cmp"><div class="k k-row">모범 답안 <button type="button" class="mic speak" id="speakBtn" hidden aria-pressed="false" title="모범 답안을 일본어 음성으로 읽기"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3Zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4ZM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6Z"/></svg><span id="speakLabel">모범답안 읽기</span></button></div><div class="v model" id="cmpModel"></div><div class="r ja" id="cmpReading"></div></div>
+        </div>
+        <div class="legend"><span><i class="del">삭제</i> 모범 답안에 없는 부분</span><span><i class="ins">추가</i> 내 답에 빠진 부분</span><span id="legendText"></span></div>
+        <ul class="alts ja" id="alts"></ul>
+      </div>
+
+      <div class="panel" id="aiPanel">
+        <h2>AI 피드백 <span class="tag">차이점 · 추천 · 내가 쓴 단어</span></h2>
+        <div class="ai" id="aiBody"></div>
+      </div>
+
+      <div class="panel gram" id="gramPanel">
+        <h2>문형 포인트</h2>
+        <p class="pt ja" id="gramPoint"></p>
+        <p id="gramNote"></p>
+      </div>
+
+      <div class="panel" id="vocabPanel">
+        <h2>모범 답안의 단어</h2>
+        <div class="vocab" id="vocab"></div>
+      </div>
+
+      <div class="panel tip" id="tipPanel">
+        <h2>추천 · 주의</h2>
+        <p id="tip"></p>
+      </div>
+    </section>
+
+    <section id="notebook" hidden>
+      <div class="panel nb-head">
+        <h2 style="margin:0">오답 노트 <span class="tag">채점에서 「거의 일치」·「차이 있음」이 나온 문장이 자동으로 쌓입니다</span></h2>
+        <div class="stats">
+          <div class="stat"><div class="n" id="stTotal">0</div><div class="l">기록된 문장</div></div>
+          <div class="stat"><div class="n" id="stOpen">0</div><div class="l">아직 못 맞춘 문장</div></div>
+          <div class="stat"><div class="n" id="stResolved">0</div><div class="l">다시 풀어 맞춘 문장</div></div>
+          <div class="stat"><div class="n" id="stAttempts">0</div><div class="l">총 채점 횟수</div></div>
+        </div>
+        <div>
+          <div class="hint" style="margin-bottom:6px">자주 틀린 문형</div>
+          <div class="weak" id="weakPoints"><span class="note">아직 없습니다.</span></div>
+        </div>
+        <div class="nb-tools">
+          <select id="nbFilter" aria-label="오답 노트 필터">
+            <option value="open">못 맞춘 문장만</option>
+            <option value="all">전체</option>
+            <option value="resolved">해결된 문장만</option>
+          </select>
+          <button type="button" class="btn" id="retryAllBtn">못 맞춘 문장만 다시 풀기</button>
+          <div class="right">
+            <button type="button" class="btn primary" id="summarizeBtn">AI로 약점 정리</button>
+            <button type="button" class="btn" id="copyBtn">텍스트로 복사</button>
+            <button type="button" class="btn danger" id="clearNbBtn">노트 비우기</button>
+          </div>
+        </div>
+      </div>
+      <div class="panel" id="summaryPanel" hidden>
+        <h2>약점 정리 <span class="tag" id="summaryMeta"></span></h2>
+        <div class="summary" id="summaryBody"></div>
+      </div>
+      <div class="nb-list" id="nbList"></div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span id="footStat">전체 0문장</span>
+    <button type="button" class="linkbtn" id="resetBtn">진행 기록 초기화</button>
+    <button type="button" class="linkbtn" id="aiSettingsBtn">AI·음성 설정</button>
+    <span id="aiStatus"></span>
+  </footer>
+</div>
+
+<dialog id="aiDialog" class="dlg">
+  <h2 style="margin:0 0 6px;font-size:16px">AI 채점 설정</h2>
+  <p class="note" id="apiKeyState" style="margin:0 0 12px"></p>
+  <p style="margin:0 0 8px;font-size:14px;color:var(--ink-2)">claude.ai 밖(휴대폰 홈 화면, GitHub Pages)에서 열었을 때 AI 채점을 쓰려면 Anthropic API 키를 넣어 주세요. 키는 이 기기의 브라우저에만 저장되고 Anthropic 서버로만 전송됩니다. 공용 기기에서는 넣지 마세요.</p>
+  <label class="lbl" for="apiKeyInput">Anthropic API 키</label>
+  <input id="apiKeyInput" type="password" autocomplete="off" placeholder="sk-ant-…" style="width:100%;font:inherit;padding:9px 12px;border:1px solid var(--line-strong);border-radius:8px;background:var(--surface);color:var(--ink)">
+  <hr style="border:0;border-top:1px solid var(--line);margin:16px 0">
+  <h2 style="margin:0 0 6px;font-size:16px">읽기 음성</h2>
+  <p class="note" id="voiceState" style="margin:0 0 8px"></p>
+  <div class="actions" style="margin:0 0 8px">
+    <select id="voiceSelect" aria-label="일본어 읽기 음성 선택" style="flex:1 1 200px"></select>
+    <button type="button" class="btn" id="voicePreview">미리 듣기</button>
+  </div>
+  <p style="margin:0;font-size:13px;color:var(--ink-2)">음성 품질은 기기에 설치된 음성에 따라 다릅니다. iPhone/iPad: 설정 → 손쉬운 사용 → 콘텐츠 말하기 → 음성 → 일본어에서 「Kyoko (고품질)」 또는 「O-Ren (프리미엄)」을 내려받으세요. Mac: 시스템 설정 → 손쉬운 사용 → 말하기 콘텐츠 → 시스템 음성 → 관리에서 같은 음성을 내려받을 수 있습니다. Windows/Android: Edge 브라우저의 「Microsoft Nanami Online (Natural)」, Chrome의 「Google 日本語」가 자연스럽습니다.</p>
+  <div class="actions" style="margin-top:14px">
+    <button type="button" class="btn primary" id="apiKeySave">저장</button>
+    <button type="button" class="btn danger" id="apiKeyRemove">키 삭제</button>
+    <button type="button" class="btn" id="apiKeyClose" style="margin-left:auto">닫기</button>
+  </div>
+</dialog>
+
+<script>
+const DATA = [{"id": "G1-01", "set": "〜間・以上・以下・以内・以外・一方", "ko": "선생님이 강연하는 사이, 모두 열심히 이야기를 듣고 있다.", "ja": "先生が講演している間、みんな熱心に話を聞いている。", "reading": "せんせいが こうえんしている あいだ、みんな ねっしんに はなしを きいている。", "grammar": {"point": "〜間（あいだ）", "note": "「A間、B」는 A가 계속되는 시간 내내 B도 계속된다는 뜻입니다. 뒤에는 「聞いている」처럼 지속을 나타내는 표현이 옵니다. 「間に」를 쓰면 그 시간 중 어느 한 시점에 B가 일어난다는 뜻이 되므로 구별해야 합니다."}, "vocab": [{"w": "講演", "r": "こうえん", "m": "강연", "note": "「講演する」로 동사화. 公園(こうえん)과 발음이 같으니 한자 주의"}, {"w": "間", "r": "あいだ", "m": "사이, 동안", "note": ""}, {"w": "熱心に", "r": "ねっしんに", "m": "열심히", "note": "「一生懸命(いっしょうけんめい)」도 가능"}, {"w": "話", "r": "はなし", "m": "이야기", "note": ""}], "alt": ["先生が講演している間、皆が熱心に話を聞いている。"], "tip": "'사이'를 「間に」로 번역하기 쉽지만, 뒤 문장이 「聞いている」처럼 지속 동작이면 「間」(に 없음)이 맞습니다. 「間に」+「聞いている」는 어색합니다."}, {"id": "G1-02", "set": "〜間・以上・以下・以内・以外・一方", "ko": "시험보는 동안에는 조용히 해 주세요.", "ja": "試験を受けている間は静かにしてください。", "reading": "しけんを うけている あいだは しずかに してください。", "grammar": {"point": "〜間は", "note": "「間」에 「は」를 붙여 그 기간 전체를 주제로 삼습니다. 뒤에는 「静かにする」처럼 기간 내내 유지해야 할 상태가 옵니다. 「試験の間は」처럼 명사+の 접속도 가능합니다."}, "vocab": [{"w": "試験", "r": "しけん", "m": "시험", "note": "학교 시험은 「テスト」도 흔함"}, {"w": "受ける", "r": "うける", "m": "(시험을) 보다, 받다", "note": "시험을 '보다'는 「見る」가 아니라 「受ける」"}, {"w": "静かに", "r": "しずかに", "m": "조용히", "note": "「静かにする」= 조용히 하다"}], "alt": ["試験の間は静かにしてください。", "試験中は静かにしてください。"], "tip": "'시험을 보다'를 「試験を見る」로 쓰면 오역입니다. 반드시 「試験を受ける」. 짧게 「試験中(しけんちゅう)は」도 매우 자연스럽습니다."}, {"id": "G1-03", "set": "〜間・以上・以下・以内・以外・一方", "ko": "어제 자고 있는 동안에 지진이 있었습니다.", "ja": "昨日、寝ている間に地震がありました。", "reading": "きのう、ねている あいだに じしんが ありました。", "grammar": {"point": "〜間に", "note": "「A間に、B」는 A가 계속되는 동안의 어느 한 시점에 B가 발생한다는 뜻입니다. 지진처럼 순간적으로 일어나는 사건에는 반드시 「間に」를 씁니다. 「間」만 쓰면 지진이 자는 내내 계속된 것처럼 들립니다."}, "vocab": [{"w": "昨日", "r": "きのう", "m": "어제", "note": ""}, {"w": "寝る", "r": "ねる", "m": "자다", "note": "「眠る(ねむる)」은 '잠들다' 뉘앙스"}, {"w": "地震", "r": "じしん", "m": "지진", "note": "「地震がある/起きる」"}], "alt": ["昨日、寝ている間に地震が起きました。"], "tip": "G1-01과 비교 포인트입니다. 지속(聞いている)이면 「間」, 한순간의 사건(地震があった)이면 「間に」. 「に」 유무가 의미를 바꿉니다."}, {"id": "G1-04", "set": "〜間・以上・以下・以内・以外・一方", "ko": "고교생 이상은 일반 요금입니다.", "ja": "高校生以上は一般料金です。", "reading": "こうこうせい いじょうは いっぱん りょうきんです。", "grammar": {"point": "〜以上（数量・範囲）", "note": "명사 뒤에 「以上」을 붙여 '그것을 포함하여 그 위'를 나타냅니다. 기준이 되는 것(高校生)을 포함한다는 점이 핵심입니다. 「以下」도 마찬가지로 기준을 포함합니다."}, "vocab": [{"w": "高校生", "r": "こうこうせい", "m": "고등학생", "note": "한국어 '고교생'과 한자 동일"}, {"w": "以上", "r": "いじょう", "m": "이상", "note": ""}, {"w": "一般", "r": "いっぱん", "m": "일반", "note": ""}, {"w": "料金", "r": "りょうきん", "m": "요금", "note": "「値段(ねだん)」은 물건 가격, 「料金」은 서비스 요금"}], "alt": [], "tip": "한자어가 그대로 대응되는 쉬운 문장입니다. 「高校生」을 「高校生徒」로 쓰지 않도록 주의하세요. 입장료 안내문 등에서 자주 보는 표현입니다."}, {"id": "G1-05", "set": "〜間・以上・以下・以内・以外・一方", "ko": "본체가 고장나 버린 이상, 어떻게 할 수도 없습니다.", "ja": "本体が故障してしまった以上、どうすることもできません。", "reading": "ほんたいが こしょうしてしまった いじょう、どうすることも できません。", "grammar": {"point": "〜以上（は）", "note": "동사 보통형 뒤의 「以上（は）」는 '〜한 이상, 〜인 바에는'이라는 뜻으로, 앞의 사실을 근거로 당연한 결론·결의·판단을 이끕니다. 수량의 「以上」과 형태는 같지만 용법이 다릅니다. 「からには」와 거의 같은 뜻입니다."}, "vocab": [{"w": "本体", "r": "ほんたい", "m": "본체", "note": ""}, {"w": "故障する", "r": "こしょうする", "m": "고장나다", "note": "「壊れる(こわれる)」도 가능하나 기계류는 「故障」이 자연스러움"}, {"w": "〜てしまう", "r": "〜てしまう", "m": "〜해 버리다", "note": "유감·완료"}, {"w": "どうすることもできない", "r": "どうすることもできない", "m": "어떻게 할 수도 없다", "note": "관용 표현"}], "alt": ["本体が壊れてしまった以上、どうしようもありません。"], "tip": "'어떻게 할 수도 없다'는 「どうすることもできない」 또는 「どうしようもない」가 정석입니다. 「どうやってもできない」는 뉘앙스가 다릅니다. 「以上」 뒤에 「は」를 붙여도 됩니다."}, {"id": "G1-06", "set": "〜間・以上・以下・以内・以外・一方", "ko": "나는 그것을 2000엔 이하로 입수하고 싶다.", "ja": "私はそれを2000円以下で手に入れたい。", "reading": "わたしは それを にせんえん いかで てに いれたい。", "grammar": {"point": "〜以下", "note": "수량 뒤에 붙어 '그 수를 포함하여 그 아래'를 나타냅니다. 금액을 조건으로 할 때는 「〜以下で」처럼 조사 「で」를 씁니다. 「未満(みまん)」은 기준을 포함하지 않는다는 차이가 있습니다."}, "vocab": [{"w": "以下", "r": "いか", "m": "이하", "note": ""}, {"w": "手に入れる", "r": "てにいれる", "m": "입수하다, 손에 넣다", "note": "「入手(にゅうしゅ)する」는 좀 더 딱딱한 표현"}, {"w": "〜たい", "r": "〜たい", "m": "〜하고 싶다", "note": ""}], "alt": ["私はそれを2000円以下で入手したい。"], "tip": "'〜엔 이하로'의 '로'는 수단·조건이므로 「で」입니다. 「に」로 쓰면 틀립니다. 「入手したい」도 틀리지 않지만 일상 회화에서는 「手に入れたい」가 훨씬 자연스럽습니다."}, {"id": "G1-07", "set": "〜間・以上・以下・以内・以外・一方", "ko": "주문을 받고 나서 30분 이내에 배달해 드리겠습니다.", "ja": "ご注文を受けてから30分以内にお届けします。", "reading": "ごちゅうもんを うけてから さんじゅっぷん いないに おとどけします。", "grammar": {"point": "〜以内に", "note": "시간·거리 뒤에 「以内」를 붙여 '그 범위 안'을 나타내며, 기한을 말할 때는 「〜以内に」로 「に」가 붙습니다. 「〜てから」는 '〜하고 나서'로 순서를 나타냅니다. 손님에게 하는 말이므로 겸양 표현 「お届けする」를 썼습니다."}, "vocab": [{"w": "注文", "r": "ちゅうもん", "m": "주문", "note": "손님의 주문에는 「ご注文」"}, {"w": "受ける", "r": "うける", "m": "받다", "note": "「受け付ける(うけつける)」도 가능"}, {"w": "以内", "r": "いない", "m": "이내", "note": ""}, {"w": "届ける", "r": "とどける", "m": "배달하다, 전해 주다", "note": "「お届けする」= 겸양어. 「配達(はいたつ)する」도 가능"}], "alt": ["注文を受けてから30分以内に配達いたします。"], "tip": "'배달해 드리겠습니다'를 「配達してあげます」로 하면 손님에게 매우 무례합니다. 「〜てあげる」는 손윗사람·손님에게 쓰지 않고, 겸양어 「お届けします/配達いたします」를 씁니다."}, {"id": "G1-08", "set": "〜間・以上・以下・以内・以外・一方", "ko": "그는 바쁠 때 이외에 결코 택시를 사용하지 않는다.", "ja": "彼は忙しい時以外、決してタクシーを使わない。", "reading": "かれは いそがしい とき いがい、けっして タクシーを つかわない。", "grammar": {"point": "〜以外（は）", "note": "「〜以外」는 '〜을 제외하고'라는 뜻입니다. 뒤에 부정이 오면 '〜을 빼고는 전혀 〜않다'는 강한 한정이 됩니다. 「決して」는 반드시 부정과 호응하는 부사입니다."}, "vocab": [{"w": "忙しい", "r": "いそがしい", "m": "바쁘다", "note": ""}, {"w": "以外", "r": "いがい", "m": "이외", "note": ""}, {"w": "決して", "r": "けっして", "m": "결코", "note": "뒤에 반드시 「〜ない」"}, {"w": "使う", "r": "つかう", "m": "사용하다", "note": "「利用(りよう)する」도 가능"}], "alt": ["彼は忙しい時以外は決してタクシーを使わない。", "彼は忙しい時以外、絶対にタクシーを利用しない。"], "tip": "「決して」 뒤에 긍정문을 쓰면 비문입니다. 「以外」 뒤에 「に」를 붙인 「以外に」는 '그 외에도(추가)'의 뜻이 강하므로 여기서는 「以外」 또는 「以外は」가 적절합니다."}, {"id": "G1-09", "set": "〜間・以上・以下・以内・以外・一方", "ko": "일이 없는 사람이 있는 한편으로 과로로 무너지는 사람도 있다.", "ja": "仕事がない人がいる一方で、過労で倒れる人もいる。", "reading": "しごとが ない ひとが いる いっぽうで、かろうで たおれる ひとも いる。", "grammar": {"point": "〜一方（で）", "note": "「A一方（で）、B」는 A와 대비되는 B를 제시하는 표현입니다. 두 가지 상반된 상황이 동시에 존재할 때 씁니다. 뒤에 「〜も」가 자주 호응합니다."}, "vocab": [{"w": "一方で", "r": "いっぽうで", "m": "한편으로", "note": ""}, {"w": "過労", "r": "かろう", "m": "과로", "note": "「過労死(かろうし)」"}, {"w": "倒れる", "r": "たおれる", "m": "쓰러지다, 무너지다", "note": "사람이 병·과로로 쓰러질 때 「倒れる」"}], "alt": ["仕事のない人がいる一方、過労で倒れる人もいる。"], "tip": "'무너지다'를 직역해 「崩れる(くずれる)」로 쓰면 건물이 무너지는 뜻이 되어 어색합니다. 사람이 쓰러질 때는 「倒れる」입니다. 「仕事がない」와 「仕事のない」 둘 다 가능합니다."}, {"id": "G1-10", "set": "〜間・以上・以下・以内・以外・一方", "ko": "그는 배우로서 활약하는 한편, 감독으로도 높은 평가를 받고 있다.", "ja": "彼は俳優として活躍する一方、監督としても高い評価を受けている。", "reading": "かれは はいゆうとして かつやくする いっぽう、かんとくとしても たかい ひょうかを うけている。", "grammar": {"point": "〜一方（並行）", "note": "이 「一方」는 대비가 아니라 '〜하는 동시에, 〜하면서 또한'이라는 병행의 뜻입니다. 한 사람이 두 역할을 동시에 하는 상황에 씁니다. 「〜として」는 자격·입장을 나타냅니다."}, "vocab": [{"w": "俳優", "r": "はいゆう", "m": "배우", "note": "여배우는 「女優(じょゆう)」"}, {"w": "〜として", "r": "〜として", "m": "〜로서", "note": "자격·입장"}, {"w": "活躍する", "r": "かつやくする", "m": "활약하다", "note": ""}, {"w": "監督", "r": "かんとく", "m": "감독", "note": ""}, {"w": "評価を受ける", "r": "ひょうかをうける", "m": "평가를 받다", "note": "「評価される」도 가능"}], "alt": ["彼は俳優として活躍する一方で、監督としても高く評価されている。"], "tip": "'평가를 받다'는 「評価を受ける」 또는 수동형 「評価される」. 「評価をもらう」는 어색합니다. '감독으로도'는 「として」+「も」=「としても」로 결합됩니다."}, {"id": "G2-01", "set": "〜前に・〜てから・〜ようと思う", "ko": "일본에 온 지 얼마 안 되었을 때는 일본어로 인사도 할 수 없었는데, 2년간 있는 동안에 신문도 읽을 수 있게 되었습니다.", "ja": "日本に来たばかりの時は日本語であいさつもできなかったのに、2年間いる間に新聞も読めるようになりました。", "reading": "にほんに きたばかりの ときは にほんごで あいさつも できなかったのに、にねんかん いる あいだに しんぶんも よめるように なりました。", "grammar": {"point": "〜たばかり／〜間に／〜ようになる", "note": "「〜たばかり」는 '〜한 지 얼마 안 됨', 「〜間に」는 그 기간 중의 변화, 「〜ようになる」는 능력·상태의 변화를 나타냅니다. 세 문형이 함께 쓰여 '처음엔 못했는데 → 기간 중에 → 할 수 있게 됨'이라는 변화를 표현합니다."}, "vocab": [{"w": "〜たばかり", "r": "〜たばかり", "m": "〜한 지 얼마 안 됨", "note": ""}, {"w": "あいさつ", "r": "あいさつ", "m": "인사", "note": "한자 「挨拶」"}, {"w": "〜のに", "r": "〜のに", "m": "〜는데(도)", "note": "역접·의외"}, {"w": "新聞", "r": "しんぶん", "m": "신문", "note": ""}, {"w": "〜ようになる", "r": "〜ようになる", "m": "〜할 수 있게 되다", "note": "가능형+ようになる"}], "alt": ["日本に来たばかりのころは日本語であいさつもできませんでしたが、2年いる間に新聞も読めるようになりました。"], "tip": "'읽을 수 있게 되었다'는 「読めるようになった」가 정석입니다. 「読めるになった」는 비문. 「読めることになった」는 '읽기로 결정됐다'는 다른 뜻이 되니 주의하세요."}, {"id": "G2-02", "set": "〜前に・〜てから・〜ようと思う", "ko": "아빠가 돌아오기 전에 전부 먹어버리자.", "ja": "お父さんが帰ってくる前に全部食べてしまおう。", "reading": "おとうさんが かえってくる まえに ぜんぶ たべてしまおう。", "grammar": {"point": "〜前に／〜てしまおう", "note": "「〜前に」는 항상 동사 사전형(현재형)에 붙습니다. 과거의 일이라도 「帰った前に」라고 하지 않습니다. 「〜てしまおう」는 「〜てしまう」의 의지형으로 '다 〜해 버리자'는 뜻입니다."}, "vocab": [{"w": "お父さん", "r": "おとうさん", "m": "아빠, 아버지", "note": "가족끼리는 「パパ」도 가능"}, {"w": "帰ってくる", "r": "かえってくる", "m": "돌아오다", "note": "화자 쪽으로 돌아오므로 「くる」"}, {"w": "全部", "r": "ぜんぶ", "m": "전부", "note": ""}, {"w": "〜てしまう", "r": "〜てしまう", "m": "〜해 버리다", "note": "회화체 「〜ちゃう」→「食べちゃおう」"}], "alt": ["パパが帰る前に全部食べちゃおう。"], "tip": "「前に」 앞은 반드시 사전형입니다. 「帰った前に」는 흔한 오류입니다. '돌아오다'는 화자가 집에 있으므로 「帰ってくる」. 친구 사이 반말이면 「食べちゃおう」가 더 자연스럽습니다."}, {"id": "G2-03", "set": "〜前に・〜てから・〜ようと思う", "ko": "비가 거세지기 전에 돌아갈까요?", "ja": "雨がひどくなる前に帰りましょうか。", "reading": "あめが ひどくなる まえに かえりましょうか。", "grammar": {"point": "〜前に／〜ましょうか", "note": "「〜前に」 앞은 사전형(ひどくなる)입니다. 「〜ましょうか」는 상대에게 함께 할 것을 제안하는 표현입니다. 「帰りますか」는 단순 질문이 되어 제안의 뉘앙스가 약해집니다."}, "vocab": [{"w": "ひどい", "r": "ひどい", "m": "심하다, 거세다", "note": "비가 '거세지다'는 「ひどくなる」「強くなる」"}, {"w": "〜くなる", "r": "〜くなる", "m": "〜해지다", "note": "い형용사의 변화"}, {"w": "帰る", "r": "かえる", "m": "돌아가다", "note": ""}], "alt": ["雨が強くなる前に帰りましょうか。", "雨が激しくなる前に帰りましょうか。"], "tip": "「雨がひどくなる」「雨が強くなる」 둘 다 자연스럽습니다. 「激しくなる(はげしくなる)」는 조금 문어적입니다. '〜할까요?'는 제안이므로 「〜ましょうか」. 「〜ますか」로 끝내지 않도록 주의하세요."}, {"id": "G2-04", "set": "〜前に・〜てから・〜ようと思う", "ko": "자신의 레스토랑을 열려고 생각하고 나서", "ja": "自分のレストランを開こうと思ってから", "reading": "じぶんの レストランを ひらこうと おもってから", "grammar": {"point": "〜ようと思う／〜てから", "note": "「開こう」는 「開く」의 의지형이며 「〜（よ）うと思う」로 의도를 나타냅니다. 「〜てから」는 '〜하고 나서'로, 이 문장은 뒤에 이어질 내용이 있는 절(節)입니다. 「〜ようと思って以来(いらい)」도 비슷한 뜻입니다."}, "vocab": [{"w": "自分", "r": "じぶん", "m": "자신, 자기", "note": ""}, {"w": "開く", "r": "ひらく", "m": "(가게를) 열다, 개업하다", "note": "가게를 열다는 「開く(ひらく)」, 문을 열다는 「開ける(あける)」"}, {"w": "〜（よ）うと思う", "r": "〜（よ）うとおもう", "m": "〜하려고 생각하다", "note": ""}], "alt": ["自分の店を開こうと思ってから"], "tip": "'레스토랑을 열다'는 「開ける(あける)」가 아니라 「開く(ひらく)」입니다. 「開ける」는 문·뚜껑을 여는 동작입니다. 「開店(かいてん)する」로 쓰면 「開店しようと思ってから」가 됩니다."}, {"id": "G2-05", "set": "〜前に・〜てから・〜ようと思う", "ko": "벚꽃 그림이 들어간 상자를 소중하게 간직하려고 생각하고 있습니다.", "ja": "桜の絵が入った箱を大切に取っておこうと思っています。", "reading": "さくらの えが はいった はこを たいせつに とっておこうと おもっています。", "grammar": {"point": "〜ようと思っている／〜ておく", "note": "「〜ようと思っている」는 이전부터 계속 품어 온 의도를 나타냅니다. 「〜ようと思う」가 지금 떠오른 생각이라면, 「〜ようと思っている」는 지속되는 계획입니다. 「取っておく」는 '간직해 두다'라는 뜻의 관용 표현입니다."}, "vocab": [{"w": "桜", "r": "さくら", "m": "벚꽃", "note": ""}, {"w": "絵", "r": "え", "m": "그림", "note": ""}, {"w": "箱", "r": "はこ", "m": "상자", "note": ""}, {"w": "大切に", "r": "たいせつに", "m": "소중하게", "note": "「大事に(だいじに)」도 가능"}, {"w": "取っておく", "r": "とっておく", "m": "간직해 두다, 보관하다", "note": "「とっておき」= 아껴 둔 것"}], "alt": ["桜の絵の入った箱を大事にしまっておこうと思っています。", "桜の絵が描かれた箱を大切に保管しようと思っています。"], "tip": "'간직하다'는 「取っておく」「しまっておく」가 자연스럽습니다. 「保管(ほかん)する」는 사무적인 느낌입니다. '그림이 들어간'은 「絵が入った」 또는 「絵の入った」 둘 다 OK."}, {"id": "G2-06", "set": "〜前に・〜てから・〜ようと思う", "ko": "나도 보러 갈까 하고 생각한다.", "ja": "私も見に行こうかと思う。", "reading": "わたしも みに いこうかと おもう。", "grammar": {"point": "〜ようかと思う", "note": "「〜ようか」는 의지형+「か」로 아직 확정하지 않은 망설임을 나타냅니다. 「〜ようと思う」(〜하려고 한다)보다 결심이 약한 '〜할까 한다'입니다. 「〜に行く」는 목적을 나타내는 「동사 ます형+に」입니다."}, "vocab": [{"w": "見に行く", "r": "みにいく", "m": "보러 가다", "note": "ます형+に+行く"}, {"w": "〜ようか", "r": "〜ようか", "m": "〜할까", "note": "망설임"}, {"w": "思う", "r": "おもう", "m": "생각하다", "note": ""}], "alt": ["私も見に行こうかなと思う。"], "tip": "'〜할까 하고'의 '하고'는 「〜と」로 받습니다(「行こうかと」). 「行こうかして」처럼 직역하면 비문입니다. 「行こうかなと思う」로 하면 더 회화적인 느낌이 납니다."}, {"id": "G2-07", "set": "〜前に・〜てから・〜ようと思う", "ko": "딸이 피아노를 배우고 싶다고 해서 배우게 하려고 할까 생각하는데", "ja": "娘がピアノを習いたいと言うので、習わせようかと思っているんですが", "reading": "むすめが ピアノを ならいたいと いうので、ならわせようかと おもっているんですが", "grammar": {"point": "使役形＋〜ようかと思う", "note": "「習わせる」는 「習う」의 사역형으로 '배우게 하다'입니다. 거기에 「〜ようか」를 붙여 「習わせようか」(배우게 할까). 「〜と言うので」는 인용+이유입니다. 문말의 「〜んですが」는 뒤에 상담이나 질문이 이어짐을 암시합니다."}, "vocab": [{"w": "娘", "r": "むすめ", "m": "딸", "note": "남의 딸은 「娘さん」"}, {"w": "習う", "r": "ならう", "m": "배우다(레슨 등)", "note": "학교 공부는 「勉強する」, 기술·예능은 「習う」"}, {"w": "習わせる", "r": "ならわせる", "m": "배우게 하다", "note": "사역형"}, {"w": "〜と言う", "r": "〜という", "m": "〜라고 하다", "note": ""}], "alt": ["娘がピアノを習いたいと言っているので、習わせようかと思うのですが"], "tip": "피아노 같은 레슨은 「勉強する」가 아니라 「習う」입니다. '배우게 하다'는 「習わせる」(사역). 「習うようにする」로 쓰면 뜻이 달라집니다. 문말 「〜んですが」로 끝나는 미완 문장 형태가 자연스럽습니다."}, {"id": "G2-08", "set": "〜前に・〜てから・〜ようと思う", "ko": "응원해 줄까 생각하고 있습니다.", "ja": "応援してあげようかと思っています。", "reading": "おうえんして あげようかと おもっています。", "grammar": {"point": "〜てあげようかと思う", "note": "「〜てあげる」는 상대를 위해 해 주는 행위이고, 그 의지형 「〜てあげよう」에 「か」를 붙여 망설임을 나타냅니다. 「〜と思っています」로 현재 품고 있는 생각임을 나타냅니다."}, "vocab": [{"w": "応援する", "r": "おうえんする", "m": "응원하다", "note": ""}, {"w": "〜てあげる", "r": "〜てあげる", "m": "〜해 주다", "note": "손윗사람에게 직접 쓰면 실례"}, {"w": "〜ようか", "r": "〜ようか", "m": "〜할까", "note": ""}], "alt": ["応援しようかと思っています。"], "tip": "「〜てあげる」는 은혜를 베푸는 느낌이 있어 윗사람·손님에게 직접 말하면 실례입니다. 제3자에 대한 이야기라면 괜찮습니다. 상대가 윗사람이면 「応援しようかと思っています」로 「てあげる」를 빼는 편이 안전합니다."}, {"id": "G2-09", "set": "〜前に・〜てから・〜ようと思う", "ko": "내년에 일본에 가려고 생각하고 있습니다.", "ja": "来年、日本へ行こうと思っています。", "reading": "らいねん、にほんへ いこうと おもっています。", "grammar": {"point": "〜ようと思っている", "note": "「行こう」는 「行く」의 의지형. 「〜ようと思っています」는 이전부터 가지고 있는 계획·의도를 나타내는 가장 기본적인 문형입니다. 「〜つもりです」보다 조금 부드럽습니다."}, "vocab": [{"w": "来年", "r": "らいねん", "m": "내년", "note": ""}, {"w": "行く", "r": "いく", "m": "가다", "note": "의지형 「行こう」"}, {"w": "〜ようと思う", "r": "〜ようとおもう", "m": "〜하려고 생각하다", "note": ""}], "alt": ["来年、日本に行こうと思っています。", "来年、日本に行くつもりです。"], "tip": "「日本へ」와 「日本に」 모두 자연스럽습니다. 「行くと思っています」로 쓰면 '갈 것이라고 (예측)생각한다'가 되어 의도가 사라집니다. 반드시 의지형 「行こう」를 쓰세요."}, {"id": "G2-10", "set": "〜前に・〜てから・〜ようと思う", "ko": "나는 올여름 일본에서 홈스테이를 하려고 합니다.", "ja": "私はこの夏、日本でホームステイをしようと思っています。", "reading": "わたしは このなつ、にほんで ホームステイを しようと おもっています。", "grammar": {"point": "〜ようと思っている", "note": "「する」의 의지형은 「しよう」입니다. '〜하려고 합니다'는 일본어로 「〜ようと思っています」 또는 「〜つもりです」로 옮기는 것이 자연스럽습니다. 「〜ようとします」는 '〜하려고 시도한다'는 다른 뜻이 되므로 주의."}, "vocab": [{"w": "この夏", "r": "このなつ", "m": "올여름", "note": "「今年の夏(ことしのなつ)」도 가능"}, {"w": "ホームステイ", "r": "ホームステイ", "m": "홈스테이", "note": "「ホームステイをする」"}, {"w": "しよう", "r": "しよう", "m": "하자/하려고(する의 의지형)", "note": ""}], "alt": ["私は今年の夏、日本でホームステイをするつもりです。"], "tip": "한국어 '〜하려고 합니다'를 「〜ようとします」로 직역하면 '지금 막 〜하려고 한다(시도)'는 뜻이 되어 오역입니다. 계획을 말할 때는 「〜ようと思っています」「〜つもりです」."}, {"id": "G3-01", "set": "〜ようとする・おかげで・〜きる・〜とたん・〜のに", "ko": "병뚜껑을 열려고 했지만, 단단해서 열 수 없었다.", "ja": "瓶のふたを開けようとしたが、固くて開けられなかった。", "reading": "びんの ふたを あけようとしたが、かたくて あけられなかった。", "grammar": {"point": "〜ようとする（試み）", "note": "「〜ようとする」는 '〜하려고 시도하다'입니다. 「開けようとした」는 실제로 열려고 힘을 썼다는 뜻으로, 「〜ようと思った」(열 생각을 했다)와 다릅니다. 「〜が」는 역접입니다."}, "vocab": [{"w": "瓶", "r": "びん", "m": "병", "note": ""}, {"w": "ふた", "r": "ふた", "m": "뚜껑", "note": "한자 「蓋」"}, {"w": "開ける", "r": "あける", "m": "열다(타동사)", "note": "뚜껑·문은 「開ける(あける)」"}, {"w": "固い", "r": "かたい", "m": "단단하다, 뻑뻑하다", "note": "「硬い」「堅い」도 있으나 뚜껑은 「固い」"}, {"w": "開けられない", "r": "あけられない", "m": "열 수 없다", "note": "가능형 부정"}], "alt": ["瓶のふたを開けようとしたけれど、固くて開かなかった。"], "tip": "「開けようとした」는 '시도했다', 「開けようと思った」는 '생각만 했다'로 의미가 다릅니다. 이 문장은 실제 시도이므로 「〜ようとした」. '단단해서'는 「固くて」(원인·이유의 て형)."}, {"id": "G3-02", "set": "〜ようとする・おかげで・〜きる・〜とたん・〜のに", "ko": "웃으려고 해도 이가 아파서 웃을 수 없다.", "ja": "笑おうとしても歯が痛くて笑えない。", "reading": "わらおうとしても はが いたくて わらえない。", "grammar": {"point": "〜ようとしても", "note": "「〜ようとする」+「ても」로 '〜하려고 해도'라는 양보 표현입니다. 아무리 시도해도 결과가 따르지 않을 때 씁니다. 「笑える」는 「笑う」의 가능형입니다."}, "vocab": [{"w": "笑う", "r": "わらう", "m": "웃다", "note": "의지형 「笑おう」, 가능형 「笑える」"}, {"w": "歯", "r": "は", "m": "이, 치아", "note": ""}, {"w": "痛い", "r": "いたい", "m": "아프다", "note": "「痛くて」= 아파서"}], "alt": ["笑おうとしても、歯が痛くて笑うことができない。"], "tip": "「笑う」의 의지형은 「笑おう」(う동사). 「笑よう」로 쓰는 실수가 많습니다. '웃을 수 없다'는 가능형 「笑えない」가 간결하고 자연스럽습니다."}, {"id": "G3-03", "set": "〜ようとする・おかげで・〜きる・〜とたん・〜のに", "ko": "열심히 공부한 덕분에 성적이 올랐습니다.", "ja": "一生懸命勉強したおかげで、成績が上がりました。", "reading": "いっしょうけんめい べんきょうした おかげで、せいせきが あがりました。", "grammar": {"point": "〜おかげで", "note": "「〜おかげで」는 좋은 결과의 원인을 나타내며 감사의 뉘앙스가 있습니다. 동사 た형·명사+の에 접속합니다. 나쁜 결과에는 「〜せいで」를 씁니다."}, "vocab": [{"w": "一生懸命", "r": "いっしょうけんめい", "m": "열심히", "note": ""}, {"w": "おかげで", "r": "おかげで", "m": "덕분에", "note": "한자 「お陰で」"}, {"w": "成績", "r": "せいせき", "m": "성적", "note": ""}, {"w": "上がる", "r": "あがる", "m": "오르다(자동사)", "note": "타동사는 「上げる」"}], "alt": ["熱心に勉強したおかげで、成績が上がりました。"], "tip": "'성적이 오르다'는 자동사 「上がる」. 「上げる」(올리다)로 쓰면 틀립니다. 「おかげで」 앞은 반드시 た형(勉強した). 「勉強するおかげで」는 비문입니다."}, {"id": "G3-04", "set": "〜ようとする・おかげで・〜きる・〜とたん・〜のに", "ko": "저희들이 우승할 수 있었던 것은 응원해 준 여러분 덕분입니다.", "ja": "私たちが優勝できたのは、応援してくれた皆さんのおかげです。", "reading": "わたしたちが ゆうしょうできたのは、おうえんしてくれた みなさんの おかげです。", "grammar": {"point": "〜のは〜のおかげだ", "note": "「〜のは〜おかげだ」는 결과를 먼저 말하고 그 원인을 뒤에 두는 강조 구문입니다. 명사에 접속할 때는 「名詞＋の＋おかげ」입니다. 문말의 「おかげです」는 감사 인사에서 매우 자주 쓰입니다."}, "vocab": [{"w": "優勝する", "r": "ゆうしょうする", "m": "우승하다", "note": "가능형 「優勝できる」"}, {"w": "応援する", "r": "おうえんする", "m": "응원하다", "note": ""}, {"w": "〜てくれる", "r": "〜てくれる", "m": "(남이 나에게) 〜해 주다", "note": ""}, {"w": "皆さん", "r": "みなさん", "m": "여러분", "note": ""}], "alt": ["私たちが優勝できたのは、応援してくださった皆様のおかげです。"], "tip": "'응원해 준'은 상대가 나에게 해 준 것이므로 「〜てくれた」입니다. 「〜てあげた」로 쓰면 방향이 반대가 됩니다. 더 정중하게는 「応援してくださった皆様(みなさま)」."}, {"id": "G3-05", "set": "〜ようとする・おかげで・〜きる・〜とたん・〜のに", "ko": "그 신문은 벌써 다 읽었습니까?", "ja": "その新聞はもう読み終わりましたか。", "reading": "その しんぶんは もう よみおわりましたか。", "grammar": {"point": "〜終わる／〜きる", "note": "「ます형+終わる」는 동작의 완료를 나타냅니다. 「読みきる」도 가능하지만 「〜きる」는 '끝까지 완전히'라는 달성감이 강합니다. 신문을 다 읽었는지 묻는 일상 표현으로는 「読み終わる」가 가장 자연스럽습니다."}, "vocab": [{"w": "新聞", "r": "しんぶん", "m": "신문", "note": ""}, {"w": "もう", "r": "もう", "m": "벌써, 이미", "note": ""}, {"w": "読み終わる", "r": "よみおわる", "m": "다 읽다", "note": "「読みきる」도 가능"}], "alt": ["その新聞はもう読みきりましたか。", "その新聞はもう全部読みましたか。"], "tip": "'다 읽다'를 「全部読む」로 해도 통하지만, 복합동사 「読み終わる」「読みきる」가 이 과의 학습 포인트입니다. 「読みきる」는 두꺼운 책을 끝까지 읽어냈을 때 더 어울립니다."}, {"id": "G3-06", "set": "〜ようとする・おかげで・〜きる・〜とたん・〜のに", "ko": "다 먹으면 테이블을 치워 주세요.", "ja": "食べ終わったらテーブルを片付けてください。", "reading": "たべおわったら テーブルを かたづけてください。", "grammar": {"point": "〜終わったら", "note": "「食べ終わる」(다 먹다)에 조건의 「〜たら」를 붙여 '다 먹으면'이 됩니다. 「〜たら」는 앞 동작이 완료된 뒤를 나타내므로 이 문맥에 가장 적합합니다. 「食べ終わると」는 명령·의뢰문과 함께 쓸 수 없습니다."}, "vocab": [{"w": "食べ終わる", "r": "たべおわる", "m": "다 먹다", "note": ""}, {"w": "〜たら", "r": "〜たら", "m": "〜하면(완료 조건)", "note": ""}, {"w": "片付ける", "r": "かたづける", "m": "치우다, 정리하다", "note": ""}], "alt": ["食べ終わったら、テーブルの上を片付けてください。"], "tip": "뒤에 「〜てください」(의뢰)가 오면 조건은 「〜と」가 아니라 「〜たら」를 써야 합니다. 「食べ終わると片付けてください」는 비문입니다. '치우다'는 「片付ける」."}, {"id": "G3-07", "set": "〜ようとする・おかげで・〜きる・〜とたん・〜のに", "ko": "우리들은 주택 자금 대부를 다 지불하였다.", "ja": "私たちは住宅ローンを払いきった。", "reading": "わたしたちは じゅうたくローンを はらいきった。", "grammar": {"point": "〜きる（完遂）", "note": "「ます형+きる」는 '끝까지 완전히 〜하다'라는 완수의 뜻입니다. 오랜 기간 어려운 일을 끝냈다는 달성감이 담깁니다. 「払い終わる」도 가능하지만 「払いきる」가 더 어울립니다."}, "vocab": [{"w": "住宅ローン", "r": "じゅうたくローン", "m": "주택 자금 대출", "note": "「住宅資金貸付(じゅうたくしきんかしつけ)」는 딱딱한 법률 용어"}, {"w": "払う", "r": "はらう", "m": "지불하다", "note": "「支払う(しはらう)」도 가능"}, {"w": "〜きる", "r": "〜きる", "m": "다 〜하다, 끝까지 〜하다", "note": ""}], "alt": ["私たちは住宅ローンを払い終えた。", "我々は住宅ローンを完済した。"], "tip": "'주택 자금 대부'를 한자 그대로 「住宅資金貸付」로 쓰면 뜻은 통하지만 일상에서는 「住宅ローン」이 압도적으로 자연스럽습니다. '다 갚다'는 「払いきる」 또는 「完済(かんさい)する」."}, {"id": "G3-08", "set": "〜ようとする・おかげで・〜きる・〜とたん・〜のに", "ko": "커피숍에 들어서자마자, 커피의 좋은 냄새가 났다.", "ja": "喫茶店に入ったとたん、コーヒーのいい香りがした。", "reading": "きっさてんに はいったとたん、コーヒーの いい かおりが した。", "grammar": {"point": "〜たとたん（に）", "note": "「동사 た형+とたん（に）」은 '〜하자마자'로, 앞 동작 직후에 예상치 못한 일이 일어남을 나타냅니다. 뒤에는 화자의 의지 표현이 올 수 없습니다. 「〜や否や」「〜なり」보다 회화에서 흔히 쓰입니다."}, "vocab": [{"w": "喫茶店", "r": "きっさてん", "m": "커피숍, 찻집", "note": "「カフェ」「コーヒーショップ」도 가능"}, {"w": "〜たとたん", "r": "〜たとたん", "m": "〜하자마자", "note": "한자 「途端」"}, {"w": "香り", "r": "かおり", "m": "향기, 좋은 냄새", "note": "「匂い(におい)」는 중립적, 「香り」는 좋은 냄새"}, {"w": "〜がする", "r": "〜がする", "m": "(냄새·소리·맛이) 나다", "note": ""}], "alt": ["カフェに入ったとたんに、コーヒーのいい匂いがした。"], "tip": "'냄새가 나다'는 「匂いがする/香りがする」. 「匂いが出る」는 오역입니다. 「とたん」 앞은 반드시 た형(入った). 「入るとたん」은 비문입니다."}, {"id": "G3-09", "set": "〜ようとする・おかげで・〜きる・〜とたん・〜のに", "ko": "이 부근은 밤늦게까지 바이크 소리가 납니다.", "ja": "この辺りは夜遅くまでバイクの音がします。", "reading": "この あたりは よるおそくまで バイクの おとが します。", "grammar": {"point": "〜がする（音・匂い・味）", "note": "소리·냄새·맛·느낌이 감각되는 것을 「〜がする」로 표현합니다. 「音が出る」는 '소리가 발생하다(기계가 소리를 내다)'로 뉘앙스가 다릅니다. 「夜遅くまで」는 '밤늦게까지'입니다."}, "vocab": [{"w": "辺り", "r": "あたり", "m": "부근, 근처", "note": "「この辺(このへん)」도 가능"}, {"w": "夜遅く", "r": "よるおそく", "m": "밤늦게", "note": ""}, {"w": "バイク", "r": "バイク", "m": "오토바이", "note": "일본어 「バイク」는 오토바이. 자전거는 「自転車」"}, {"w": "音がする", "r": "おとがする", "m": "소리가 나다", "note": ""}], "alt": ["この辺は夜遅くまでバイクの音が聞こえます。"], "tip": "「音がします」가 교과서적 정답이며, 「音が聞こえます」도 자연스럽습니다. 일본어 「バイク」는 오토바이를 뜻하므로 그대로 쓰면 됩니다. '밤늦게까지'는 「夜遅くまで」(「夜遅いまで」 아님)."}, {"id": "G3-10", "set": "〜ようとする・おかげで・〜きる・〜とたん・〜のに", "ko": "어른인데도 약을 먹는 것을 싫어하고 있다.", "ja": "大人なのに薬を飲むのを嫌がっている。", "reading": "おとななのに くすりを のむのを いやがっている。", "grammar": {"point": "〜のに／〜がる", "note": "「〜のに」는 '〜인데도'라는 역접으로, 명사·な형용사에는 「なのに」로 접속합니다. 「嫌がる」는 「嫌だ」에 「〜がる」가 붙은 것으로 제3자의 감정을 겉으로 드러내는 모습을 나타냅니다. 제3자의 감정은 「嫌だ」가 아니라 「嫌がる」."}, "vocab": [{"w": "大人", "r": "おとな", "m": "어른", "note": "「大人なのに」 명사+なのに"}, {"w": "薬を飲む", "r": "くすりをのむ", "m": "약을 먹다", "note": "약은 「食べる」가 아니라 「飲む」"}, {"w": "嫌がる", "r": "いやがる", "m": "싫어하다(제3자)", "note": "「嫌う(きらう)」는 대상을 미워함"}], "alt": ["大人なのに薬を飲むことを嫌がっている。"], "tip": "약을 '먹다'는 「薬を飲む」입니다. 「薬を食べる」는 전형적인 오역입니다. 제3자가 싫어하는 모습은 「嫌がる」. 「嫌いだ」는 화자 자신의 감정에 씁니다. 「大人のに」가 아니라 「大人なのに」."}, {"id": "G4-01", "set": "〜がる・〜かというと・必ずしも・〜かもしれない", "ko": "그 이야기를 헀더니 야마다 씨는 이상하게 여기고 있었다.", "ja": "その話をしたら、山田さんは不思議がっていた。", "reading": "その はなしを したら、やまださんは ふしぎがっていた。", "grammar": {"point": "〜がる", "note": "형용사 어간이나 〜たい에 붙어 '제3자가 그렇게 느끼는 모습을 보인다'는 뜻을 만듭니다. 不思議だ→不思議がる처럼 な형용사는 だ를 떼고 붙이며, 진행 중인 상태는 〜がっている으로 씁니다. 1인칭 감정에는 쓰지 않습니다."}, "vocab": [{"w": "不思議がる", "r": "ふしぎがる", "m": "이상하게 여기다, 의아해하다", "note": "不思議だ(신기하다·이상하다)+がる"}, {"w": "〜たら", "r": "たら", "m": "〜했더니 (발견·결과)", "note": "과거형 たら는 '〜했더니 (뜻밖에)'라는 발견의 뜻으로 자주 쓰임"}, {"w": "話をする", "r": "はなしをする", "m": "이야기를 하다", "note": ""}], "alt": ["その話をしたところ、山田さんは不思議がっていた。"], "tip": "'이상하게 여기다'를 変だと思っていた로 옮기면 뜻은 통하지만 연습 문형인 〜がる가 빠집니다. 또 '〜했더니'는 〜たら 또는 〜たところ로 옮기는 것이 자연스럽고, 〜と를 써도 됩니다."}, {"id": "G4-02", "set": "〜がる・〜かというと・必ずしも・〜かもしれない", "ko": "할머니는 추위를 잘 탄다", "ja": "祖母は寒がりだ。", "reading": "そぼは さむがりだ。", "grammar": {"point": "〜がり（〜がる의 명사형）", "note": "〜がる의 연용형 〜がり는 '〜을 잘 타는 사람·성질'을 나타내는 명사가 됩니다. 寒がり(추위 타는 사람), 暑がり(더위 타는 사람), 恥ずかしがり(부끄럼쟁이)처럼 성격·체질을 말할 때 자주 씁니다."}, "vocab": [{"w": "祖母", "r": "そぼ", "m": "할머니 (자기 가족을 남에게 말할 때)", "note": "직접 부르거나 남의 할머니는 おばあさん"}, {"w": "寒がり", "r": "さむがり", "m": "추위를 잘 탐, 추위 타는 사람", "note": "寒がる(추워하다)의 명사형"}, {"w": "寒がる", "r": "さむがる", "m": "추워하다", "note": ""}], "alt": ["おばあさんは寒がりです。", "祖母はとても寒がる。"], "tip": "'추위를 잘 탄다'를 寒さによく乗る처럼 직역하면 안 됩니다. 일본어에서는 寒がりだ라는 성질 표현을 씁니다. 가족 호칭은 남에게 말할 때 祖母, 가족 안에서 부를 때 おばあちゃん·おばあさん으로 구분됩니다."}, {"id": "G4-03", "set": "〜がる・〜かというと・必ずしも・〜かもしれない", "ko": "고양이는 혼자라도 외로움을 타지 않는다고 들었는데, 정말입니까?", "ja": "猫は一匹でも寂しがらないと聞きましたが、本当ですか。", "reading": "ねこは いっぴきでも さびしがらないと ききましたが、ほんとうですか。", "grammar": {"point": "〜がらない（〜がる의 부정）", "note": "寂しい→寂しがる→寂しがらない으로 활용합니다. 〜がる는 5단 동사처럼 활용하므로 부정은 〜がらない, 과거는 〜がった입니다. 뒤의 〜と聞きましたが는 전문(들은 이야기)을 전하는 표현입니다."}, "vocab": [{"w": "一匹", "r": "いっぴき", "m": "한 마리", "note": "동물을 세는 단위 匹(ひき). 1匹은 いっぴき로 음이 변함"}, {"w": "寂しがる", "r": "さびしがる", "m": "외로워하다, 외로움을 타다", "note": "寂しい+がる"}, {"w": "〜と聞く", "r": "〜ときく", "m": "〜라고 듣다", "note": ""}, {"w": "本当", "r": "ほんとう", "m": "정말, 사실", "note": ""}], "alt": ["猫は一人でも寂しがらないと聞いたんですが、本当ですか。"], "tip": "'혼자라도'는 사람이면 一人でも이지만 고양이이므로 一匹でも가 더 정확합니다. '외로움을 타다'를 寂しくない로 하면 화자의 판단처럼 들리므로, 제3자(고양이)의 모습을 나타내는 寂しがらない를 쓰는 것이 핵심입니다."}, {"id": "G4-04", "set": "〜がる・〜かというと・必ずしも・〜かもしれない", "ko": "에어컨에서 나온 차가운 공기가 방 아래쪽으로 가는 것은 왜인가 하면, 차가운 공기는 따뜻한 공기보다 무겁기 때문이다.", "ja": "エアコンから出た冷たい空気が部屋の下の方へ行くのはなぜかというと、冷たい空気は暖かい空気より重いからだ。", "reading": "エアコンから でた つめたい くうきが へやの したの ほうへ いくのは なぜかというと、つめたい くうきは あたたかい くうきより おもいからだ。", "grammar": {"point": "なぜかというと〜からだ", "note": "'왜인가 하면 〜이기 때문이다'로 이유를 설명하는 문형입니다. 앞에서 사실을 제시하고 なぜかというと로 받아, 문장 끝은 반드시 〜からだ/〜からです로 맺습니다. どうしてかというと도 같은 뜻입니다."}, "vocab": [{"w": "エアコン", "r": "エアコン", "m": "에어컨", "note": ""}, {"w": "冷たい", "r": "つめたい", "m": "차갑다 (물체·공기)", "note": "기온이 춥다는 寒い, 만져서 차갑다는 冷たい"}, {"w": "空気", "r": "くうき", "m": "공기", "note": ""}, {"w": "下の方", "r": "したのほう", "m": "아래쪽", "note": ""}, {"w": "暖かい", "r": "あたたかい", "m": "따뜻하다 (기온·공기)", "note": "온도·날씨는 暖かい, 물·마음은 温かい"}, {"w": "重い", "r": "おもい", "m": "무겁다", "note": ""}], "alt": ["エアコンから出た冷たい空気が部屋の下の方に行くのはどうしてかというと、冷たい空気は暖かい空気より重いからである。"], "tip": "〜かというと로 시작했으면 문장 끝을 〜からだ로 호응시키는 것을 잊지 마세요. '차가운 공기'는 寒い空気가 아니라 冷たい空気, '따뜻한 공기'는 暖かい空気입니다."}, {"id": "G4-05", "set": "〜がる・〜かというと・必ずしも・〜かもしれない", "ko": "왜 일본에 왔는가 하면 유도에 흥미가 있었기 때문입니다.", "ja": "なぜ日本に来たかというと、柔道に興味があったからです。", "reading": "なぜ にほんに きたかというと、じゅうどうに きょうみが あったからです。", "grammar": {"point": "なぜ〜かというと〜からです", "note": "의문사 なぜ/どうして가 있는 절에 かというと를 붙여 '왜 〜했는가 하면'이라고 이유를 꺼내는 문형입니다. 뒷부분은 〜からです로 맺어 이유를 명시합니다."}, "vocab": [{"w": "柔道", "r": "じゅうどう", "m": "유도", "note": ""}, {"w": "興味がある", "r": "きょうみがある", "m": "흥미가 있다", "note": "조사는 に를 씀: 〜に興味がある"}, {"w": "なぜ", "r": "なぜ", "m": "왜", "note": "どうして보다 약간 딱딱한 느낌"}], "alt": ["どうして日本に来たかというと、柔道に興味があったからです。"], "tip": "'흥미가 있다'의 조사는 〜に興味がある입니다. 〜が興味がある로 쓰기 쉬우니 주의하세요. 시제도 '있었기 때문'이므로 あったからです로 과거형을 맞춥니다."}, {"id": "G4-06", "set": "〜がる・〜かというと・必ずしも・〜かもしれない", "ko": "니시키와씨는 어느 쪽인가 하면 영업에 적합하다.", "ja": "西川さんはどちらかというと営業に向いている。", "reading": "にしかわさんは どちらかというと えいぎょうに むいている。", "grammar": {"point": "どちらかというと", "note": "'굳이 말하자면, 어느 쪽인가 하면'이라는 뜻으로 단정을 피하며 한쪽으로 기울어진 판단을 말합니다. どちらかといえば도 같은 뜻이며, 뒤에는 비교적 완곡한 평가가 옵니다."}, "vocab": [{"w": "営業", "r": "えいぎょう", "m": "영업", "note": ""}, {"w": "向いている", "r": "むいている", "m": "적합하다, 맞다", "note": "〜に向いている 형태. 向く(향하다)의 진행형"}, {"w": "どちらか", "r": "どちらか", "m": "어느 쪽인가", "note": ""}], "alt": ["西川さんはどちらかといえば営業向きだ。"], "tip": "'적합하다'를 適している으로 써도 틀리지는 않지만, 사람의 적성에는 〜に向いている가 가장 자연스럽습니다. 명사형 営業向き(영업 체질)도 함께 알아 두세요."}, {"id": "G4-07", "set": "〜がる・〜かというと・必ずしも・〜かもしれない", "ko": "나는 어느쪽인가하면, 여럿이서 떠들기보다 혼자 있는 것을 더 좋아합니다.", "ja": "私はどちらかというと、大勢で騒ぐより一人でいる方が好きです。", "reading": "わたしは どちらかというと、おおぜいで さわぐより ひとりで いる ほうが すきです。", "grammar": {"point": "どちらかというと + 〜より〜方が好きだ", "note": "どちらかというと로 완곡하게 시작한 뒤 'A보다 B 쪽이 좋다'는 비교 문형 AよりBの方が好きだ를 이어 씁니다. 동사 사전형에는 바로 より, 方를 붙입니다(騒ぐより / いる方が)."}, "vocab": [{"w": "大勢", "r": "おおぜい", "m": "여럿, 많은 사람", "note": "사람 수에만 씀. 大勢で=여럿이서"}, {"w": "騒ぐ", "r": "さわぐ", "m": "떠들다", "note": ""}, {"w": "一人でいる", "r": "ひとりでいる", "m": "혼자 있다", "note": ""}, {"w": "〜方が好きだ", "r": "〜ほうがすきだ", "m": "〜쪽을 더 좋아하다", "note": "비교 표현에서 '더'는 따로 번역하지 않아도 됨"}], "alt": ["私はどちらかといえば、みんなで騒ぐより一人でいるのが好きです。"], "tip": "'더 좋아합니다'의 '더'를 もっと好き로 옮기면 어색합니다. 비교문에서는 〜方が好きです 자체에 '더'의 뜻이 포함됩니다. '여럿이서'는 大勢で가 정확하고 みんなで도 허용됩니다."}, {"id": "G4-08", "set": "〜がる・〜かというと・必ずしも・〜かもしれない", "ko": "축구를 좋아하는 사람이 반드시 능숙하다는 것은 아니다.", "ja": "サッカーが好きな人が必ずしも上手だとは限らない。", "reading": "サッカーが すきな ひとが かならずしも じょうずだとは かぎらない。", "grammar": {"point": "必ずしも〜とは限らない", "note": "'반드시 〜라고는 할 수 없다, 꼭 〜인 것은 아니다'라는 부분 부정 문형입니다. 必ずしも는 반드시 부정 표현과 함께 쓰이며, 〜とは限らない 또는 〜わけではない로 받습니다. な형용사·명사 뒤에는 だ를 넣어 上手だとは限らない로 씁니다."}, "vocab": [{"w": "必ずしも", "r": "かならずしも", "m": "반드시 (〜인 것은 아니다)", "note": "뒤에 부정이 와야 함"}, {"w": "上手", "r": "じょうず", "m": "능숙함, 잘함", "note": "남의 능력에 씀. 자기 자신에게는 得意"}, {"w": "〜とは限らない", "r": "〜とはかぎらない", "m": "〜라고는 할 수 없다", "note": ""}], "alt": ["サッカーが好きな人が必ずしも上手だというわけではない。"], "tip": "必ず(반드시)와 必ずしも(반드시 〜인 것은 아니다)를 구별하세요. 必ずしも는 뒤에 부정이 없으면 비문이 됩니다. '〜다는 것은 아니다'는 〜わけではない로도 옮길 수 있습니다."}, {"id": "G4-09", "set": "〜がる・〜かというと・必ずしも・〜かもしれない", "ko": "독신 남성이 반드시 깔끔하지 못하다고는 할 수 없다.", "ja": "独身の男性が必ずしもだらしないとは限らない。", "reading": "どくしんの だんせいが かならずしも だらしないとは かぎらない。", "grammar": {"point": "必ずしも〜とは限らない", "note": "부분 부정 문형으로, '모든 독신 남성이 그렇다고 단정할 수는 없다'는 뜻입니다. い형용사 뒤에는 그대로 とは限らない를 붙입니다(だらしないとは限らない)."}, "vocab": [{"w": "独身", "r": "どくしん", "m": "독신", "note": ""}, {"w": "男性", "r": "だんせい", "m": "남성", "note": ""}, {"w": "だらしない", "r": "だらしない", "m": "칠칠치 못하다, 깔끔하지 못하다", "note": "생활 태도·복장이 단정하지 못함"}, {"w": "〜とは限らない", "r": "〜とはかぎらない", "m": "〜라고는 할 수 없다", "note": ""}], "alt": ["独身の男性がみんなだらしないとは言えない。"], "tip": "'깔끔하지 못하다'를 きれいじゃない로 직역하면 외모가 예쁘지 않다는 뜻이 되기 쉽습니다. 생활이 단정하지 못하다는 뜻은 だらしない가 적절합니다. 直訳의 とは言えない보다 문형 연습에는 とは限らない를 추천합니다."}, {"id": "G4-10", "set": "〜がる・〜かというと・必ずしも・〜かもしれない", "ko": "이시다 씨는 그때 아직 집에 도착하지 않았을지도 모른다.", "ja": "石田さんはその時まだ家に着いていなかったかもしれない。", "reading": "いしださんは そのとき まだ いえに ついていなかったかもしれない。", "grammar": {"point": "〜かもしれない", "note": "'〜일지도 모른다'는 가능성이 낮은 추측입니다. 보통형에 바로 붙이며, '아직 도착하지 않았다'는 완료 부정이므로 着いていなかった 형태로 쓰는 것이 포인트입니다."}, "vocab": [{"w": "その時", "r": "そのとき", "m": "그때", "note": ""}, {"w": "まだ", "r": "まだ", "m": "아직", "note": ""}, {"w": "着く", "r": "つく", "m": "도착하다", "note": "〜に着く. 到着する보다 구어적"}, {"w": "〜ていない", "r": "〜ていない", "m": "(아직) 〜하지 않았다", "note": "まだ와 함께 쓰면 반드시 〜ていない 형태"}], "alt": ["石田さんはあの時まだ家に帰っていなかったかもしれません。"], "tip": "まだ〜ない를 まだ着かなかった로 쓰면 틀립니다. '아직 〜하지 않았다'는 まだ〜ていない(과거는 〜ていなかった)로 표현해야 합니다. 정중체로 하려면 끝만 かもしれません으로 바꾸면 됩니다."}, {"id": "G4-11", "set": "〜がる・〜かというと・必ずしも・〜かもしれない", "ko": "만약 그가 만루 홈런을 치지 않았더라면 그 팀은 졌을지도 모른다.", "ja": "もし彼が満塁ホームランを打たなかったら、そのチームは負けていたかもしれない。", "reading": "もし かれが まんるい ホームランを うたなかったら、その チームは まけていたかもしれない。", "grammar": {"point": "もし〜たら、〜ていたかもしれない（반사실 가정）", "note": "과거의 사실과 반대되는 가정을 말할 때 조건절은 〜なかったら, 결과절은 〜ていた(〜ていただろう/〜ていたかもしれない) 형태를 씁니다. 負けたかもしれない보다 負けていたかもしれない가 '실제로는 지지 않았다'는 뉘앙스를 분명히 합니다."}, "vocab": [{"w": "満塁ホームラン", "r": "まんるいホームラン", "m": "만루 홈런", "note": ""}, {"w": "打つ", "r": "うつ", "m": "치다 (공·타격)", "note": ""}, {"w": "負ける", "r": "まける", "m": "지다, 패하다", "note": "〜に負ける"}, {"w": "もし", "r": "もし", "m": "만약", "note": "가정 조건절과 호응"}], "alt": ["もし彼が満塁ホームランを打っていなかったら、あのチームは負けたかもしれない。"], "tip": "반사실 가정의 결과절은 〜ていたかもしれない로 쓰는 것이 자연스럽습니다. 또 조건절에 もし를 썼으면 〜たら/〜ば로 받아야 하며, 〜と는 반사실 가정에는 쓸 수 없습니다."}, {"id": "G4-12", "set": "〜がる・〜かというと・必ずしも・〜かもしれない", "ko": "이렇게 시끄러운 음악을 듣고 있으면 머리가 이상해진다.", "ja": "こんなにうるさい音楽を聞いていると、頭がおかしくなる。", "reading": "こんなに うるさい おんがくを きいていると、あたまが おかしくなる。", "grammar": {"point": "〜ていると〜（조건의 と）+ 〜くなる", "note": "と 조건은 '〜하면 반드시/자연히 〜된다'는 필연적 결과를 나타냅니다. 지속 상태를 조건으로 할 때는 〜ていると를 씁니다. い형용사의 변화는 어간+くなる(おかしい→おかしくなる)입니다."}, "vocab": [{"w": "こんなに", "r": "こんなに", "m": "이렇게(나)", "note": "정도를 강조"}, {"w": "うるさい", "r": "うるさい", "m": "시끄럽다", "note": ""}, {"w": "頭がおかしくなる", "r": "あたまがおかしくなる", "m": "머리가 이상해지다", "note": "관용적 표현"}, {"w": "〜くなる", "r": "〜くなる", "m": "〜해지다 (い형용사의 변화)", "note": ""}], "alt": ["こんなにうるさい音楽を聞いていたら、頭が変になる。"], "tip": "'이상해지다'는 おかしくなる 또는 変になる 모두 가능하지만, '머리가 이상해지다'는 頭がおかしくなる가 관용구로 굳어 있습니다. 조건은 〜と가 가장 적합하고 〜たら도 허용됩니다."}, {"id": "G4-13", "set": "〜がる・〜かというと・必ずしも・〜かもしれない", "ko": "회사를 만드는 것은 반드시 어려운 일은 아니다.", "ja": "会社を作ることは必ずしも難しいことではない。", "reading": "かいしゃを つくることは かならずしも むずかしい ことではない。", "grammar": {"point": "必ずしも〜ではない", "note": "必ずしも는 뒤에 〜とは限らない뿐 아니라 〜ではない, 〜わけではない 같은 부정 표현과도 호응합니다. '반드시 〜인 것은 아니다'라는 부분 부정으로, 쉬운 경우도 있다는 뜻을 함축합니다."}, "vocab": [{"w": "会社を作る", "r": "かいしゃをつくる", "m": "회사를 만들다, 창업하다", "note": "起業する(창업하다)도 가능"}, {"w": "必ずしも", "r": "かならずしも", "m": "반드시 (〜인 것은 아니다)", "note": ""}, {"w": "難しい", "r": "むずかしい", "m": "어렵다", "note": ""}], "alt": ["会社を作るのは必ずしも難しいとは限らない。", "会社を作ることは必ずしも難しいわけではない。"], "tip": "必ずしも가 있으면 끝은 반드시 부정형입니다. 難しいことだ로 끝내면 비문이 됩니다. '〜하는 것은'은 〜ことは 또는 〜のは 모두 가능하며, 격식 있는 문장에는 こと가 어울립니다."}, {"id": "G5-01", "set": "〜せいで・〜そうにない・〜ことができる 등", "ko": "미국에 유학하고 있는 딸이 걱정입니다.", "ja": "アメリカに留学している娘が心配です。", "reading": "アメリカに りゅうがくしている むすめが しんぱいです。", "grammar": {"point": "〜ている + 명사 수식（연체 수식절）", "note": "'유학하고 있는 딸'처럼 동사 〜ている형이 그대로 명사를 수식합니다. 〜が心配だ는 '〜이 걱정이다'로, 걱정의 대상에는 조사 が를 씁니다."}, "vocab": [{"w": "留学する", "r": "りゅうがくする", "m": "유학하다", "note": "〜に留学する"}, {"w": "娘", "r": "むすめ", "m": "딸 (자기 딸)", "note": "남의 딸은 娘さん·お嬢さん"}, {"w": "心配", "r": "しんぱい", "m": "걱정", "note": "〜が心配だ / 〜を心配する"}], "alt": ["アメリカに留学中の娘のことが心配です。"], "tip": "'걱정입니다'를 心配します로 쓰면 동작이 되어 어색합니다. 상태로 心配です로 끝내세요. 자기 딸은 娘, 상대의 딸은 娘さん으로 구분하는 것도 기억해 두세요."}, {"id": "G5-02", "set": "〜せいで・〜そうにない・〜ことができる 등", "ko": "얼마나 힘든지 알겠습니다.", "ja": "どんなに大変かわかります。", "reading": "どんなに たいへんか わかります。", "grammar": {"point": "どんなに〜か（의문사+か의 간접의문）", "note": "'얼마나 〜한지'는 どんなに/どれほど+보통형+か 형태로 간접의문절을 만듭니다. な형용사는 だ 없이 大変か로 씁니다. 뒤에는 わかる, 知っている 같은 동사가 옵니다."}, "vocab": [{"w": "どんなに", "r": "どんなに", "m": "얼마나, 아무리", "note": "どれほど, どれだけ도 비슷"}, {"w": "大変", "r": "たいへん", "m": "힘듦, 큰일", "note": ""}, {"w": "わかる", "r": "わかる", "m": "알다, 이해하다", "note": ""}], "alt": ["どれほど大変かわかります。", "どんなにつらいかわかります。"], "tip": "わかります는 공감을 전하는 '알겠습니다'입니다. 몸이 힘든 '힘들다'는 つらい, 일이 힘든 '힘들다'는 大変 쪽이 어울립니다. 大変だか처럼 だ를 넣지 않도록 주의하세요."}, {"id": "G5-03", "set": "〜せいで・〜そうにない・〜ことができる 등", "ko": "사람의 귀와 같은 모양으로 보이기 때문에 '귀섬'이라고 불리고 있습니다.", "ja": "人の耳のような形に見えるので、「耳島」と呼ばれています。", "reading": "ひとの みみのような かたちに みえるので、「みみじま」と よばれています。", "grammar": {"point": "〜と呼ばれている（수동）", "note": "呼ぶ(부르다)의 수동 呼ばれる에 〜ている를 붙여 '〜라고 불리고 있다'는 통칭을 나타냅니다. 앞의 〜のような形に見える는 '〜와 같은 모양으로 보인다'로, 見える에는 조사 に를 씁니다."}, "vocab": [{"w": "耳", "r": "みみ", "m": "귀", "note": ""}, {"w": "〜のような", "r": "〜のような", "m": "〜와 같은", "note": "명사+のような+명사"}, {"w": "形", "r": "かたち", "m": "모양, 형태", "note": ""}, {"w": "〜に見える", "r": "〜にみえる", "m": "〜로 보이다", "note": ""}, {"w": "呼ばれる", "r": "よばれる", "m": "불리다", "note": "呼ぶ의 수동형"}], "alt": ["人間の耳のような形に見えることから、「耳島」と呼ばれています。"], "tip": "'〜라고 불리다'는 〜と呼ばれる이며, 〜と言われる도 가능하지만 명칭에는 呼ばれる가 정확합니다. '〜로 보이다'의 조사는 〜に見える입니다. 〜で見える로 쓰지 않도록 주의하세요."}, {"id": "G5-04", "set": "〜せいで・〜そうにない・〜ことができる 등", "ko": "지금까지 몰랐던 좋은 점을 발견할 수 있었습니다.", "ja": "今まで知らなかったいい点を発見することができました。", "reading": "いままで しらなかった いい てんを はっけんすることが できました。", "grammar": {"point": "〜ことができる（가능）", "note": "동사 사전형+ことができる는 가능 표현으로, 가능형(発見できる)보다 조금 격식 있는 느낌입니다. 과거의 성취는 〜ことができました로 씁니다. 수식절 今まで知らなかった는 과거 부정으로 명사를 꾸밉니다."}, "vocab": [{"w": "今まで", "r": "いままで", "m": "지금까지", "note": ""}, {"w": "知らなかった", "r": "しらなかった", "m": "몰랐던", "note": "知る의 과거 부정"}, {"w": "点", "r": "てん", "m": "점 (장점·특징)", "note": "いい点=좋은 점, 良いところ도 가능"}, {"w": "発見する", "r": "はっけんする", "m": "발견하다", "note": ""}], "alt": ["今まで気づかなかった良さを発見できました。"], "tip": "'좋은 점'은 いい点 또는 いいところ, 또는 良さ(좋은 점·장점)로도 옮길 수 있습니다. 〜ことができる는 과거형이 〜ことができました이고, 〜ことができていました로 쓰면 뜻이 달라지니 주의하세요."}, {"id": "G5-05", "set": "〜せいで・〜そうにない・〜ことができる 등", "ko": "유학으로 인해 다른 문화에 흥미를 가지게 되었다.", "ja": "留学によって、他の文化に興味を持つようになった。", "reading": "りゅうがくによって、ほかの ぶんかに きょうみを もつようになった。", "grammar": {"point": "〜によって + 〜ようになる", "note": "〜によって는 '〜로 인해, 〜에 의해' 원인·수단을 나타냅니다. 〜ようになる는 동사 사전형에 붙어 '〜하게 되다'라는 변화를 나타내며, 興味を持つようになった는 '흥미를 가지게 되었다'입니다."}, "vocab": [{"w": "留学", "r": "りゅうがく", "m": "유학", "note": ""}, {"w": "〜によって", "r": "〜によって", "m": "〜로 인해, 〜에 의해", "note": "〜のおかげで(긍정), 〜のせいで(부정)와 구별"}, {"w": "他の", "r": "ほかの", "m": "다른", "note": ""}, {"w": "文化", "r": "ぶんか", "m": "문화", "note": ""}, {"w": "興味を持つ", "r": "きょうみをもつ", "m": "흥미를 가지다", "note": "〜に興味を持つ"}], "alt": ["留学がきっかけで、他の文化に興味を持つようになった。", "留学を通して、異文化に興味を持つようになった。"], "tip": "'〜하게 되었다'는 변화이므로 興味を持った가 아니라 興味を持つようになった로 옮기세요. '다른 문화'는 他の文化 또는 異文化(いぶんか)도 자주 씁니다."}, {"id": "G5-06", "set": "〜せいで・〜そうにない・〜ことができる 등", "ko": "이집은 좁고 불편하니까 좀 더 좋은 곳에 살고 싶다.", "ja": "この家は狭くて不便だから、もっといいところに住みたい。", "reading": "この いえは せまくて ふべんだから、もっと いい ところに すみたい。", "grammar": {"point": "い형용사 〜くて（병렬）+ 〜から（이유）+ 〜たい", "note": "형용사를 나열할 때 い형용사는 〜くて(狭くて), な형용사는 〜で로 잇습니다. 이유의 から 앞에서 な형용사는 不便だから처럼 だ가 필요합니다. 住む는 〜に住む로 장소에 に를 씁니다."}, "vocab": [{"w": "狭い", "r": "せまい", "m": "좁다", "note": ""}, {"w": "不便", "r": "ふべん", "m": "불편", "note": "な형용사. 반대는 便利"}, {"w": "もっと", "r": "もっと", "m": "좀 더, 더", "note": ""}, {"w": "住む", "r": "すむ", "m": "살다 (거주)", "note": "〜に住む. 生きる(생존)와 구별"}], "alt": ["この家は狭くて不便なので、もう少しいいところに住みたい。"], "tip": "'좁고'를 狭いで나 狭いと로 잇지 않도록 주의하세요. い형용사 연결은 狭くて입니다. 또 不便から가 아니라 不便だから(또는 不便なので)입니다. '살다'는 거주의 뜻이므로 住む를 씁니다."}, {"id": "G5-07", "set": "〜せいで・〜そうにない・〜ことができる 등", "ko": "우체국은 5시까지 밖에 열려있지 않습니다", "ja": "郵便局は5時までしか開いていません。", "reading": "ゆうびんきょくは ごじまでしか あいていません。", "grammar": {"point": "〜しか〜ない", "note": "'〜밖에 〜않다'는 しか+부정형으로 표현하며 긍정형과는 함께 쓸 수 없습니다. 조사 まで 뒤에 しか를 겹쳐 までしか로 씁니다. 開いている는 '열려 있다'는 상태(자동사 開く의 〜ている)입니다."}, "vocab": [{"w": "郵便局", "r": "ゆうびんきょく", "m": "우체국", "note": ""}, {"w": "〜までしか", "r": "〜までしか", "m": "〜까지밖에", "note": ""}, {"w": "開く", "r": "あく", "m": "열리다 (자동사)", "note": "타동사는 開ける(あける). 開いている=열려 있다"}], "alt": ["郵便局は5時までしかやっていません。"], "tip": "しか가 있으면 끝은 반드시 부정형(開いていません)입니다. '열려 있다'는 자동사 開く의 開いている이며, 開けている로 쓰면 '열어 두고 있다'는 타동 표현이 됩니다. 가게·시설이 영업 중이라는 뜻으로 やっている도 자주 씁니다."}, {"id": "G5-08", "set": "〜せいで・〜そうにない・〜ことができる 등", "ko": "감기에 걸린 탓에 무엇을 먹어도 맛있게 느껴지지 않는다.", "ja": "風邪をひいたせいで、何を食べてもおいしく感じられない。", "reading": "かぜを ひいたせいで、なにを たべても おいしく かんじられない。", "grammar": {"point": "〜せいで + 〜ても", "note": "〜せいで는 '〜탓에'로 나쁜 결과의 원인을 탓하는 표현입니다(좋은 결과는 〜おかげで). 何を食べても는 '무엇을 먹어도'로 의문사+〜ても 형태입니다. おいしく感じられない는 '맛있게 느껴지지 않는다'로 感じる의 가능·자발형을 씁니다."}, "vocab": [{"w": "風邪をひく", "r": "かぜをひく", "m": "감기에 걸리다", "note": "風邪にかかる라고는 잘 안 함"}, {"w": "〜せいで", "r": "〜せいで", "m": "〜탓에", "note": "부정적 원인"}, {"w": "何を〜ても", "r": "なにを〜ても", "m": "무엇을 〜해도", "note": ""}, {"w": "感じられる", "r": "かんじられる", "m": "느껴지다", "note": "感じる의 가능·자발형"}], "alt": ["風邪のせいで、何を食べてもおいしくない。"], "tip": "'감기에 걸리다'는 風邪をひく입니다. 風邪にかかる는 거의 쓰지 않습니다. 〜せいで는 부정적 결과에만 쓰고, 좋은 결과에는 〜おかげで를 쓰는 것이 핵심 구별점입니다."}, {"id": "G5-09", "set": "〜せいで・〜そうにない・〜ことができる 등", "ko": "몇 년동안 일해도 내 집을 살 수 있을 것 같지 않다.", "ja": "何年働いても、自分の家が買えそうにない。", "reading": "なんねん はたらいても、じぶんの いえが かえそうにない。", "grammar": {"point": "〜そうにない", "note": "양태의 そうだ(〜할 것 같다)의 부정형으로, 동사 연용형+そうにない/そうもない는 '〜할 것 같지 않다'는 뜻입니다. 가능형 買える에 붙여 買えそうにない(살 수 있을 것 같지 않다)로 씁니다."}, "vocab": [{"w": "何年", "r": "なんねん", "m": "몇 년", "note": "何年も(몇 년이나)로 강조 가능"}, {"w": "働く", "r": "はたらく", "m": "일하다", "note": ""}, {"w": "自分の家", "r": "じぶんのいえ", "m": "내 집, 자기 집", "note": "マイホーム도 자주 씀"}, {"w": "買える", "r": "かえる", "m": "살 수 있다", "note": "買う의 가능형. 가능형의 목적어는 が"}, {"w": "〜そうにない", "r": "〜そうにない", "m": "〜할 것 같지 않다", "note": "〜そうもない도 같은 뜻"}], "alt": ["何年働いても、マイホームは買えそうもない。"], "tip": "〜そうだ의 부정을 買えなさそうだ로 쓰기 쉽지만, 동사에는 〜そうにない/〜そうもない가 교과서적 표현입니다. 가능형 買える의 대상에는 を가 아닌 が를 쓰는 점도 확인하세요."}, {"id": "G6-01", "set": "〜だけでなく・〜たことがある・〜たびに 등", "ko": "즐거운 일뿐만 아니라 힘든 일도 많았다.", "ja": "楽しいことだけでなく、つらいことも多かった。", "reading": "たのしい ことだけでなく、つらい ことも おおかった。", "grammar": {"point": "〜だけでなく〜も", "note": "'〜뿐만 아니라 〜도'는 〜だけでなく(〜だけではなく)〜も로 표현합니다. 뒤 절에는 반드시 も가 호응합니다. 〜ばかりでなく도 같은 뜻으로 쓸 수 있습니다."}, "vocab": [{"w": "楽しい", "r": "たのしい", "m": "즐겁다", "note": ""}, {"w": "〜だけでなく", "r": "〜だけでなく", "m": "〜뿐만 아니라", "note": "〜だけではなく, 〜ばかりでなく"}, {"w": "つらい", "r": "つらい", "m": "힘들다, 괴롭다", "note": "辛い로도 씀"}, {"w": "多い", "r": "おおい", "m": "많다", "note": "과거형 多かった"}], "alt": ["楽しいことばかりでなく、大変なことも多かった。"], "tip": "だけでなく 뒤에는 も를 꼭 넣으세요. つらいことが多かった로 쓰면 호응이 깨집니다. '힘든 일'은 정신적으로 괴로운 일이면 つらいこと, 수고스러운 일이면 大変なこと가 어울립니다."}, {"id": "G6-02", "set": "〜だけでなく・〜たことがある・〜たびに 등", "ko": "중년뿐만 아니라 비만인 사람은 당뇨병에 걸릴 위험이 있다.", "ja": "中年だけでなく、肥満の人は糖尿病になる危険がある。", "reading": "ちゅうねんだけでなく、ひまんの ひとは とうにょうびょうに なる きけんが ある。", "grammar": {"point": "〜だけでなく", "note": "명사에 직접 붙여 中年だけでなく로 씁니다. '병에 걸리다'는 病気になる 또는 病気にかかる이며, 〜危険がある는 '〜할 위험이 있다'로 동사 사전형이 危険을 수식합니다."}, "vocab": [{"w": "中年", "r": "ちゅうねん", "m": "중년", "note": ""}, {"w": "肥満", "r": "ひまん", "m": "비만", "note": ""}, {"w": "糖尿病", "r": "とうにょうびょう", "m": "당뇨병", "note": ""}, {"w": "〜になる", "r": "〜になる", "m": "(병에) 걸리다", "note": "〜にかかる도 가능"}, {"w": "危険", "r": "きけん", "m": "위험", "note": "危険がある / 危険性がある"}], "alt": ["中年に限らず、肥満の人は糖尿病にかかる危険がある。"], "tip": "'병에 걸리다'는 病気になる/病気にかかる이지, 病気に걸리다를 직역한 病気を取る 같은 표현은 없습니다. '위험이 있다'는 危険がある, 좀 더 딱딱하게는 おそれがある(우려가 있다)도 씁니다."}, {"id": "G6-03", "set": "〜だけでなく・〜たことがある・〜たびに 등", "ko": "학생 시절에 한 때 가정교사 아르바이트를 한 적이 있다.", "ja": "学生時代に一時、家庭教師のアルバイトをしたことがある。", "reading": "がくせいじだいに いちじ、かていきょうしの アルバイトを したことが ある。", "grammar": {"point": "〜たことがある", "note": "동사 た형+ことがある는 '〜한 적이 있다'는 경험을 나타냅니다. 과거의 특정 시점(学生時代に)과 함께 쓸 수 있으며, 부정은 〜たことがない입니다."}, "vocab": [{"w": "学生時代", "r": "がくせいじだい", "m": "학생 시절", "note": ""}, {"w": "一時", "r": "いちじ", "m": "한때, 일시", "note": "一時期(いちじき)도 가능"}, {"w": "家庭教師", "r": "かていきょうし", "m": "가정교사, 과외 선생", "note": ""}, {"w": "アルバイト", "r": "アルバイト", "m": "아르바이트", "note": "줄여서 バイト"}], "alt": ["学生のころ、一時期家庭教師のバイトをしたことがある。"], "tip": "'한 적이 있다'는 반드시 た형+ことがある입니다. することがある로 쓰면 '〜할 때가 있다'는 전혀 다른 뜻이 됩니다. '한때'는 一時(いちじ) 또는 一時期로 옮기면 자연스럽습니다."}, {"id": "G6-04", "set": "〜だけでなく・〜たことがある・〜たびに 등", "ko": "힘이된다면 얼마든지 응원하겠습니다.", "ja": "力になれるなら、いくらでも応援します。", "reading": "ちからに なれるなら、いくらでも おうえんします。", "grammar": {"point": "〜なら + いくらでも", "note": "〜なら는 '〜라면'이라는 조건·가정으로, 상대의 상황을 전제로 한 제안에 어울립니다. いくらでも는 '얼마든지'라는 의문사+でも 표현입니다. 力になる는 '힘이 되다'는 관용구이며 가능형 力になれる로 씁니다."}, "vocab": [{"w": "力になる", "r": "ちからになる", "m": "힘이 되다, 도움이 되다", "note": "관용구. 力になれる=힘이 될 수 있다"}, {"w": "いくらでも", "r": "いくらでも", "m": "얼마든지", "note": ""}, {"w": "応援する", "r": "おうえんする", "m": "응원하다", "note": ""}], "alt": ["お力になれるのでしたら、いくらでも応援いたします。"], "tip": "'힘이 된다면'은 가능형을 넣어 力になれるなら로 하는 것이 자연스럽습니다. '응원하겠습니다'의 '〜겠'은 의지이므로 応援します로 충분하며, 応援するつもりです로 하면 다소 거리감이 생깁니다."}, {"id": "G6-05", "set": "〜だけでなく・〜たことがある・〜たびに 등", "ko": "수술한 지 얼마 안됐는데, 벌써 일을 하다니 당치도 않다.", "ja": "手術したばかりなのに、もう仕事をするなんてとんでもない。", "reading": "しゅじゅつしたばかりなのに、もう しごとを するなんて とんでもない。", "grammar": {"point": "〜たばかり + 〜なんて", "note": "〜たばかりだ는 '〜한 지 얼마 안 되다'는 뜻으로 화자의 심리적 '방금'을 나타냅니다. のに 앞에서는 〜たばかりなのに로 な가 들어갑니다. 〜なんて는 '〜하다니'라는 놀람·비난의 기분을 담습니다."}, "vocab": [{"w": "手術", "r": "しゅじゅつ", "m": "수술", "note": "手術する/手術を受ける"}, {"w": "〜たばかり", "r": "〜たばかり", "m": "〜한 지 얼마 안 됨", "note": ""}, {"w": "〜なんて", "r": "〜なんて", "m": "〜하다니", "note": "놀람·비난"}, {"w": "とんでもない", "r": "とんでもない", "m": "당치도 않다, 말도 안 된다", "note": ""}], "alt": ["手術してからまだ間もないのに、もう働くなんてとんでもない。"], "tip": "'〜한 지 얼마 안 됐다'는 〜たばかりだ가 가장 간단하고, 〜てからまだ間もない도 가능합니다. のに 접속 시 ばかりのに가 아니라 ばかりなのに입니다. '당치도 않다'는 とんでもない를 그대로 외워 두세요."}, {"id": "G6-06", "set": "〜だけでなく・〜たことがある・〜たびに 등", "ko": "이사할때마다 짐이 늘어난다", "ja": "引っ越しをするたびに荷物が増える。", "reading": "ひっこしを するたびに にもつが ふえる。", "grammar": {"point": "〜たびに", "note": "동사 사전형 또는 명사+の에 붙어 '〜할 때마다'를 나타냅니다. 引っ越しのたびに처럼 명사에 붙일 수도 있습니다. 매번 같은 일이 반복된다는 뜻으로 뒤에는 습관·반복 결과가 옵니다."}, "vocab": [{"w": "引っ越し", "r": "ひっこし", "m": "이사", "note": "동사는 引っ越す / 引っ越しをする"}, {"w": "〜たびに", "r": "〜たびに", "m": "〜할 때마다", "note": "度に로도 씀"}, {"w": "荷物", "r": "にもつ", "m": "짐", "note": ""}, {"w": "増える", "r": "ふえる", "m": "늘다, 증가하다 (자동사)", "note": "타동사는 増やす"}], "alt": ["引っ越すたびに荷物が増える。", "引っ越しのたびに荷物が増える。"], "tip": "'늘어난다'는 자동사 増える입니다. 増やす(늘리다)로 쓰지 않도록 주의하세요. 〜たびに는 〜時はいつも와 비슷하지만 더 간결하며, 명사에는 〜のたびに로 붙입니다."}, {"id": "G6-07", "set": "〜だけでなく・〜たことがある・〜たびに 등", "ko": "이런 화장실이 필요한 것일까 라고 생각했습니다.", "ja": "こんなトイレが必要なのだろうかと思いました。", "reading": "こんな トイレが ひつようなのだろうかと おもいました。", "grammar": {"point": "〜のだろうか + 〜と思う", "note": "〜のだろうか는 '〜한 것일까'라는 자문(스스로 묻는 의문)입니다. な형용사 뒤에서는 必要なのだろうか로 な가 들어갑니다. 생각한 내용은 〜と思いました로 인용합니다."}, "vocab": [{"w": "こんな", "r": "こんな", "m": "이런", "note": ""}, {"w": "トイレ", "r": "トイレ", "m": "화장실", "note": "お手洗い(정중)"}, {"w": "必要", "r": "ひつよう", "m": "필요", "note": "な형용사"}, {"w": "〜のだろうか", "r": "〜のだろうか", "m": "〜한 것일까", "note": "구어로는 〜んだろうか"}], "alt": ["こんなトイレが必要なんだろうかと思いました。"], "tip": "'〜라고 생각했습니다'의 인용에서 〜だろうか와 と思う 사이에 다른 말을 넣지 마세요. 必要だろうか도 가능하지만 '〜한 것일까'의 뉘앙스는 必要なのだろうか가 더 잘 살립니다."}, {"id": "G6-08", "set": "〜だけでなく・〜たことがある・〜たびに 등", "ko": "오늘은 없다고 말했어요.", "ja": "今日はないと言いました。", "reading": "きょうは ないと いいました。", "grammar": {"point": "〜と言う（인용）", "note": "말한 내용을 보통형으로 두고 と言う로 인용합니다. '없다'는 사물이면 ない, 사람이면 いない로 구별해야 합니다. 구어에서는 〜と言っていました(〜라고 했었어요)도 자주 씁니다."}, "vocab": [{"w": "今日", "r": "きょう", "m": "오늘", "note": ""}, {"w": "ない", "r": "ない", "m": "없다 (사물)", "note": "사람·동물은 いない"}, {"w": "〜と言う", "r": "〜という", "m": "〜라고 말하다", "note": ""}], "alt": ["今日はいないと言いました。", "今日はないと言っていました。"], "tip": "'없다'의 주어가 사물이면 ない, 사람이면 いない입니다. 문맥이 없으므로 두 가지 모두 가능하며, 사람이 부재라는 뜻이면 今日はいないと言いました로 쓰세요. 인용절 안은 정중체(ありません)가 아닌 보통형으로 두는 것이 원칙입니다."}, {"id": "D1-01", "set": "일상 표현 1", "ko": "일이 끝나고 나서 백화점에 갔다.", "ja": "仕事が終わってからデパートに行った。", "reading": "しごとが おわってから デパートに いった", "grammar": {"point": "〜てから", "note": "동사 て형에 から를 붙여 '〜하고 나서, 〜한 뒤에'라는 순서를 나타냅니다. 앞 동작이 끝난 후 뒤 동작이 이어진다는 선후 관계를 분명히 할 때 씁니다. 단순한 〜て보다 '그 다음에'라는 순서 의식이 강합니다."}, "vocab": [{"w": "仕事", "r": "しごと", "m": "일, 업무", "note": ""}, {"w": "終わる", "r": "おわる", "m": "끝나다", "note": "자동사. '끝내다'는 終える(おえる)"}, {"w": "デパート", "r": "でぱーと", "m": "백화점", "note": "百貨店(ひゃっかてん)보다 회화에서 훨씬 자주 씀"}], "alt": ["仕事が終わった後でデパートに行った。"], "tip": "'끝나고 나서'를 終わって로만 번역하면 틀리진 않지만 '나서'의 순서 뉘앙스가 약해집니다. 〜てから를 쓰면 가장 자연스럽습니다. 백화점은 百貨店보다 デパート가 일상적입니다."}, {"id": "D1-02", "set": "일상 표현 1", "ko": "걱정만 하고 있어도 소용없다.", "ja": "心配ばかりしていても仕方がない。", "reading": "しんぱいばかり していても しかたがない", "grammar": {"point": "〜ても仕方がない", "note": "'〜해도 소용없다, 어쩔 수 없다'는 뜻으로, 해 봤자 결과가 바뀌지 않음을 나타냅니다. 仕方(しかた)がない 대신 しょうがない(구어), 無駄(むだ)だ 등도 비슷하게 쓰입니다. ばかり는 '〜만, 〜뿐'으로 그것만 반복함을 나타냅니다."}, "vocab": [{"w": "心配", "r": "しんぱい", "m": "걱정", "note": "心配する로 동사화"}, {"w": "〜ばかり", "r": "ばかり", "m": "〜만, 〜뿐", "note": "だけ보다 '그것만 계속'이라는 부정적 뉘앙스"}, {"w": "仕方がない", "r": "しかたがない", "m": "소용없다, 어쩔 수 없다", "note": "구어로는 しょうがない"}], "alt": ["心配ばかりしていても無駄だ。", "心配ばかりしていてもしょうがない。"], "tip": "'소용없다'를 直訳으로 役に立たない라고 하면 어색합니다. 이 문맥에서는 仕方がない 또는 無駄だ가 맞습니다. '걱정만'의 '만'은 だけ보다 ばかり가 '그것만 계속하고 있다'는 느낌을 잘 살립니다."}, {"id": "D1-03", "set": "일상 표현 1", "ko": "찾아서 다행이야.", "ja": "見つかってよかった。", "reading": "みつかって よかった", "grammar": {"point": "〜てよかった", "note": "동사 て형에 よかった를 붙여 '〜해서 다행이다, 〜하길 잘했다'라는 안도·만족을 나타냅니다. 반말 표현이며, 정중하게는 〜てよかったです라고 합니다."}, "vocab": [{"w": "見つかる", "r": "みつかる", "m": "발견되다, 찾아지다", "note": "자동사. 타동사 '찾아내다'는 見つける"}, {"w": "よかった", "r": "よかった", "m": "다행이다, 잘됐다", "note": "いい의 과거형이지만 '다행'이라는 뜻으로 관용적으로 씀"}], "alt": ["見つけてよかった。"], "tip": "한국어 '찾아서'는 '물건이 발견되어서'의 뜻이면 자동사 見つかって가 자연스럽고, '내가 찾아내서'를 강조하면 見つけて를 씁니다. 일본어는 결과 상태에 초점을 둘 때 자동사를 선호하므로 보통 見つかってよかった가 더 자연스럽습니다."}, {"id": "D1-04", "set": "일상 표현 1", "ko": "도쿄라도 하는 곳은 처음입니다.", "ja": "東京というところは初めてです。", "reading": "とうきょうという ところは はじめてです", "grammar": {"point": "〜というところ", "note": "명사에 という를 붙여 '〜라는 (곳·사람·것)'처럼 그 이름을 소개하거나 지칭합니다. 처음 접하는 장소를 말할 때 '東京というところ'처럼 쓰면 '도쿄라는 곳'이라는 뉘앙스가 됩니다. 初めて는 '처음(으로)'이라는 부사·명사로 씁니다."}, "vocab": [{"w": "東京", "r": "とうきょう", "m": "도쿄", "note": ""}, {"w": "〜という", "r": "という", "m": "〜라고 하는, 〜라는", "note": "구어에서는 〜って로 줄이기도 함"}, {"w": "ところ", "r": "ところ", "m": "곳, 장소", "note": ""}, {"w": "初めて", "r": "はじめて", "m": "처음(으로)", "note": "'처음에는'은 初めは(はじめは)로 구분"}], "alt": ["東京は初めてです。"], "tip": "원문 '도쿄라도 하는 곳은'은 '도쿄라는 곳은'의 오타로 보입니다. '〜라는 곳'은 〜というところ로 번역하는 것이 정석입니다. '처음입니다'는 初めてです이며, 最初です라고 하면 어색하니 주의하세요."}, {"id": "D1-05", "set": "일상 표현 1", "ko": "편의점이란 컨비이언스 스토어를 말한다.", "ja": "コンビニとはコンビニエンスストアのことだ。", "reading": "コンビニとは コンビニエンスストアの ことだ", "grammar": {"point": "〜とは〜のことだ", "note": "'〜란 〜을 말한다, 〜란 〜이다'라는 정의 문형입니다. 〜とは로 화제를 제시하고 〜のことだ 또는 〜という意味だ로 설명합니다. 사전적 정의나 용어 설명에 자주 쓰입니다."}, "vocab": [{"w": "コンビニ", "r": "こんびに", "m": "편의점", "note": "コンビニエンスストア의 줄임말, 일상에서는 거의 コンビニ만 씀"}, {"w": "〜とは", "r": "とは", "m": "〜란, 〜라는 것은", "note": "정의할 때 쓰는 화제 제시 표현"}, {"w": "〜のことだ", "r": "のことだ", "m": "〜을 말한다, 〜을 가리킨다", "note": "〜という意味だ로 바꿀 수 있음"}], "alt": ["コンビニとはコンビニエンスストアを指す。", "コンビニというのはコンビニエンスストアのことである。"], "tip": "'〜를 말한다'를 直訳하여 〜を言う라고 하면 어색합니다. 정의문에서는 〜のことだ나 〜を指す(さす)를 씁니다. 한국어 '컨비이언스'는 '컨비니언스'의 오타로 보이며, 일본어 표기는 コンビニエンスストア입니다."}, {"id": "D1-06", "set": "일상 표현 1", "ko": "만약 자신을 색으로 나타낸다고 하면 무슨 색입니까?", "ja": "もし自分を色で表すとしたら、何色ですか。", "reading": "もし じぶんを いろで あらわすとしたら なにいろですか", "grammar": {"point": "〜としたら", "note": "'만약 〜한다고 하면, 〜라고 가정하면'이라는 가정 조건을 나타냅니다. 〜とすれば, 〜とすると도 거의 같은 뜻입니다. もし와 함께 쓰면 가정의 느낌이 더 분명해집니다."}, "vocab": [{"w": "もし", "r": "もし", "m": "만약", "note": "뒤에 〜たら, 〜ば, 〜としたら 등 조건 표현이 옴"}, {"w": "自分", "r": "じぶん", "m": "자신, 자기", "note": ""}, {"w": "表す", "r": "あらわす", "m": "나타내다, 표현하다", "note": "現す(모습을 드러내다)와 한자 구분"}, {"w": "何色", "r": "なにいろ", "m": "무슨 색", "note": "なんしょく이라고 읽지 않도록 주의"}], "alt": ["もし自分を色で表すとすれば、何色ですか。", "もし自分を色に例えるなら、何色ですか。"], "tip": "'〜라고 하면'을 〜と言ったら로 직역하지 말고 가정 표현 〜としたら를 쓰세요. '무슨 색'은 何色(なにいろ)이며 どんな色でもOK입니다. 色で表す 대신 色に例える(たとえる, 비유하다)를 쓰면 더 세련된 표현이 됩니다."}, {"id": "D1-07", "set": "일상 표현 1", "ko": "그는 의사로서는 부적격입니다.", "ja": "彼は医者としては不適格です。", "reading": "かれは いしゃとしては ふてきかくです", "grammar": {"point": "〜としては", "note": "〜として는 '〜로서(자격·입장)'를 나타내며, は를 붙인 〜としては는 '〜로서는'이라고 그 입장에 한정해 평가하는 느낌을 줍니다. 다른 면은 몰라도 그 자격 면에서는 어떻다는 대조적 뉘앙스가 있습니다."}, "vocab": [{"w": "医者", "r": "いしゃ", "m": "의사", "note": "정중한 호칭은 お医者さん, 격식체는 医師(いし)"}, {"w": "〜として", "r": "として", "m": "〜로서", "note": "자격·입장을 나타냄"}, {"w": "不適格", "r": "ふてきかく", "m": "부적격", "note": "반대는 適格(てきかく)"}], "alt": ["彼は医師としては不適格です。", "彼は医者としては失格です。"], "tip": "'〜로서'는 〜として, '〜로서는'은 〜としては입니다. 조사 は를 빠뜨리면 한정·대조의 뉘앙스가 사라지니 원문대로 넣어 주세요. 不適格 대신 失格(しっかく)을 쓰면 '자격 없음'을 더 강하게 말하는 느낌입니다."}, {"id": "D1-08", "set": "일상 표현 1", "ko": "그를 설득하려고 해도 소용없다.", "ja": "彼を説得しようとしても無駄だ。", "reading": "かれを せっとくしようとしても むだだ", "grammar": {"point": "〜ようとしても", "note": "의지형+としても는 '〜하려고 해도'라는 뜻으로, 시도해 봐야 소용없음을 말할 때 씁니다. 뒤에는 無駄だ, 仕方がない, できない 등 부정적 결과가 옵니다."}, "vocab": [{"w": "説得", "r": "せっとく", "m": "설득", "note": "説得する로 동사화"}, {"w": "〜ようとする", "r": "ようとする", "m": "〜하려고 하다", "note": "시도·직전 동작"}, {"w": "無駄", "r": "むだ", "m": "소용없음, 헛됨", "note": "無駄だ(소용없다), 無駄にする(헛되이 하다)"}], "alt": ["彼を説得しようとしても仕方がない。", "彼を説得しても無駄だ。"], "tip": "'〜하려고 해도'는 의지형+としても가 정확한 대응입니다. 説得しても無駄だ도 뜻은 통하지만 '시도 자체가 헛되다'는 뉘앙스는 〜ようとしても가 더 잘 살립니다."}, {"id": "D1-09", "set": "일상 표현 1", "ko": "어젯밤 귀가 도중에 책을 빌렸습니다.", "ja": "昨夜、帰宅の途中で本を借りました。", "reading": "さくや きたくの とちゅうで ほんを かりました", "grammar": {"point": "〜の途中で", "note": "명사+の途中で 또는 동사 사전형+途中で는 '〜하는 도중에, 〜하다가'라는 뜻입니다. 어떤 행위가 진행되는 중간에 다른 일이 일어남을 나타냅니다."}, "vocab": [{"w": "昨夜", "r": "さくや", "m": "어젯밤", "note": "회화에서는 ゆうべ(昨夜)도 많이 씀"}, {"w": "帰宅", "r": "きたく", "m": "귀가", "note": "帰宅する(귀가하다)"}, {"w": "途中", "r": "とちゅう", "m": "도중", "note": ""}, {"w": "借りる", "r": "かりる", "m": "빌리다", "note": "'빌려주다'는 貸す(かす)와 혼동 주의"}], "alt": ["ゆうべ、帰る途中で本を借りました。", "昨夜、家に帰る途中で本を借りました。"], "tip": "借りる(빌리다)와 貸す(빌려주다)는 한국어 학습자가 가장 자주 헷갈리는 쌍입니다. '귀가 도중'은 帰宅の途中 또는 帰る途中 모두 자연스럽습니다. 昨夜는 さくや(문어)·ゆうべ(구어) 두 가지로 읽힙니다."}, {"id": "D1-10", "set": "일상 표현 1", "ko": "팝콘을 먹으면서 영화를 봅니다", "ja": "ポップコーンを食べながら映画を見ます。", "reading": "ポップコーンを たべながら えいがを みます", "grammar": {"point": "〜ながら", "note": "동사 ます형에 ながら를 붙여 '〜하면서'라는 동시 동작을 나타냅니다. 주된 동작은 뒤에 오는 동사(여기서는 映画を見る)이고, 앞의 동작은 부수적인 것입니다."}, "vocab": [{"w": "ポップコーン", "r": "ぽっぷこーん", "m": "팝콘", "note": ""}, {"w": "〜ながら", "r": "ながら", "m": "〜하면서", "note": "ます형에 접속"}, {"w": "映画", "r": "えいが", "m": "영화", "note": "映画を見る(영화를 보다)"}], "alt": ["ポップコーンを食べながら映画を観ます。"], "tip": "〜ながら의 접속은 ます형(食べ+ながら)입니다. て형(食べて+ながら)으로 쓰는 실수가 많으니 주의하세요. 영화를 '감상하다'의 의미로는 観る(みる)로 쓰기도 하지만 見る도 틀리지 않습니다."}, {"id": "D1-11", "set": "일상 표현 1", "ko": "너따위에게 질까보냐?", "ja": "お前なんかに負けるものか。", "reading": "おまえなんかに まけるものか", "grammar": {"point": "〜ものか", "note": "'〜할까 보냐, 절대 〜하지 않겠다'라는 강한 부정·반어의 표현입니다. 구어에서는 〜もんか로 줄이며, 매우 거친 느낌이므로 친한 사이나 혼잣말, 드라마 대사 등에서 씁니다. なんか는 '〜따위'라며 깔보는 뉘앙스입니다."}, "vocab": [{"w": "お前", "r": "おまえ", "m": "너 (거친 2인칭)", "note": "손윗사람에게는 절대 쓰지 않음"}, {"w": "〜なんか", "r": "なんか", "m": "〜따위, 〜같은 것", "note": "경시하는 뉘앙스, 격식체는 〜など"}, {"w": "負ける", "r": "まける", "m": "지다, 패하다", "note": "반대는 勝つ(かつ)"}, {"w": "〜ものか", "r": "ものか", "m": "〜할까 보냐 (강한 부정)", "note": "구어 〜もんか"}], "alt": ["お前なんかに負けるもんか。", "お前なんかに負けてたまるか。"], "tip": "반어적 '〜할까 보냐'는 의문형 〜か?가 아니라 〜ものか로 번역해야 합니다. 負けますか라고 하면 단순 질문이 되어 버립니다. 〜てたまるか(〜하고 참을까 보냐)도 같은 강한 거부를 나타내는 표현으로 함께 알아두세요."}, {"id": "D1-12", "set": "일상 표현 1", "ko": "올해는 작년과 비교하면 비가 적다", "ja": "今年は去年と比べると雨が少ない。", "reading": "ことしは きょねんと くらべると あめが すくない", "grammar": {"point": "〜と比べると", "note": "'〜와 비교하면'이라는 비교 기준을 제시하는 표현입니다. 〜と比べて, 〜に比べて, 〜と比較すると로 바꿔 쓸 수 있습니다. 비교 대상에는 조사 と 또는 に를 씁니다."}, "vocab": [{"w": "今年", "r": "ことし", "m": "올해", "note": "こんねん이 아님"}, {"w": "去年", "r": "きょねん", "m": "작년", "note": "격식체는 昨年(さくねん)"}, {"w": "比べる", "r": "くらべる", "m": "비교하다", "note": "〜と比べる/〜に比べる"}, {"w": "少ない", "r": "すくない", "m": "적다", "note": "小さい(작다)와 구별"}], "alt": ["今年は去年に比べて雨が少ない。", "今年は昨年と比較すると雨が少ない。"], "tip": "'적다'는 少ない이지 小さい가 아닙니다. 비교 표현은 〜と比べると와 〜に比べて 모두 정답으로 인정됩니다. 今年는 ことし로 읽는 점에 주의하세요."}, {"id": "D1-13", "set": "일상 표현 1", "ko": "스마트폰의 보급에 따라 생활이 편리해졌다.", "ja": "スマートフォンの普及に伴って、生活が便利になった。", "reading": "スマートフォンの ふきゅうに ともなって せいかつが べんりに なった", "grammar": {"point": "〜に伴って", "note": "'〜에 따라, 〜와 함께'라는 뜻으로, 한쪽의 변화에 동반하여 다른 변화가 일어남을 나타냅니다. 〜につれて, 〜とともに와 비슷하지만 〜に伴って는 조금 딱딱한 문어체 느낌입니다. 명사 또는 동사 사전형에 접속합니다."}, "vocab": [{"w": "スマートフォン", "r": "すまーとふぉん", "m": "스마트폰", "note": "회화에서는 スマホ"}, {"w": "普及", "r": "ふきゅう", "m": "보급", "note": "普及する(보급되다)"}, {"w": "〜に伴って", "r": "にともなって", "m": "〜에 따라, 〜에 동반하여", "note": "〜に伴い(문어)"}, {"w": "便利", "r": "べんり", "m": "편리", "note": "な형용사. 便利になる(편리해지다)"}], "alt": ["スマホの普及につれて、生活が便利になった。", "スマートフォンの普及とともに、生活が便利になった。"], "tip": "'〜에 따라'를 〜によって로 번역하는 실수가 많습니다. 〜によって는 수단·원인이고, 변화에 동반되는 변화는 〜に伴って·〜につれて·〜とともに를 씁니다. '편리해졌다'는 な형용사이므로 便利になった(便利くなった ✕)입니다."}, {"id": "D1-14", "set": "일상 표현 1", "ko": "정부는 채소에 대한 농약의 규제를 강화했다.", "ja": "政府は野菜に対する農薬の規制を強化した。", "reading": "せいふは やさいに たいする のうやくの きせいを きょうかした", "grammar": {"point": "〜に対する", "note": "〜に対して(〜에 대해서)의 연체형으로, 뒤의 명사를 수식하여 '〜에 대한'이라는 뜻을 나타냅니다. 대상·상대를 가리키며, 내용·주제를 뜻하는 〜についての와 구별해야 합니다."}, "vocab": [{"w": "政府", "r": "せいふ", "m": "정부", "note": ""}, {"w": "野菜", "r": "やさい", "m": "채소, 야채", "note": ""}, {"w": "〜に対する", "r": "にたいする", "m": "〜에 대한", "note": "명사 수식형. 〜に対して의 연체형"}, {"w": "農薬", "r": "のうやく", "m": "농약", "note": ""}, {"w": "規制", "r": "きせい", "m": "규제", "note": "規制する"}, {"w": "強化", "r": "きょうか", "m": "강화", "note": "強化する"}], "alt": ["政府は野菜に対する農薬規制を強化した。"], "tip": "'채소에 대한'은 대상이므로 〜に対する가 맞고, 〜についての(채소에 관한 내용)는 뉘앙스가 다릅니다. 명사를 수식할 때는 〜に対して가 아니라 〜に対する 형태를 써야 합니다."}, {"id": "D1-15", "set": "일상 표현 1", "ko": "그녀는 만나면 항상 방긋 웃으며 인사를 한다.", "ja": "彼女は会うといつもにっこり笑ってあいさつをする。", "reading": "かのじょは あうと いつも にっこり わらって あいさつを する", "grammar": {"point": "〜と（いつも）", "note": "동사 사전형+と는 '〜하면 (반드시·항상)'이라는 조건을 나타내며, 습관적·필연적 결과에 씁니다. 뒤에 의지·명령·권유는 올 수 없습니다. 반복되는 습관을 말할 때 いつも와 자주 함께 쓰입니다."}, "vocab": [{"w": "会う", "r": "あう", "m": "만나다", "note": "〜に会う(〜를 만나다), 조사 に 주의"}, {"w": "にっこり", "r": "にっこり", "m": "방긋, 생긋", "note": "의태어. にこにこ(싱글벙글, 계속 웃는 모양)"}, {"w": "笑う", "r": "わらう", "m": "웃다", "note": ""}, {"w": "あいさつ", "r": "あいさつ", "m": "인사", "note": "한자 挨拶. あいさつをする/あいさつする"}], "alt": ["彼女は会うといつもにっこり笑いながらあいさつをする。", "彼女は会うたびににっこり笑ってあいさつをする。"], "tip": "습관적 조건 '만나면 항상'은 〜と가 가장 자연스럽고, 〜たら도 가능하지만 〜ば는 다소 어색합니다. '웃으며'는 笑って 또는 笑いながら 모두 괜찮습니다. '방긋'은 의태어 にっこり로, 한국어 의태어를 그대로 옮기지 말고 대응되는 일본어 의태어를 찾는 연습을 하세요."}, {"id": "D2-01", "set": "가족·인간관계 1", "ko": "우선은 상대방의 이야기를 잘 듣는 것이 중요하다.", "ja": "まずは相手の話をよく聞くことが大切だ。", "reading": "まずは あいての はなしを よく きくことが たいせつだ", "grammar": {"point": "〜ことが大切だ", "note": "동사 사전형+ことが大切だ/重要だ는 '〜하는 것이 중요하다'라는 뜻입니다. 동사를 명사화할 때 こと를 쓰며, の를 써서 〜のが大切だ라고도 할 수 있지만 こと가 더 격식 있는 느낌입니다."}, "vocab": [{"w": "まずは", "r": "まずは", "m": "우선은, 먼저", "note": "まず보다 '일단은'의 뉘앙스가 강함"}, {"w": "相手", "r": "あいて", "m": "상대(방)", "note": "'상대방'을 相手方이라고 하지 않도록 주의"}, {"w": "話", "r": "はなし", "m": "이야기", "note": ""}, {"w": "大切", "r": "たいせつ", "m": "중요, 소중", "note": "な형용사. 重要(じゅうよう)보다 부드러운 느낌"}], "alt": ["まず相手の話をよく聞くことが重要だ。", "まずは相手の話をよく聞くのが大切だ。"], "tip": "'상대방'은 相手(あいて) 한 단어로 충분합니다. '중요하다'는 大切だ와 重要だ 모두 가능하지만, 사람 관계 조언에서는 大切だ가 더 따뜻한 느낌입니다. 聞くこと의 こと를 빼고 聞くが大切だ라고 쓰면 비문이 됩니다."}, {"id": "D2-02", "set": "가족·인간관계 1", "ko": "나에게는 두 살 위의 언니가 있다.", "ja": "私には二つ上の姉がいる。", "reading": "わたしには ふたつうえの あねが いる", "grammar": {"point": "〜には〜がいる", "note": "'〜에게는 〜이 있다'라는 소유·존재 표현입니다. 사람·동물에는 いる, 사물에는 ある를 씁니다. 나이 차이는 '숫자+つ上/下'로 표현하며, 二つ上は 두 살 위'입니다."}, "vocab": [{"w": "二つ上", "r": "ふたつうえ", "m": "두 살 위", "note": "二歳上(にさいうえ)도 가능"}, {"w": "姉", "r": "あね", "m": "(나의) 언니·누나", "note": "남의 언니는 お姉さん(おねえさん)"}, {"w": "いる", "r": "いる", "m": "(사람·동물이) 있다", "note": "사물은 ある"}], "alt": ["私には二歳上の姉がいる。", "私には二つ年上の姉がいる。"], "tip": "자기 가족을 남에게 말할 때는 お姉さん이 아니라 姉(あね)를 씁니다. 사람의 존재이므로 ある가 아닌 いる입니다. 나이 차는 二つ上, 二歳上, 二つ年上(としうえ) 모두 자연스럽습니다."}, {"id": "D2-03", "set": "가족·인간관계 1", "ko": "불편한 것이 있으면 집주인에게 상담하는 편이 좋다.", "ja": "不便なことがあれば、大家さんに相談したほうがいい。", "reading": "ふべんな ことが あれば おおやさんに そうだんしたほうが いい", "grammar": {"point": "〜たほうがいい", "note": "동사 た형+ほうがいい는 '〜하는 편이 좋다'라는 조언·권유 표현입니다. 한국어로는 '하는 편'이지만 일본어는 과거형 た에 접속한다는 점이 포인트입니다. 부정은 〜ないほうがいい입니다."}, "vocab": [{"w": "不便", "r": "ふべん", "m": "불편", "note": "な형용사. 몸이 불편한 것은 具合が悪い"}, {"w": "大家", "r": "おおや", "m": "집주인", "note": "보통 大家さん이라고 부름"}, {"w": "相談", "r": "そうだん", "m": "상담, 의논", "note": "〜に相談する"}, {"w": "〜たほうがいい", "r": "たほうがいい", "m": "〜하는 편이 좋다", "note": "た형 접속"}], "alt": ["不便なことがあったら、大家さんに相談したほうがいい。", "困ったことがあれば、大家さんに相談したほうがいい。"], "tip": "'상담하는 편이 좋다'를 相談するほうがいい로 쓰는 실수가 매우 많습니다. 조언할 때는 반드시 た형(相談したほうがいい)을 쓰세요. '집주인'은 家主(やぬし)보다 大家さん이 일상적입니다."}, {"id": "D2-04", "set": "가족·인간관계 1", "ko": "결혼에는 서로의 이해가 중요하다.", "ja": "結婚にはお互いの理解が大切だ。", "reading": "けっこんには おたがいの りかいが たいせつだ", "grammar": {"point": "〜には〜が大切だ", "note": "'〜에는 〜이 중요하다'처럼 어떤 일에 필요한 조건을 말하는 표현입니다. には로 범위·조건을 제시하고 뒤에 必要だ, 大切だ, 欠かせない 등이 옵니다."}, "vocab": [{"w": "結婚", "r": "けっこん", "m": "결혼", "note": "〜と結婚する"}, {"w": "お互い", "r": "おたがい", "m": "서로", "note": "お互いに(서로, 부사)"}, {"w": "理解", "r": "りかい", "m": "이해", "note": "理解する"}, {"w": "大切", "r": "たいせつ", "m": "중요", "note": ""}], "alt": ["結婚にはお互いの理解が重要だ。", "結婚には互いの理解が欠かせない。"], "tip": "'서로'는 お互い(명사)·お互いに(부사)로 씁니다. 여기서는 '서로의 이해'이므로 명사형 お互いの理解가 맞습니다. 欠かせない(빠뜨릴 수 없다, 필수다)를 쓰면 한층 자연스러운 일본어가 됩니다."}, {"id": "D2-05", "set": "가족·인간관계 1", "ko": "어렸을 때는 빨리 어른이 되고 싶다고 생각했다.", "ja": "子どものころは早く大人になりたいと思っていた。", "reading": "こどものころは はやく おとなに なりたいと おもっていた", "grammar": {"point": "〜たいと思う", "note": "〜たい(〜하고 싶다)에 と思う를 붙여 '〜하고 싶다고 생각하다'라는 희망을 간접적으로 표현합니다. 과거의 지속된 생각은 〜と思っていた로 쓰는 것이 자연스럽습니다. '어렸을 때'는 子どものころ 또는 小さいころ라고 합니다."}, "vocab": [{"w": "子どものころ", "r": "こどものころ", "m": "어렸을 때, 어린 시절", "note": "小さいころ도 같은 뜻"}, {"w": "早く", "r": "はやく", "m": "빨리, 일찍", "note": "속도는 速く, 시간은 早く"}, {"w": "大人", "r": "おとな", "m": "어른", "note": "특수 읽기 주의"}, {"w": "〜になる", "r": "になる", "m": "〜이 되다", "note": "조사 に를 씀"}], "alt": ["小さいころは早く大人になりたいと思った。", "幼いころは早く大人になりたいと思っていた。"], "tip": "'어렸을 때'를 若かったとき로 쓰면 '젊었을 때'가 되어 뜻이 달라집니다. 子どものころ·小さいころ를 쓰세요. '어른이 되다'는 大人になる로 조사 に가 필수입니다. 지속적인 생각이었으므로 思った보다 思っていた가 더 자연스럽습니다."}, {"id": "D2-06", "set": "가족·인간관계 1", "ko": "그 영화는 부모와 아이가 함께 보는 사람이 많다.", "ja": "その映画は親子で見る人が多い。", "reading": "その えいがは おやこで みる ひとが おおい", "grammar": {"point": "〜で（함께하는 단위）", "note": "親子で, 家族で, 二人で처럼 명사+で는 '〜끼리, 〜가 함께'라는 행위 단위를 나타냅니다. 親子(おやこ)는 '부모와 자식'을 한 단어로 묶은 표현으로, 親と子どもが一緒に보다 간결하고 자연스럽습니다."}, "vocab": [{"w": "親子", "r": "おやこ", "m": "부모와 자식", "note": "親子で(부모와 자식이 함께)"}, {"w": "親", "r": "おや", "m": "부모", "note": "両親(りょうしん, 양친)"}, {"w": "見る", "r": "みる", "m": "보다", "note": ""}, {"w": "多い", "r": "おおい", "m": "많다", "note": ""}], "alt": ["その映画は親と子どもが一緒に見ることが多い。", "その映画は親子で見に来る人が多い。"], "tip": "'부모와 아이가 함께'는 親子で 한 단어로 표현하는 것이 가장 일본어답습니다. 直訳 親と子どもが一緒に見る人도 틀리진 않지만 장황합니다. 家族で(가족끼리), 友達と(친구와)처럼 で와 と의 쓰임을 함께 익혀 두세요."}, {"id": "D2-07", "set": "가족·인간관계 1", "ko": "주말에는 가족과 여행 갈 생각이다.", "ja": "週末は家族と旅行に行くつもりだ。", "reading": "しゅうまつは かぞくと りょこうに いくつもりだ", "grammar": {"point": "〜つもりだ", "note": "동사 사전형+つもりだ는 '〜할 생각이다, 〜할 작정이다'라는 확고한 예정·의도를 나타냅니다. 〜ようと思う보다 결심이 굳은 느낌이고, 부정은 〜ないつもりだ 또는 〜つもりはない입니다."}, "vocab": [{"w": "週末", "r": "しゅうまつ", "m": "주말", "note": ""}, {"w": "家族", "r": "かぞく", "m": "가족", "note": ""}, {"w": "旅行", "r": "りょこう", "m": "여행", "note": "旅行に行く/旅行する"}, {"w": "〜つもりだ", "r": "つもりだ", "m": "〜할 생각이다", "note": "사전형 접속"}], "alt": ["週末には家族と旅行に行くつもりです。", "週末は家族と旅行に行く予定だ。"], "tip": "'여행 가다'는 旅行に行く로 조사 に가 필요하고, 旅行を行く는 비문입니다. '〜할 생각이다'는 〜つもりだ가 정석이며, 考えだ라고 직역하면 어색합니다. 확정된 일정이면 予定(よてい)だ도 가능합니다."}, {"id": "D2-08", "set": "가족·인간관계 1", "ko": "신은 인간에게 기쁨과 고통을 주었다고 한다", "ja": "神は人間に喜びと苦しみを与えたと言われている。", "reading": "かみは にんげんに よろこびと くるしみを あたえたと いわれている", "grammar": {"point": "〜と言われている", "note": "'〜라고 (일반적으로) 말해진다, 〜라고 한다'라는 뜻으로, 널리 퍼진 통설·전승을 전할 때 씁니다. 〜そうだ(전문)는 특정 출처에서 들은 느낌이고, 〜と言われている는 일반적인 통념의 느낌입니다."}, "vocab": [{"w": "神", "r": "かみ", "m": "신", "note": "神様(かみさま)"}, {"w": "人間", "r": "にんげん", "m": "인간", "note": ""}, {"w": "喜び", "r": "よろこび", "m": "기쁨", "note": "喜ぶ의 명사형"}, {"w": "苦しみ", "r": "くるしみ", "m": "고통, 괴로움", "note": "苦しむ의 명사형. 苦痛(くつう)도 가능"}, {"w": "与える", "r": "あたえる", "m": "주다, 부여하다", "note": "あげる보다 문어적"}], "alt": ["神は人間に喜びと苦しみを与えたそうだ。", "神は人間に喜びと苦痛を与えたと言われる。"], "tip": "'〜다고 한다'는 〜そうだ도 가능하지만, 종교적·일반적 통설을 전하는 문맥에서는 〜と言われている가 더 어울립니다. 신이 '주다'는 あげる가 아니라 与える(あたえる)가 격에 맞습니다. 喜び·苦しみ처럼 동사 ます형이 명사가 되는 패턴을 익혀 두세요."}, {"id": "D2-09", "set": "가족·인간관계 1", "ko": "멀리서 온 친구를 가족 모두가 환영했다.", "ja": "遠くから来た友達を家族みんなで歓迎した。", "reading": "とおくから きた ともだちを かぞく みんなで かんげいした", "grammar": {"point": "〜みんなで", "note": "家族みんなで, クラスみんなで처럼 '〜모두가 (함께)'라는 뜻으로, 집단 전체가 함께 행동함을 나타냅니다. 조사 で가 행위의 단위를 표시합니다. 遠くから来た는 '멀리서 온'으로, 遠く가 명사처럼 쓰인 예입니다."}, "vocab": [{"w": "遠く", "r": "とおく", "m": "먼 곳, 멀리", "note": "遠くから(멀리서), 遠くに(멀리에)"}, {"w": "友達", "r": "ともだち", "m": "친구", "note": ""}, {"w": "みんな", "r": "みんな", "m": "모두", "note": "皆(みな)는 격식체"}, {"w": "歓迎", "r": "かんげい", "m": "환영", "note": "歓迎する"}], "alt": ["遠くから来た友人を家族全員で歓迎した。", "遠くから来た友達を家族みんなが歓迎した。"], "tip": "'가족 모두가'는 家族みんなで(함께 행동) 또는 家族みんなが(주어) 둘 다 가능하지만, 함께 맞이했다는 뉘앙스는 で가 더 잘 삽니다. '멀리서'는 遠いから가 아니라 遠くから입니다. 遠い(형용사)와 遠く(명사·부사)를 구별하세요."}, {"id": "D2-10", "set": "가족·인간관계 1", "ko": "10년동안 사귄 애인과 결혼하기로 했다", "ja": "10年間付き合った恋人と結婚することにした。", "reading": "じゅうねんかん つきあった こいびとと けっこんすることに した", "grammar": {"point": "〜ことにする", "note": "동사 사전형+ことにする는 '〜하기로 하다'라는 자신의 결정을 나타냅니다. 과거형 〜ことにした는 '〜하기로 했다'입니다. 외부 사정으로 정해진 경우는 〜ことになる를 씁니다."}, "vocab": [{"w": "〜年間", "r": "ねんかん", "m": "〜년 동안", "note": "기간을 강조할 때 間을 붙임"}, {"w": "付き合う", "r": "つきあう", "m": "사귀다, 교제하다", "note": "〜と付き合う"}, {"w": "恋人", "r": "こいびと", "m": "애인, 연인", "note": "愛人(あいじん)은 '불륜 상대'라는 뜻이니 주의!"}, {"w": "〜ことにする", "r": "ことにする", "m": "〜하기로 하다", "note": "자신의 결정"}], "alt": ["10年付き合った恋人と結婚することにした。", "10年間交際した恋人と結婚することに決めた。"], "tip": "한국어 '애인'을 한자 그대로 愛人이라고 쓰면 일본어로는 '불륜 상대'가 되어 큰 오해를 부릅니다. 반드시 恋人(こいびと)를 쓰세요. '결혼하기로 했다'는 자신의 결정이므로 〜ことにした이고, 〜ことになった로 쓰면 '결혼하게 되었다'로 뉘앙스가 달라집니다."}, {"id": "D2-11", "set": "가족·인간관계 1", "ko": "남편은 회사에서 돌아오면 곧바로 목욕을 한다", "ja": "夫は会社から帰るとすぐにお風呂に入る。", "reading": "おっとは かいしゃから かえると すぐに おふろに はいる", "grammar": {"point": "〜とすぐに", "note": "동사 사전형+と는 '〜하면 (늘)'이라는 습관적 조건을 나타내고, すぐに를 붙여 '〜하면 곧바로'라는 뜻이 됩니다. 비슷한 표현으로 〜てすぐに, 〜たとたん(〜하자마자)이 있습니다."}, "vocab": [{"w": "夫", "r": "おっと", "m": "(나의) 남편", "note": "남의 남편은 ご主人(ごしゅじん)"}, {"w": "会社", "r": "かいしゃ", "m": "회사", "note": ""}, {"w": "すぐに", "r": "すぐに", "m": "곧바로, 바로", "note": ""}, {"w": "お風呂に入る", "r": "おふろにはいる", "m": "목욕을 하다", "note": "直訳 お風呂をする는 쓰지 않음"}], "alt": ["夫は会社から帰ってくるとすぐにお風呂に入る。", "夫は会社から帰るとすぐ風呂に入る。"], "tip": "'목욕을 하다'는 お風呂に入る(목욕탕에 들어가다)라는 관용 표현을 써야 하며, お風呂をする는 비문입니다. 자기 남편은 夫(おっと), 남의 남편은 ご主人입니다. '회사에서 돌아오다'의 '에서'는 출발점이므로 会社から입니다."}, {"id": "D2-12", "set": "가족·인간관계 1", "ko": "우리들은 친구의 소개로 만났다", "ja": "私たちは友達の紹介で出会った。", "reading": "わたしたちは ともだちの しょうかいで であった", "grammar": {"point": "〜の紹介で", "note": "명사+で는 수단·계기를 나타내어 '〜의 소개로, 〜를 통해'라는 뜻이 됩니다. 出会う(であう)는 '(우연히·처음) 만나다'로, 약속해서 만나는 会う와 구별됩니다."}, "vocab": [{"w": "私たち", "r": "わたしたち", "m": "우리(들)", "note": ""}, {"w": "紹介", "r": "しょうかい", "m": "소개", "note": "紹介する"}, {"w": "出会う", "r": "であう", "m": "(처음·우연히) 만나다", "note": "会う는 약속하고 만나는 느낌"}], "alt": ["私たちは友人の紹介で知り合った。", "私たちは友達の紹介で会った。"], "tip": "처음 만난 계기를 말할 때는 会う보다 出会う 또는 知り合う(しりあう, 알게 되다)가 자연스럽습니다. '소개로'의 '로'는 수단이므로 で입니다. 紹介に나 紹介から는 틀립니다."}, {"id": "D2-13", "set": "가족·인간관계 1", "ko": "친척 모임을 위해 고향에 돌아가야 한다", "ja": "親戚の集まりのために故郷に帰らなければならない。", "reading": "しんせきの あつまりの ために こきょうに かえらなければ ならない", "grammar": {"point": "〜なければならない", "note": "동사 ない형의 ない를 なければ로 바꾸고 ならない를 붙여 '〜해야 한다'는 의무를 나타냅니다. 구어에서는 〜なきゃ(いけない), 〜ないと(いけない)로 줄입니다. 〜のために는 '〜을 위해'라는 목적을 나타냅니다."}, "vocab": [{"w": "親戚", "r": "しんせき", "m": "친척", "note": "親類(しんるい)도 같은 뜻"}, {"w": "集まり", "r": "あつまり", "m": "모임", "note": "集まる의 명사형"}, {"w": "〜のために", "r": "のために", "m": "〜을 위해", "note": ""}, {"w": "故郷", "r": "こきょう", "m": "고향", "note": "회화에서는 実家(じっか, 본가)·地元(じもと)를 더 많이 씀"}, {"w": "帰る", "r": "かえる", "m": "돌아가다", "note": ""}], "alt": ["親戚の集まりのために実家に帰らなければいけない。", "親戚の集まりで帰省しなければならない。"], "tip": "'고향에 돌아가다'는 故郷に帰る도 맞지만, 실제 회화에서는 実家に帰る나 帰省(きせい)する가 훨씬 자연스럽습니다. '모임'은 会議(회의)가 아니라 集まり입니다. 의무 표현 〜なければならない는 활용이 길어 실수가 잦으니 帰らなければ 부분의 활용을 정확히 익히세요."}, {"id": "D2-14", "set": "가족·인간관계 1", "ko": "그는 부하로부터의 신뢰가 두텁다", "ja": "彼は部下からの信頼が厚い。", "reading": "かれは ぶかからの しんらいが あつい", "grammar": {"point": "〜からの＋명사", "note": "〜から(〜로부터)에 の를 붙여 뒤의 명사를 수식하면 '〜로부터의'가 됩니다. 조사 뒤에 の를 붙여 명사 수식을 만드는 패턴(〜への, 〜との, 〜での)을 함께 익히세요. 信頼が厚い는 '신뢰가 두텁다'라는 관용 표현입니다."}, "vocab": [{"w": "部下", "r": "ぶか", "m": "부하", "note": "반대는 上司(じょうし)"}, {"w": "〜からの", "r": "からの", "m": "〜로부터의", "note": ""}, {"w": "信頼", "r": "しんらい", "m": "신뢰", "note": "信頼する/信頼される"}, {"w": "厚い", "r": "あつい", "m": "두텁다", "note": "暑い(덥다)·熱い(뜨겁다)와 동음이의. 信頼が厚い는 관용구"}], "alt": ["彼は部下から厚く信頼されている。", "彼は部下に信頼されている。"], "tip": "'두텁다'는 厚い이며, 暑い·熱い와 발음이 같아 한자 선택에 주의해야 합니다. 信頼が厚い는 그대로 쓰이는 관용 표현입니다. 수동형 部下から厚く信頼されている로 바꾸면 더 일본어다운 문장이 됩니다."}, {"id": "D2-15", "set": "가족·인간관계 1", "ko": "고민거리는 혼자서 생각하지 말고 친구에게 상담해야 한다", "ja": "悩み事は一人で考えないで、友達に相談すべきだ。", "reading": "なやみごとは ひとりで かんがえないで ともだちに そうだんすべきだ", "grammar": {"point": "〜ないで / 〜べきだ", "note": "〜ないで는 '〜하지 말고, 〜하지 않은 채'로 뒤 동작의 방식을 나타냅니다. 〜べきだ는 사전형에 붙어 '〜해야 한다'는 당위·충고를 나타내며, する는 すべきだ·するべきだ 둘 다 가능합니다. 〜なければならない(의무)보다 '마땅히 그래야 한다'는 조언의 느낌입니다."}, "vocab": [{"w": "悩み事", "r": "なやみごと", "m": "고민거리", "note": "悩み(고민)+事(일)"}, {"w": "一人で", "r": "ひとりで", "m": "혼자서", "note": ""}, {"w": "考える", "r": "かんがえる", "m": "생각하다", "note": "思う보다 '숙고하다'의 느낌"}, {"w": "相談", "r": "そうだん", "m": "상담, 의논", "note": "〜に相談する"}, {"w": "〜べきだ", "r": "べきだ", "m": "〜해야 한다", "note": "충고·당위"}], "alt": ["悩み事は一人で抱え込まずに、友達に相談したほうがいい。", "悩みは一人で考えず、友達に相談するべきだ。"], "tip": "'〜하지 말고'는 〜ないで(또는 문어 〜ずに)이며, 〜なくて로 쓰면 이유 설명이 되어 어색합니다. '상담해야 한다'는 조언이므로 〜べきだ 또는 〜たほうがいい가 어울립니다. 一人で抱え込む(かかえこむ, 혼자 떠안다)라는 표현도 함께 알아두면 유용합니다."}, {"id": "D3-01", "set": "가족·인간관계 2", "ko": "선배는 모두로부터 존경 받고 있다", "ja": "先輩はみんなから尊敬されている。", "reading": "せんぱいは みんなから そんけいされている。", "grammar": {"point": "受身（〜から〜される）", "note": "「尊敬する」의 수동형 「尊敬される」로 '존경받다'를 표현합니다. 행위의 주체는 「〜から」또는「〜に」로 나타내며, 「〜ている」를 붙여 현재 지속되는 상태를 나타냅니다."}, "vocab": [{"w": "先輩", "r": "せんぱい", "m": "선배", "note": "반대말은 「後輩（こうはい）」"}, {"w": "みんな", "r": "みんな", "m": "모두", "note": "문어체에서는 「皆（みな）」도 사용"}, {"w": "尊敬", "r": "そんけい", "m": "존경", "note": "「尊敬する」(존경하다) → 수동 「尊敬される」"}], "alt": ["先輩は皆に尊敬されている。"], "tip": "'존경받다'를 「尊敬をもらう」처럼 직역하면 부자연스럽습니다. 일본어에서는 수동형 「尊敬される」가 자연스럽습니다. 「から」 대신 「に」를 써도 되지만, 출처·기원을 강조할 때는 「から」가 더 잘 어울립니다."}, {"id": "D3-02", "set": "가족·인간관계 2", "ko": "이 앙케트는 대학생을 대상으로 만들어져 있다", "ja": "このアンケートは大学生を対象に作られている。", "reading": "この アンケートは だいがくせいを たいしょうに つくられている。", "grammar": {"point": "〜を対象に（して）", "note": "「名詞＋を対象に」는 '〜를 대상으로'라는 뜻으로 조사·설문·서비스 등의 목표 범위를 나타냅니다. 「〜を対象として」「〜を対象にした」형태로도 자주 쓰입니다. 뒤의 「作られている」는 수동+상태의 「〜ている」입니다."}, "vocab": [{"w": "アンケート", "r": "アンケート", "m": "앙케트, 설문조사", "note": "프랑스어 enquête에서 유래. 「アンケートを取る」(설문하다)"}, {"w": "大学生", "r": "だいがくせい", "m": "대학생", "note": ""}, {"w": "対象", "r": "たいしょう", "m": "대상", "note": "동음이의어 「対照」(대조), 「対称」(대칭)에 주의"}, {"w": "作る", "r": "つくる", "m": "만들다", "note": "수동형 「作られる」"}], "alt": ["このアンケートは大学生を対象として作成されている。"], "tip": "「対象」의 한자를 「対称」나 「対照」와 혼동하지 않도록 주의하세요. '만들어져 있다'는 결과 상태이므로 「作られている」가 적절하며, 「作ってある」(누군가 의도적으로 만들어 둔 상태)로 쓸 수도 있습니다."}, {"id": "D3-03", "set": "가족·인간관계 2", "ko": "타인과 함께 생활하는 것은 어려운 일이다", "ja": "他人と一緒に生活するのは難しいことだ。", "reading": "たにんと いっしょに せいかつするのは むずかしい ことだ。", "grammar": {"point": "〜のは〜ことだ（名詞化）", "note": "동사 사전형에 「の」또는「こと」를 붙여 명사화한 뒤 주어로 삼습니다. 「〜のは…ことだ」는 '〜하는 것은 …한 일이다'라는 일반적 판단·평가를 서술하는 형태입니다."}, "vocab": [{"w": "他人", "r": "たにん", "m": "타인, 남", "note": "「他の人（ほかのひと）」보다 거리감·무관함의 뉘앙스가 강함"}, {"w": "一緒に", "r": "いっしょに", "m": "함께, 같이", "note": ""}, {"w": "生活", "r": "せいかつ", "m": "생활", "note": "「生活する」(생활하다). 「暮らす」도 비슷한 뜻"}, {"w": "難しい", "r": "むずかしい", "m": "어렵다", "note": ""}], "alt": ["他人と共に暮らすことは難しい。"], "tip": "'타인'을 「他の人」로 옮기면 뜻은 통하지만 「他人」이 더 간결하고 원문 뉘앙스에 가깝습니다. '함께 생활하다'는 「一緒に暮らす」로 바꿔도 자연스럽습니다. 「難しいことだ」 대신 「難しいものだ」로 쓰면 일반적 진리처럼 들리는 느낌이 강해집니다."}, {"id": "D3-04", "set": "가족·인간관계 2", "ko": "지인에게 권유받아 지금의 회사에서 일하고 있다.", "ja": "知人に誘われて今の会社で働いている。", "reading": "ちじんに さそわれて いまの かいしゃで はたらいている。", "grammar": {"point": "受身の〜て（原因・経緯）", "note": "「誘われて」는 「誘う」의 수동형 て형으로, 뒤 문장의 경위·계기를 나타냅니다. '권유받아서 (그 결과) 〜하고 있다'처럼 수동+て형으로 원인을 이어 주는 패턴입니다."}, "vocab": [{"w": "知人", "r": "ちじん", "m": "지인", "note": "「知り合い（しりあい）」가 더 구어적"}, {"w": "誘う", "r": "さそう", "m": "권유하다, 권하다, 꾀다", "note": "수동형 「誘われる」(권유받다)"}, {"w": "今の会社", "r": "いまのかいしゃ", "m": "지금의 회사", "note": ""}, {"w": "働く", "r": "はたらく", "m": "일하다", "note": "「仕事をする」도 가능하지만 「〜で働く」가 간결"}], "alt": ["知り合いに勧められて今の会社で働いている。"], "tip": "'권유받다'는 상황에 따라 「誘われる」(함께 하자고 권유받다)와 「勧められる」(추천받다)로 나뉩니다. 취업처럼 '같이 하자'는 뉘앙스라면 「誘われて」가 자연스럽습니다. 「〜から誘われて」로 써도 됩니다."}, {"id": "D3-05", "set": "가족·인간관계 2", "ko": "불친절한 점원이 있는 레스토랑에는 가고 싶지 않다.", "ja": "不親切な店員がいるレストランには行きたくない。", "reading": "ふしんせつな てんいんが いる レストランには いきたくない。", "grammar": {"point": "連体修飾節＋〜たくない", "note": "「不親切な店員がいる」라는 절이 「レストラン」을 수식하는 연체수식절입니다. 수식절 안의 주어는 「が」를 씁니다. 「〜たくない」는 「〜たい」의 부정형으로 '〜하고 싶지 않다'입니다."}, "vocab": [{"w": "不親切", "r": "ふしんせつ", "m": "불친절", "note": "な형용사. 반대말 「親切（しんせつ）」"}, {"w": "店員", "r": "てんいん", "m": "점원", "note": ""}, {"w": "レストラン", "r": "レストラン", "m": "레스토랑", "note": ""}, {"w": "行きたくない", "r": "いきたくない", "m": "가고 싶지 않다", "note": "「行きたい」의 부정"}], "alt": ["店員が不親切なレストランには行きたくない。"], "tip": "수식절 안에서 「店員は」처럼 「は」를 쓰는 오류가 많습니다. 연체수식절 안에서는 「が」를 써야 합니다. 「には」의 「は」는 '그런 곳에는'이라는 대비·강조를 더해 주므로 생략하지 않는 편이 원문에 가깝습니다."}, {"id": "D3-06", "set": "가족·인간관계 2", "ko": "그녀는 독신이고 애인도 없다.", "ja": "彼女は独身で恋人もいない。", "reading": "かのじょは どくしんで こいびとも いない。", "grammar": {"point": "名詞＋で（並列・中止形）", "note": "명사나 な형용사를 「〜で」로 이어 '〜이고'라고 병렬합니다. 「独身で」는 「独身だ」의 중지형입니다. 사람·동물의 존재 부정은 「ない」가 아니라 「いない」를 씁니다."}, "vocab": [{"w": "彼女", "r": "かのじょ", "m": "그녀", "note": "문맥에 따라 '여자친구'라는 뜻도 됨"}, {"w": "独身", "r": "どくしん", "m": "독신", "note": "「シングル」도 구어에서 사용"}, {"w": "恋人", "r": "こいびと", "m": "애인, 연인", "note": "「愛人（あいじん）」은 '불륜 상대'라는 뜻이므로 주의!"}, {"w": "いない", "r": "いない", "m": "(사람이) 없다", "note": "사물은 「ない」, 사람·동물은 「いない」"}], "alt": ["彼女は独身で、恋人もいません。"], "tip": "'애인'을 한자 그대로 「愛人」이라고 쓰면 '불륜 상대'라는 전혀 다른 뜻이 되므로 반드시 「恋人」을 쓰세요. 또 '애인이 없다'는 사람이므로 「ない」가 아니라 「いない」입니다."}, {"id": "D3-07", "set": "가족·인간관계 2", "ko": "학창 시절의 동아리 친구와 지금도 연락을 하고 있다", "ja": "学生時代のサークルの友達と今でも連絡を取っている。", "reading": "がくせいじだいの サークルの ともだちと いまでも れんらくを とっている。", "grammar": {"point": "連絡を取る／今でも", "note": "'연락을 하다'는 일본어에서 「連絡を取る」라는 연어(コロケーション)로 표현하는 것이 자연스럽습니다. 「今でも」는 '지금도 (여전히)'라는 뜻으로 「今も」보다 계속성을 강조합니다."}, "vocab": [{"w": "学生時代", "r": "がくせいじだい", "m": "학창 시절", "note": "「学校時代」라고는 잘 쓰지 않음"}, {"w": "サークル", "r": "サークル", "m": "동아리", "note": "대학은 「サークル」, 중고교는 「部活（ぶかつ）」"}, {"w": "友達", "r": "ともだち", "m": "친구", "note": "「仲間（なかま）」는 '같은 활동을 하는 동료'"}, {"w": "連絡を取る", "r": "れんらくをとる", "m": "연락을 하다/취하다", "note": "「連絡する」도 가능하나 「取り合っている」(서로 연락하다)가 더 자연스러울 때도 많음"}], "alt": ["学生時代の部活の仲間と今も連絡を取り合っている。"], "tip": "'연락을 하고 있다'를 「連絡をしている」로 직역해도 통하지만 「連絡を取っている」나 「連絡を取り合っている」가 훨씬 자연스럽습니다. '학창 시절'은 「学生時代」로, 「学校時代」는 거의 쓰지 않습니다."}, {"id": "D3-08", "set": "가족·인간관계 2", "ko": "요즘 젊은이들은 배려가 부족하다고 한다", "ja": "最近の若者は思いやりが足りないと言われている。", "reading": "さいきんの わかものは おもいやりが たりないと いわれている。", "grammar": {"point": "〜と言われている（伝聞・一般論）", "note": "'〜라고 한다'가 세간의 일반적 평가를 전할 때는 「〜と言われている」가 가장 자연스럽습니다. 특정 사람에게서 들은 정보면 「〜そうだ」, 단순 전달이면 「〜と言う」를 씁니다."}, "vocab": [{"w": "最近", "r": "さいきん", "m": "최근, 요즘", "note": "「近頃（ちかごろ）」「このごろ」도 가능"}, {"w": "若者", "r": "わかもの", "m": "젊은이", "note": "「若い人（わかいひと）」도 가능"}, {"w": "思いやり", "r": "おもいやり", "m": "배려", "note": "「配慮（はいりょ）」는 더 딱딱한 표현"}, {"w": "足りない", "r": "たりない", "m": "부족하다", "note": "「不足している（ふそく）」도 가능"}], "alt": ["近頃の若者は思いやりに欠けると言われている。", "最近の若者は配慮が足りないそうだ。"], "tip": "'배려'를 「配慮」로만 외우기 쉬운데, 사람에 대한 따뜻한 마음씀씀이는 「思いやり」가 더 어울립니다. 「〜と言う」로 끝내면 누가 말하는지 불분명해지므로 세간의 평가에는 「〜と言われている」를 추천합니다."}, {"id": "D3-09", "set": "가족·인간관계 2", "ko": "그는 비밀을 지키지 않기 때문에 신용할 수 없다", "ja": "彼は秘密を守らないから信用できない。", "reading": "かれは ひみつを まもらないから しんようできない。", "grammar": {"point": "〜から（理由）＋可能形否定", "note": "「〜ないから」는 '〜하지 않기 때문에'라는 주관적 이유를 나타냅니다. 「信用できない」는 「信用する」의 가능형 부정으로 '신용할 수 없다'입니다. 좀 더 객관적·격식 있는 이유는 「〜ので」를 씁니다."}, "vocab": [{"w": "秘密", "r": "ひみつ", "m": "비밀", "note": "「秘密を守る」(비밀을 지키다), 「秘密を漏らす」(비밀을 누설하다)"}, {"w": "守る", "r": "まもる", "m": "지키다", "note": "「約束を守る」「ルールを守る」도 같은 동사"}, {"w": "信用", "r": "しんよう", "m": "신용", "note": "「信頼（しんらい）」는 '신뢰'로 좀 더 깊은 믿음"}, {"w": "できない", "r": "できない", "m": "할 수 없다", "note": ""}], "alt": ["彼は秘密を守れないので信用できない。"], "tip": "'신용할 수 없다'는 「信用することができない」보다 「信用できない」가 간결하고 자연스럽습니다. 「信用」과 「信頼」의 차이도 알아두세요. 「信用」은 실적·행동에 근거한 믿음, 「信頼」는 인격에 대한 깊은 믿음입니다."}, {"id": "D3-10", "set": "가족·인간관계 2", "ko": "부장님, 죄송하지만, 이 서류 좀 봐주실 수 있습니까?", "ja": "部長、申し訳ありませんが、この書類を見ていただけますか。", "reading": "ぶちょう、もうしわけありませんが、この しょるいを みていただけますか。", "grammar": {"point": "〜ていただけますか（依頼の敬語）", "note": "「〜ていただけますか」는 「〜てもらえますか」의 겸양 표현으로 윗사람에게 정중하게 부탁할 때 씁니다. 더 정중하게는 「〜ていただけないでしょうか」. 「申し訳ありませんが」는 부탁 앞에 붙이는 쿠션어입니다."}, "vocab": [{"w": "部長", "r": "ぶちょう", "m": "부장(님)", "note": "직함 자체가 경칭이므로 「部長さん」「部長様」는 쓰지 않음"}, {"w": "申し訳ありません", "r": "もうしわけありません", "m": "죄송합니다", "note": "「すみません」보다 정중"}, {"w": "書類", "r": "しょるい", "m": "서류", "note": ""}, {"w": "見ていただく", "r": "みていただく", "m": "봐 주시다(겸양)", "note": "더 공손: 「ご覧いただく」"}], "alt": ["部長、恐れ入りますが、この書類に目を通していただけないでしょうか。"], "tip": "'부장님'을 「部長さん」「部長様」로 쓰면 틀립니다. 일본어에서는 직함 자체에 경의가 담겨 있어 「部長」만 씁니다. '좀 봐주실 수 있습니까'를 「見てくれますか」로 쓰면 윗사람에게는 실례이므로 「見ていただけますか」를 쓰세요."}, {"id": "D3-11", "set": "가족·인간관계 2", "ko": "어떤 때라도 나는 당신의 편입니다.", "ja": "どんな時でも私はあなたの味方です。", "reading": "どんな ときでも わたしは あなたの みかたです。", "grammar": {"point": "どんな〜でも", "note": "「どんな＋名詞＋でも」는 '어떤 〜라도'라는 뜻으로 모든 경우를 포괄합니다. 「いつでも」(언제라도)로 바꿔 쓸 수도 있습니다."}, "vocab": [{"w": "どんな時でも", "r": "どんなときでも", "m": "어떤 때라도", "note": "「いつでも」「いかなる時も」(문어)도 가능"}, {"w": "あなた", "r": "あなた", "m": "당신", "note": "실제 대화에서는 상대 이름을 쓰는 게 더 자연스러움"}, {"w": "味方", "r": "みかた", "m": "편, 아군", "note": "반대말 「敵（てき）」. 동음 「見方」(견해)와 혼동 주의"}], "alt": ["いつでも私はあなたの味方です。"], "tip": "'편'을 「側（がわ）」로 옮기면 틀립니다. '누구의 편이다'는 「〜の味方だ」라는 고정 표현을 씁니다. 「味方」의 한자를 「見方」(견해)와 혼동하지 않도록 주의하세요."}, {"id": "D3-12", "set": "가족·인간관계 2", "ko": "딸은 내년에 중학생이 되지만, 아들은 아직 초등학생입니다.", "ja": "娘は来年中学生になりますが、息子はまだ小学生です。", "reading": "むすめは らいねん ちゅうがくせいに なりますが、むすこは まだ しょうがくせいです。", "grammar": {"point": "〜が（対比）／名詞＋になる", "note": "「〜になる」는 명사에 붙어 '〜이 되다'를 나타냅니다. 「〜が」는 두 문장을 대비시키는 역접 조사로, 정중체 문장에서는 앞 문장도 「〜ますが」로 맞춥니다."}, "vocab": [{"w": "娘", "r": "むすめ", "m": "딸", "note": "남의 딸은 「娘さん」「お嬢さん」"}, {"w": "息子", "r": "むすこ", "m": "아들", "note": "남의 아들은 「息子さん」"}, {"w": "中学生", "r": "ちゅうがくせい", "m": "중학생", "note": ""}, {"w": "小学生", "r": "しょうがくせい", "m": "초등학생", "note": "일본의 초등학교는 「小学校（しょうがっこう）」"}, {"w": "まだ", "r": "まだ", "m": "아직", "note": "「もう」(이미/벌써)와 대비"}], "alt": ["娘は来年中学生になるのですが、息子はまだ小学生です。"], "tip": "'중학생이 되다'에서 조사는 「に」입니다(「中学生がなる」✕). 정중체 문장에서 앞절을 「なるが」(보통형)로 쓰면 문체가 어긋나므로 「なりますが」로 통일하세요. '초등학생'은 「初等学生」이 아니라 「小学生」입니다."}, {"id": "D3-13", "set": "가족·인간관계 2", "ko": "우리 부모님은 일을 하기 때문에 어렸을때는 외로웠다.", "ja": "うちの両親は働いていたので、子供の頃は寂しかった。", "reading": "うちの りょうしんは はたらいていたので、こどもの ころは さびしかった。", "grammar": {"point": "〜ので（理由）／時制の一致", "note": "과거의 일을 말하므로 이유절도 「働いていた」로 과거진행형을 씁니다. 「〜ので」는 객관적 이유를 나타내며, 「〜から」보다 부드러운 어감입니다. '어렸을 때'는 「子供の頃」「小さい頃」로 표현합니다."}, "vocab": [{"w": "うちの", "r": "うちの", "m": "우리 (집의)", "note": "자기 가족을 말할 때 「私の」보다 자연스러움"}, {"w": "両親", "r": "りょうしん", "m": "부모(님)", "note": "남의 부모는 「ご両親」. 자기 부모에게 「〜様」는 안 붙임"}, {"w": "働く", "r": "はたらく", "m": "일하다", "note": "「仕事をする」도 가능"}, {"w": "子供の頃", "r": "こどものころ", "m": "어렸을 때", "note": "「小さい頃」「幼い頃（おさないころ）」도 가능"}, {"w": "寂しい", "r": "さびしい", "m": "외롭다, 쓸쓸하다", "note": "「さみしい」로도 읽음"}], "alt": ["私の両親は仕事をしていたので、小さい頃は寂しかった。"], "tip": "자기 부모를 남에게 말할 때 「ご両親」「両親様」처럼 높이면 안 됩니다. 「うちの両親」「私の両親」을 쓰세요. 또 원문이 과거 이야기이므로 「働いているので」(현재)가 아니라 「働いていたので」로 시제를 맞추는 것이 중요합니다."}, {"id": "D3-14", "set": "가족·인간관계 2", "ko": "두 사람은 1위를 다투며 치열한 경쟁을 해 왔다", "ja": "二人は一位を争って激しい競争をしてきた。", "reading": "ふたりは いちいを あらそって はげしい きょうそうを してきた。", "grammar": {"point": "〜てきた（継続）", "note": "「〜てきた」는 과거부터 현재까지 어떤 행위가 계속되어 온 것을 나타냅니다('〜해 왔다'). 「争って」는 「争う」의 て형으로 '다투며'라는 부대 상황을 나타냅니다."}, "vocab": [{"w": "二人", "r": "ふたり", "m": "두 사람", "note": "「一人（ひとり）」「二人（ふたり）」는 특수 읽기"}, {"w": "一位", "r": "いちい", "m": "1위", "note": "「トップ」도 가능"}, {"w": "争う", "r": "あらそう", "m": "다투다, 겨루다", "note": "「〜を争う」(〜를 다투다)"}, {"w": "激しい", "r": "はげしい", "m": "치열하다, 격렬하다", "note": "「激しい競争」은 고정 연어"}, {"w": "競争", "r": "きょうそう", "m": "경쟁", "note": "동음 「競走（きょうそう）」(경주)와 구별"}], "alt": ["二人は首位を争い、激しい競争を繰り広げてきた。"], "tip": "'치열하다'를 「熾烈（しれつ）」로 쓸 수도 있지만 N3 수준에서는 「激しい」가 일반적입니다. '〜해 왔다'는 「〜してきた」로 번역해야 '지금까지 계속'이라는 뉘앙스가 살아납니다. 「競争」을 「競走」(달리기 경주)로 쓰지 않도록 주의하세요."}, {"id": "D3-15", "set": "가족·인간관계 2", "ko": "내일 8시에 선생님 댁에 방문하겠습니다.", "ja": "明日8時に先生のお宅に伺います。", "reading": "あした はちじに せんせいの おたくに うかがいます。", "grammar": {"point": "謙譲語 伺う（訪問する）", "note": "「伺う」는 「訪問する」「行く」의 겸양어로 윗사람 집·회사에 방문할 때 씁니다. 「お宅」는 상대방 집을 높이는 존경어입니다. 자기 행위는 낮추고(伺う) 상대 소유는 높이는(お宅) 경어의 기본 구조입니다."}, "vocab": [{"w": "明日", "r": "あした", "m": "내일", "note": "정중한 자리에서는 「あす」「みょうにち」로도 읽음"}, {"w": "先生", "r": "せんせい", "m": "선생님", "note": "「先生」자체가 경칭이므로 「先生様」는 안 씀"}, {"w": "お宅", "r": "おたく", "m": "댁", "note": "자기 집은 「うち」「自宅（じたく）」"}, {"w": "伺う", "r": "うかがう", "m": "방문하다, 여쭙다(겸양)", "note": "「訪問する」「聞く」「尋ねる」의 겸양어"}], "alt": ["明日8時に先生のお宅へお伺いします。"], "tip": "'방문하겠습니다'를 「訪問します」로 써도 틀리진 않지만 선생님 댁이므로 겸양어 「伺います」가 훨씬 적절합니다. '선생님 댁'을 「先生の家」로 쓰면 경의가 빠지므로 「お宅」를 쓰세요. 「先生様」처럼 이중 경칭은 쓰지 않습니다."}, {"id": "D4-01", "set": "일상 표현 2", "ko": "말씀 좀 묻겠습니다만, 신주쿠역은 어느 쪽입니까?", "ja": "ちょっとお伺いしますが、新宿駅はどちらですか。", "reading": "ちょっと おうかがいしますが、しんじゅくえきは どちらですか。", "grammar": {"point": "お〜する（謙譲）／〜が（前置き）", "note": "「お伺いします」는 「伺う」에 「お〜する」를 더한 겸양 표현으로, 길을 묻는 등 모르는 사람에게 말을 걸 때의 정형구입니다. 문장 끝의 「〜が」는 본론 앞의 완곡한 전치(前置き)로 쓰입니다. 「どちら」는 「どこ」「どっち」의 정중한 형태입니다."}, "vocab": [{"w": "お伺いする", "r": "おうかがいする", "m": "여쭙다", "note": "「お尋ねする（おたずねする）」도 같은 뜻"}, {"w": "新宿駅", "r": "しんじゅくえき", "m": "신주쿠역", "note": ""}, {"w": "どちら", "r": "どちら", "m": "어느 쪽", "note": "「どっち」의 정중형, 「どこ」의 정중형으로도 쓰임"}], "alt": ["すみません、ちょっとお尋ねしますが、新宿駅はどちらでしょうか。"], "tip": "'말씀 좀 묻겠습니다'를 「話を聞きます」로 직역하면 완전히 다른 뜻이 됩니다. 「ちょっとお伺いしますが」「ちょっとお尋ねしますが」가 정형구입니다. 「どこですか」보다 「どちらですか」가 낯선 사람에게 더 정중합니다."}, {"id": "D4-02", "set": "일상 표현 2", "ko": "일본에 있는 친구에게 편지를 보냈습니다", "ja": "日本にいる友達に手紙を送りました。", "reading": "にほんに いる ともだちに てがみを おくりました。", "grammar": {"point": "連体修飾（〜にいる＋名詞）", "note": "「日本にいる」가 「友達」를 수식하는 연체수식절입니다. 사람의 존재는 「いる」를 쓰며, 수식절 형태 그대로 명사 앞에 붙입니다. 받는 사람은 「〜に」로 나타냅니다."}, "vocab": [{"w": "日本", "r": "にほん", "m": "일본", "note": "「にっぽん」으로도 읽음"}, {"w": "友達", "r": "ともだち", "m": "친구", "note": "「友人（ゆうじん）」은 문어적"}, {"w": "手紙", "r": "てがみ", "m": "편지", "note": "「手紙を書く」(편지를 쓰다), 「手紙を出す」(편지를 부치다)"}, {"w": "送る", "r": "おくる", "m": "보내다", "note": "편지는 「出す（だす）」도 매우 자주 씀"}], "alt": ["日本にいる友人に手紙を出しました。"], "tip": "'편지를 보내다'는 「手紙を送る」도 되지만 일본어에서는 「手紙を出す」가 더 흔한 표현입니다. '일본에 있는'을 「日本にある友達」로 쓰면 사람에게 「ある」를 쓴 오류이니 「いる」를 쓰세요."}, {"id": "D4-03", "set": "일상 표현 2", "ko": "길에서 무거운 짐을 든 할머니를 도와주었다.", "ja": "道で重い荷物を持ったおばあさんを手伝ってあげた。", "reading": "みちで おもい にもつを もった おばあさんを てつだってあげた。", "grammar": {"point": "〜てあげる（授受）／〜た＋名詞（状態の修飾）", "note": "「〜てあげる」는 내가 남에게 호의로 무언가를 해 주는 것을 나타냅니다. 「荷物を持った」의 「〜た」는 과거가 아니라 '짐을 든 (상태의)'라는 상태 수식입니다. 「持っている」로 바꿔도 됩니다."}, "vocab": [{"w": "道", "r": "みち", "m": "길", "note": "「道路（どうろ）」는 '도로'"}, {"w": "重い", "r": "おもい", "m": "무겁다", "note": "반대말 「軽い（かるい）」"}, {"w": "荷物", "r": "にもつ", "m": "짐", "note": ""}, {"w": "おばあさん", "r": "おばあさん", "m": "할머니", "note": "「おばさん」(아주머니)과 장음 차이로 뜻이 달라짐!"}, {"w": "手伝う", "r": "てつだう", "m": "돕다, 거들다", "note": "「助ける（たすける）」는 위험에서 구하다"}], "alt": ["道で重い荷物を持っているおばあさんを助けてあげた。"], "tip": "「おばあさん」(할머니)과 「おばさん」(아주머니)은 장음 하나 차이로 의미가 완전히 바뀌니 주의하세요. '도와주다'는 짐 들기 같은 일상적 도움에는 「手伝う」, 위험에서 구하는 뉘앙스에는 「助ける」를 씁니다. 「〜てあげた」를 붙이면 '해 주었다'는 뉘앙스가 살아납니다."}, {"id": "D4-04", "set": "일상 표현 2", "ko": "부하는 상사에게 의지하기만 해서는 안된다", "ja": "部下は上司に頼ってばかりいてはいけない。", "reading": "ぶかは じょうしに たよってばかり いては いけない。", "grammar": {"point": "〜てばかりいる／〜てはいけない", "note": "「〜てばかりいる」는 '〜하기만 하다'라는 편중된 행동을 비판적으로 나타냅니다. 「〜てはいけない」는 금지·충고 표현으로 '〜해서는 안 된다'입니다. 두 문형이 결합하여 「〜てばかりいてはいけない」가 됩니다."}, "vocab": [{"w": "部下", "r": "ぶか", "m": "부하", "note": ""}, {"w": "上司", "r": "じょうし", "m": "상사", "note": ""}, {"w": "頼る", "r": "たよる", "m": "의지하다", "note": "「〜に頼る」조사는 「に」"}, {"w": "〜ばかり", "r": "ばかり", "m": "〜만, 〜뿐", "note": "「〜だけ」보다 '지나치게'라는 부정적 뉘앙스"}], "alt": ["部下は上司に頼ってばかりいてはならない。"], "tip": "'의지하다'의 조사는 「〜に頼る」입니다(「〜を頼る」✕). '〜하기만 하다'는 「〜だけする」보다 「〜てばかりいる」가 비판적 뉘앙스를 잘 살립니다. 「〜てはいけない」를 「〜ては駄目だ」로 바꾸면 더 구어적입니다."}, {"id": "D4-05", "set": "일상 표현 2", "ko": "입시에 실패해서 풀 죽어 있는 아들을 위로했다", "ja": "入試に失敗して落ち込んでいる息子を慰めた。", "reading": "にゅうしに しっぱいして おちこんでいる むすこを なぐさめた。", "grammar": {"point": "〜て（原因）＋〜ている（状態の連体修飾）", "note": "「失敗して」는 원인을 나타내는 て형이고, 「落ち込んでいる」는 상태의 「〜ている」로 「息子」를 수식합니다. 수식절 전체 「入試に失敗して落ち込んでいる」가 하나의 덩어리로 명사 앞에 옵니다."}, "vocab": [{"w": "入試", "r": "にゅうし", "m": "입시", "note": "「入学試験（にゅうがくしけん）」의 줄임말"}, {"w": "失敗", "r": "しっぱい", "m": "실패", "note": "「〜に失敗する」조사는 「に」"}, {"w": "落ち込む", "r": "おちこむ", "m": "풀 죽다, 침울해지다", "note": "「がっかりする」(실망하다)보다 지속적 우울"}, {"w": "慰める", "r": "なぐさめる", "m": "위로하다", "note": "「励ます（はげます）」는 '격려하다'"}], "alt": ["受験に失敗してがっかりしている息子を励ました。"], "tip": "'풀 죽다'는 「落ち込む」가 가장 가깝습니다. '위로하다'는 「慰める」, '격려하다'는 「励ます」로 구별하세요. '입시에 실패하다'의 조사는 「入試に失敗する」입니다. 「入試を失敗する」는 어색합니다."}, {"id": "D4-06", "set": "일상 표현 2", "ko": "부모라도 저 두 사람을 떼어놓는 것은 어려울 것이다.", "ja": "親でもあの二人を引き離すのは難しいだろう。", "reading": "おやでも あの ふたりを ひきはなすのは むずかしいだろう。", "grammar": {"point": "名詞＋でも（極端な例）／〜だろう（推量）", "note": "「名詞＋でも」는 '〜라도'라는 뜻으로 극단적인 예를 들어 '그것조차도'라는 의미를 만듭니다. 「〜だろう」는 화자의 추측으로 '〜일 것이다'. 정중체는 「〜でしょう」입니다."}, "vocab": [{"w": "親", "r": "おや", "m": "부모", "note": "「両親」은 '양친(아버지와 어머니)'"}, {"w": "あの二人", "r": "あのふたり", "m": "저 두 사람", "note": ""}, {"w": "引き離す", "r": "ひきはなす", "m": "떼어놓다, 갈라놓다", "note": "「別れさせる」(헤어지게 하다)도 가능"}, {"w": "〜だろう", "r": "だろう", "m": "〜일 것이다", "note": "정중형 「〜でしょう」"}], "alt": ["親であってもあの二人を別れさせるのは難しいだろう。"], "tip": "'〜라도'를 「〜も」만 쓰면 '〜도'가 되어 극단적 예시의 뉘앙스가 약해집니다. 「〜でも」또는 더 강조하면 「〜であっても」를 쓰세요. '떼어놓다'는 물리적·관계적 분리 모두 「引き離す」가 자연스럽습니다."}, {"id": "D4-07", "set": "일상 표현 2", "ko": "생일에 많은 사람을 초대하여 파티를 했다", "ja": "誕生日にたくさんの人を招待してパーティーをした。", "reading": "たんじょうびに たくさんの ひとを しょうたいして パーティーを した。", "grammar": {"point": "〜て（継起・手段）", "note": "「招待して」의 て형은 '초대하여(초대해서)'라는 순차적 동작 또는 수단을 나타냅니다. 한국어 '〜하여'는 て형으로 옮기면 됩니다. 「〜に」는 날짜·때를 나타내는 조사입니다."}, "vocab": [{"w": "誕生日", "r": "たんじょうび", "m": "생일", "note": "남의 생일은 「お誕生日」"}, {"w": "たくさんの", "r": "たくさんの", "m": "많은", "note": "「多くの（おおくの）」는 문어적. 「多い人」✕"}, {"w": "招待", "r": "しょうたい", "m": "초대", "note": "「招く（まねく）」도 같은 뜻"}, {"w": "パーティー", "r": "パーティー", "m": "파티", "note": "장음 두 개 주의"}], "alt": ["誕生日に大勢の人を招いてパーティーを開いた。"], "tip": "'많은 사람'을 「多い人」로 쓰면 틀립니다. 「多い」는 명사를 직접 수식하지 못하므로 「たくさんの人」「多くの人」「大勢（おおぜい）の人」을 씁니다. '파티를 하다'는 「パーティーをする」도 되지만 「パーティーを開く」가 더 자연스럽습니다."}, {"id": "D4-08", "set": "일상 표현 2", "ko": "전철에서 노인에게 자리를 양보하는 사람이 적어졌다", "ja": "電車でお年寄りに席を譲る人が少なくなった。", "reading": "でんしゃで おとしよりに せきを ゆずる ひとが すくなくなった。", "grammar": {"point": "い形容詞＋くなる（変化）", "note": "「少ない」→「少なくなる」처럼 い형용사 어간에 「〜くなる」를 붙여 변화를 나타냅니다. 「席を譲る人」는 「席を譲る」가 「人」를 수식하는 연체수식절입니다."}, "vocab": [{"w": "電車", "r": "でんしゃ", "m": "전철", "note": ""}, {"w": "お年寄り", "r": "おとしより", "m": "노인, 어르신", "note": "「老人（ろうじん）」은 다소 직설적. 「高齢者（こうれいしゃ）」는 공식적"}, {"w": "席", "r": "せき", "m": "자리", "note": "「席を譲る」(자리를 양보하다)"}, {"w": "譲る", "r": "ゆずる", "m": "양보하다", "note": ""}, {"w": "少なくなる", "r": "すくなくなる", "m": "적어지다", "note": "「減る（へる）」도 가능"}], "alt": ["電車で高齢者に席を譲る人が減った。"], "tip": "'노인'을 「老人」으로 직역해도 되지만 조금 차갑게 들릴 수 있어 「お年寄り」가 더 배려 있는 표현입니다. '적어졌다'는 「少なくなった」또는 동사 「減った」둘 다 자연스럽습니다. 「少ないになった」같은 오류에 주의하세요."}, {"id": "D4-09", "set": "일상 표현 2", "ko": "나에게 있어서 아버지는 위대한 존재이다", "ja": "私にとって父は偉大な存在だ。", "reading": "わたしにとって ちちは いだいな そんざいだ。", "grammar": {"point": "〜にとって", "note": "「〜にとって」는 '〜에게 있어서, 〜의 입장에서 보면'이라는 뜻으로, 뒤에는 평가·판단을 나타내는 표현이 옵니다. 「〜に対して」(〜에 대해서, 대상)와 혼동하기 쉬우니 구별하세요."}, "vocab": [{"w": "〜にとって", "r": "にとって", "m": "〜에게 있어서", "note": "뒤에 「大切だ」「重要だ」「〜な存在だ」등 평가 표현"}, {"w": "父", "r": "ちち", "m": "아버지(자기 아버지)", "note": "남의 아버지는 「お父さん」"}, {"w": "偉大", "r": "いだい", "m": "위대", "note": "な형용사"}, {"w": "存在", "r": "そんざい", "m": "존재", "note": ""}], "alt": ["私にとって父は偉大な存在です。"], "tip": "'〜에게 있어서'는 「〜にとって」입니다. 「〜にあって」로 쓰면 틀립니다. 자기 아버지를 남에게 말할 때는 「お父さん」이 아니라 「父」를 쓰는 것이 원칙입니다. 「偉大だ存在」✕ → 「偉大な存在」○ (な형용사 연체형)."}, {"id": "D4-10", "set": "일상 표현 2", "ko": "그녀는 내 가장 친한 친구이다", "ja": "彼女は私の一番親しい友達だ。", "reading": "かのじょは わたしの いちばん したしい ともだちだ。", "grammar": {"point": "一番＋形容詞（最上級）", "note": "일본어에는 최상급 어형 변화가 없으므로 「一番」「最も（もっとも）」를 형용사 앞에 붙여 '가장 〜한'을 나타냅니다. 「親しい友達」는 「仲のいい友達」「親友（しんゆう）」로도 표현합니다."}, "vocab": [{"w": "一番", "r": "いちばん", "m": "가장, 제일", "note": "「最も」는 문어적"}, {"w": "親しい", "r": "したしい", "m": "친하다", "note": "「仲がいい（なかがいい）」가 더 구어적"}, {"w": "友達", "r": "ともだち", "m": "친구", "note": "「親友」= 가장 친한 친구(절친)"}], "alt": ["彼女は私の親友だ。", "彼女は私の一番仲のいい友達だ。"], "tip": "'가장 친한 친구'는 한 단어 「親友（しんゆう）」로 표현하면 가장 자연스럽습니다. 「親しい」를 「親切な」(친절한)로 혼동하지 않도록 주의하세요. 「一番」의 위치는 형용사 바로 앞입니다."}, {"id": "D4-11", "set": "일상 표현 2", "ko": "무엇이든지 좋다", "ja": "何でもいい。", "reading": "なんでも いい。", "grammar": {"point": "疑問詞＋でも（全面肯定）", "note": "「何でも」「誰でも」「どこでも」「いつでも」처럼 의문사에 「でも」를 붙이면 '〜든지 (전부)'라는 전면 긍정이 됩니다. 반대로 「何も〜ない」는 '아무것도 〜않다'는 전면 부정입니다."}, "vocab": [{"w": "何でも", "r": "なんでも", "m": "무엇이든지", "note": "「何も（なにも）」+부정 = 아무것도"}, {"w": "いい", "r": "いい", "m": "좋다, 괜찮다", "note": "「良い（よい）」의 구어형. 과거는 「よかった」"}], "alt": ["何でも構わない。", "何でも結構です。"], "tip": "「何でも」의 읽기는 「なんでも」입니다(「なにでも」✕). 정중하게 말하려면 「何でもいいです」「何でも結構です」, 조금 무심한 느낌으로는 「何でも構わない」를 씁니다. 식당 등에서 「何でもいい」라고만 하면 성의 없게 들릴 수 있으니 상황에 맞게 쓰세요."}, {"id": "D4-12", "set": "일상 표현 2", "ko": "난 항상 그 일이 신경쓰였다.", "ja": "私はいつもそのことが気になっていた。", "reading": "わたしは いつも その ことが きになっていた。", "grammar": {"point": "〜が気になる", "note": "「〜が気になる」는 '〜이 신경 쓰이다, 마음에 걸리다'라는 뜻으로 대상에 조사 「が」를 씁니다. 과거의 지속 상태이므로 「気になっていた」로 표현합니다. 「気にする」(〜를 신경 쓰다, 타동)와 구별하세요."}, "vocab": [{"w": "いつも", "r": "いつも", "m": "항상, 늘", "note": "「ずっと」(쭉, 계속)도 상황에 따라 가능"}, {"w": "そのこと", "r": "そのこと", "m": "그 일", "note": "「その事」로도 표기"}, {"w": "気になる", "r": "きになる", "m": "신경 쓰이다", "note": "자동사. 「〜を気にする」는 타동사 '〜를 신경 쓰다'"}], "alt": ["私はずっとそのことを気にしていた。"], "tip": "'신경쓰이다'는 자동사 「気になる」(〜が), '신경쓰다'는 타동사 「気にする」(〜を)입니다. 조사를 섞어 「〜を気になる」로 쓰면 틀립니다. '그 일'을 「その仕事」로 옮기면 '그 업무'가 되므로 「そのこと」가 맞습니다."}, {"id": "D4-13", "set": "일상 표현 2", "ko": "지우개가 없어졌다.", "ja": "消しゴムがなくなった。", "reading": "けしゴムが なくなった。", "grammar": {"point": "なくなる（消失・紛失）", "note": "「なくなる」는 '없어지다'로, 물건이 사라지거나 다 떨어졌을 때 씁니다. 「ない」+「なる」의 결합형입니다. 사람·동물이 사라지면 「いなくなる」를 쓰고, 「亡くなる」(돌아가시다)와 한자 표기가 다르니 주의하세요."}, "vocab": [{"w": "消しゴム", "r": "けしゴム", "m": "지우개", "note": "「消す」+「ゴム」. 「ゴム」만 가타카나"}, {"w": "なくなる", "r": "なくなる", "m": "없어지다", "note": "「無くなる」로도 표기. 「亡くなる」는 '죽다'의 완곡어"}], "alt": ["消しゴムが見当たらない。"], "tip": "'지우개'는 「消しゴム」로 「ゴム」부분만 가타카나입니다. '없어졌다'를 「亡くなった」로 쓰면 '돌아가셨다'는 뜻이 되므로 히라가나 「なくなった」또는 「無くなった」를 쓰세요. '보이지 않는다'는 뉘앙스면 「見当たらない」도 좋습니다."}, {"id": "D4-14", "set": "일상 표현 2", "ko": "윗몸일으키기를 200개 했다", "ja": "腹筋を200回した。", "reading": "ふっきんを にひゃっかい した。", "grammar": {"point": "数量詞（〜回）の位置", "note": "동작의 횟수는 「〜回」로 세며, 수량사는 「名詞を＋数量詞＋動詞」순서로 조사 뒤에 둡니다. 한국어의 '개'는 일본어에서 운동 횟수에 쓰지 않고 「回」를 씁니다."}, "vocab": [{"w": "腹筋", "r": "ふっきん", "m": "윗몸일으키기, 복근", "note": "구어로 「腹筋（運動）」가 윗몸일으키기. 정식 명칭 「上体起こし（じょうたいおこし）」"}, {"w": "200回", "r": "にひゃっかい", "m": "200회", "note": "「百回（ひゃっかい）」촉음 주의"}, {"w": "する", "r": "する", "m": "하다", "note": "운동은 「やる」도 자주 사용"}], "alt": ["腹筋運動を200回やった。"], "tip": "'윗몸일으키기'는 일상 일본어에서 그냥 「腹筋」이라고 합니다. 「腹筋を鍛える」(복근을 단련하다)와 「腹筋をする」(윗몸일으키기를 하다)처럼 문맥으로 구별됩니다. 횟수는 「個」가 아니라 「回」를 쓰며, 「200回」는 「にひゃっかい」로 촉음이 들어갑니다."}, {"id": "D4-15", "set": "일상 표현 2", "ko": "파리에서 2번 소매치기를 당했다", "ja": "パリで2回スリに遭った。", "reading": "パリで にかい スリに あった。", "grammar": {"point": "〜に遭う（被害）", "note": "「〜に遭う」는 사고·재해·범죄 등 좋지 않은 일을 '당하다, 겪다'는 뜻입니다. 「事故に遭う」「被害に遭う」「スリに遭う」처럼 씁니다. 수동형으로 「スリにやられた」「財布をすられた」라고도 합니다."}, "vocab": [{"w": "パリ", "r": "パリ", "m": "파리", "note": "「巴里」로 쓰기도 하나 보통 가타카나"}, {"w": "2回", "r": "にかい", "m": "두 번", "note": "「二度（にど）」도 가능"}, {"w": "スリ", "r": "スリ", "m": "소매치기", "note": "「掏摸」. 동사는 「掏る（する）」, 수동 「すられる」"}, {"w": "遭う", "r": "あう", "m": "(나쁜 일을) 당하다", "note": "「会う」(만나다)와 한자 구별. 조사는 「に」"}], "alt": ["パリで二度スリにやられた。", "パリで2回財布をすられた。"], "tip": "'당하다'를 「当たる」로 쓰면 틀립니다. 피해를 입는 표현은 「〜に遭う」또는 수동형(「すられる」「やられる」)을 씁니다. 「遭う」는 「会う」(만나다)와 발음은 같지만 한자가 다르며, 나쁜 일에만 씁니다."}];
+
+const $ = (id) => document.getElementById(id);
+const els = {
+  setFilter: $("setFilter"), progressText: $("progressText"), progressBar: $("progressBar"),
+  qSet: $("qSet"), qId: $("qId"), qKo: $("qKo"), hintBtn: $("hintBtn"), hintText: $("hintText"),
+  jaInput: $("jaInput"), gradeBtn: $("gradeBtn"), revealBtn: $("revealBtn"), nextBtn: $("nextBtn"), prevBtn: $("prevBtn"),
+  result: $("result"), verdictMode: $("verdictMode"), verdictPill: $("verdictPill"), verdictText: $("verdictText"),
+  cmpMine: $("cmpMine"), cmpModel: $("cmpModel"), cmpReading: $("cmpReading"), alts: $("alts"),
+  aiPanel: $("aiPanel"), aiBody: $("aiBody"), gramPoint: $("gramPoint"), gramNote: $("gramNote"),
+  vocab: $("vocab"), tip: $("tip"), footStat: $("footStat"), resetBtn: $("resetBtn"), aiStatus: $("aiStatus"),
+  tabPractice: $("tabPractice"), tabNotebook: $("tabNotebook"), nbCount: $("nbCount"), qcard: $("qcard"), notebook: $("notebook"),
+  stTotal: $("stTotal"), stOpen: $("stOpen"), stResolved: $("stResolved"), stAttempts: $("stAttempts"), weakPoints: $("weakPoints"),
+  nbFilter: $("nbFilter"), retryAllBtn: $("retryAllBtn"), summarizeBtn: $("summarizeBtn"), copyBtn: $("copyBtn"), clearNbBtn: $("clearNbBtn"),
+  summaryPanel: $("summaryPanel"), summaryMeta: $("summaryMeta"), summaryBody: $("summaryBody"), nbList: $("nbList"),
+};
+
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} },
+};
+
+const state = {
+  filter: store.get("akapen.filter", "all"),
+  done: new Set(store.get("akapen.done", [])),
+  deck: [], current: null, ctl: null,
+  sample: undefined, // undefined = not yet known, null = unavailable
+  notes: store.get("akapen.notes", []), // 오답 노트: 문장 id 당 최신 1건
+  accepted: store.get("akapen.accepted", {}), // 문장 id → 내가 허용 답안으로 저장한 번역들
+  retryQueue: [], view: "practice", sumCtl: null,
+  history: [], pos: -1,      // 이번 세션에서 본 문장 순서와 현재 위치
+  session: new Map(),        // id → { mine, snap } 입력한 답과 채점 결과 (이전/다음으로 돌아올 때 복원)
+};
+
+/* ---------- deck ---------- */
+function pool() { return state.filter === "all" ? DATA : DATA.filter(d => d.set === state.filter); }
+function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+function buildDeck() {
+  const p = pool();
+  let rest = p.filter(d => !state.done.has(d.id));
+  if (rest.length === 0) rest = p.slice();
+  state.deck = shuffle(rest);
+}
+function drawNew() {
+  if (state.retryQueue.length) {
+    const id = state.retryQueue.shift();
+    const d = DATA.find(x => x.id === id);
+    if (d) return d;
+  }
+  if (state.deck.length === 0) buildDeck();
+  return state.deck.pop();
+}
+function next() {
+  stopSampling();
+  if (state.pos < state.history.length - 1) {
+    state.pos++;
+  } else {
+    const d = drawNew();
+    state.history.push(d.id);
+    state.pos = state.history.length - 1;
+  }
+  loadSentence(state.history[state.pos]);
+}
+function prev() {
+  if (state.pos <= 0) return;
+  stopSampling();
+  state.pos--;
+  loadSentence(state.history[state.pos]);
+}
+// 문장을 화면에 올리고, 이번 세션에서 입력했던 답·채점 결과가 있으면 복원
+function loadSentence(id) {
+  state.current = DATA.find(x => x.id === id);
+  renderQuestion();
+  const s = state.session.get(id);
+  if (!s) return;
+  els.jaInput.value = s.mine || "";
+  if (s.snap) restoreResult(state.current, s.mine, s.snap);
+}
+function remember(id, patch) {
+  const cur = state.session.get(id) || { mine: "", snap: null };
+  state.session.set(id, { ...cur, ...patch });
+}
+function restoreResult(d, mine, snap) {
+  els.result.hidden = false;
+  els.result.dataset.open = "1";
+  els.gradeBtn.disabled = false;
+  els.jaInput.disabled = false;
+  if (snap.mode !== "모범 답안") els.gradeBtn.textContent = "다시 채점하기";
+  renderCompare(mine, d.ja);
+  renderStatic(d);
+  setMode(snap.mode);
+  if (snap.mode === "모범 답안" && !mine) {
+    setVerdict("pending", "답을 입력하지 않고 모범 답안을 열었습니다. 오답 노트에 「미답」으로 기록됩니다.");
+    els.verdictPill.textContent = "미답";
+  } else {
+    setVerdict(snap.kind, snap.msg, snap.score);
+  }
+  markCompare(snap.kind);
+  renderAcceptControl(d, mine, snap.kind);
+  if (snap.ai) { els.aiPanel.hidden = false; renderAI(snap.ai, mine, d, snap, false); }
+  else els.aiPanel.hidden = true;
+}
+
+/* ---------- render ---------- */
+function renderProgress() {
+  const p = pool();
+  const done = p.filter(d => state.done.has(d.id)).length;
+  els.progressText.textContent = `${done} / ${p.length}`;
+  els.progressBar.style.width = p.length ? `${(done / p.length) * 100}%` : "0";
+  els.footStat.textContent = `전체 ${DATA.length}문장 · ${[...new Set(DATA.map(d => d.set))].length}세트`;
+}
+function renderQuestion() {
+  const d = state.current;
+  stopSampling();
+  stopSpeech();
+  stopTts();
+  els.qSet.textContent = d.set;
+  els.qId.textContent = d.id;
+  els.qKo.textContent = d.ko;
+  els.hintText.hidden = true;
+  els.hintText.innerHTML = "";
+  els.hintBtn.textContent = "문형 힌트 보기";
+  els.jaInput.value = "";
+  els.jaInput.disabled = false;
+  els.result.hidden = true;
+  els.result.dataset.open = "0";
+  els.gradeBtn.disabled = false;
+  els.gradeBtn.textContent = "채점하기";
+  els.revealBtn.disabled = false;
+  els.prevBtn.disabled = state.pos <= 0;
+  els.nextBtn.textContent = state.pos < state.history.length - 1 ? "다음 문장 →" : "새 문장 →";
+  renderProgress();
+  els.jaInput.focus({ preventScroll: true });
+}
+
+function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
+
+/* ---------- diff ---------- */
+function normalize(s) { return s.replace(/[\s　]/g, "").replace(/[。、．，.,!！?？「」『』・]/g, ""); }
+function lcsTable(a, b) {
+  const m = a.length, n = b.length;
+  const T = Array.from({ length: m + 1 }, () => new Uint16Array(n + 1));
+  for (let i = m - 1; i >= 0; i--) for (let j = n - 1; j >= 0; j--)
+    T[i][j] = a[i] === b[j] ? T[i + 1][j + 1] + 1 : Math.max(T[i + 1][j], T[i][j + 1]);
+  return T;
+}
+// returns [{t:'eq'|'del'|'ins', s}] where del = only in a, ins = only in b
+function diffChars(a, b) {
+  const A = [...a], B = [...b];
+  const T = lcsTable(A, B);
+  const out = [];
+  let i = 0, j = 0;
+  const push = (t, s) => { const last = out[out.length - 1]; if (last && last.t === t) last.s += s; else out.push({ t, s }); };
+  while (i < A.length && j < B.length) {
+    if (A[i] === B[j]) { push("eq", A[i]); i++; j++; }
+    else if (T[i + 1][j] >= T[i][j + 1]) { push("del", A[i]); i++; }
+    else { push("ins", B[j]); j++; }
+  }
+  while (i < A.length) push("del", A[i++]);
+  while (j < B.length) push("ins", B[j++]);
+  return out;
+}
+function similarity(a, b) {
+  const A = [...normalize(a)], B = [...normalize(b)];
+  if (!A.length && !B.length) return 1;
+  const l = lcsTable(A, B)[0][0];
+  return (2 * l) / (A.length + B.length);
+}
+function renderCompare(mine, model) {
+  const ops = diffChars(mine, model);
+  els.cmpMine.innerHTML = ops.filter(o => o.t !== "ins").map(o => o.t === "del" ? `<span class="del">${esc(o.s)}</span>` : esc(o.s)).join("") || "<span class='note'>(답 없음)</span>";
+  els.cmpModel.innerHTML = ops.filter(o => o.t !== "del").map(o => o.t === "ins" ? `<span class="ins">${esc(o.s)}</span>` : esc(o.s)).join("");
+}
+
+/* ---------- static panels ---------- */
+function renderStatic(d) {
+  els.cmpReading.textContent = d.reading || "";
+  const acc = acceptedFor(d.id);
+  els.alts.innerHTML = (d.alt || []).map(a => `<li>${esc(a)}</li>`).join("")
+    + acc.map(a => `<li class="acc">${esc(a)} <span class="tag">내 허용 답안</span> <button type="button" class="linkbtn" data-unaccept="${esc(a)}">삭제</button></li>`).join("");
+  els.alts.hidden = !((d.alt && d.alt.length) || acc.length);
+  els.gramPoint.textContent = d.grammar?.point || "";
+  els.gramNote.textContent = d.grammar?.note || "";
+  els.vocab.innerHTML = (d.vocab || []).map(v => `
+    <div class="vw"><div class="w ja">${esc(v.w)}<small>${esc(v.r || "")}</small></div><div class="m">${esc(v.m || "")}</div>${v.note ? `<div class="n">${esc(v.note)}</div>` : ""}</div>`).join("");
+  els.tip.textContent = d.tip || "";
+}
+
+/* ---------- grading ---------- */
+// 「일치」면 글자 차이를 빨강/초록 대신 중립색으로 보여 줌 (표현이 달라도 틀린 것이 아님)
+function markCompare(kind) {
+  $("comparePanel").classList.toggle("ok", kind === "correct");
+  $("legendText").textContent = kind === "correct"
+    ? "표현이 달라도 올바른 답입니다. 표시된 부분은 모범 답안과 다른 글자일 뿐입니다."
+    : "";
+}
+// 「거의 일치」·「차이 있음」일 때: 틀린 게 아니라고 판단되면 내 답을 허용 답안으로 저장할 수 있는 버튼
+function renderAcceptControl(d, mine, kind) {
+  const row = $("acceptRow");
+  if (!mine || kind === "correct") { row.innerHTML = ""; row.hidden = true; return; }
+  row.hidden = false;
+  row.innerHTML = `<span class="note">틀린 답이 아니라고 생각되면</span> <button type="button" class="btn" id="acceptBtn">내 답을 허용 답안으로 저장</button>`;
+  $("acceptBtn").onclick = () => acceptAnswer(d, mine, true);
+}
+function acceptAnswer(d, mine, manual) {
+  const list = acceptedFor(d.id);
+  const dup = [d.ja, ...(d.alt || []), ...list].some(c => normalize(c) === normalize(mine));
+  if (!dup) { state.accepted[d.id] = [...list, mine]; store.set("akapen.accepted", state.accepted); }
+  if (manual) {
+    const msg = "허용 답안으로 저장했습니다. 다음부터 이 답은 「일치」로 판정됩니다.";
+    setVerdict("correct", msg, 100);
+    recordResult(d, mine, "correct", 100, null, "허용 답안");
+    remember(d.id, { mine, snap: { kind: "correct", msg, score: 100, mode: "허용 답안", ai: null } });
+    markCompare("correct");
+    renderStatic(d);
+    renderAcceptControl(d, mine, "correct");
+  }
+  return !dup;
+}
+function unacceptAnswer(d, text) {
+  state.accepted[d.id] = acceptedFor(d.id).filter(a => a !== text);
+  if (!state.accepted[d.id].length) delete state.accepted[d.id];
+  store.set("akapen.accepted", state.accepted);
+  renderStatic(d);
+}
+function setVerdict(kind, text, score) {
+  const label = { correct: "일치", minor: "거의 일치", major: "차이 있음", pending: "채점 중" }[kind] || kind;
+  els.verdictPill.className = `pill ${kind}`;
+  els.verdictPill.textContent = label;
+  els.verdictText.innerHTML = esc(text || "") + (score != null ? `<span class="score">${Math.round(score)}점</span>` : "");
+}
+function acceptedFor(id) { return Array.isArray(state.accepted[id]) ? state.accepted[id] : []; }
+function localVerdict(mine, d) {
+  const acc = acceptedFor(d.id);
+  const cands = [d.ja, ...(d.alt || []), ...acc];
+  const sims = cands.map(c => similarity(mine, c));
+  const best = Math.max(...sims);
+  const viaAccepted = best >= 0.95 && sims.indexOf(best) >= 1 + (d.alt || []).length;
+  const kind = best >= 0.95 ? "correct" : best >= 0.7 ? "minor" : "major";
+  const msg = {
+    correct: viaAccepted ? "내가 저장한 허용 답안과 같습니다." : "모범 답안과 사실상 같습니다.",
+    minor: "모범 답안과 가깝습니다. 표시된 부분을 비교해 보세요.",
+    major: "모범 답안과 차이가 큽니다. 문형 포인트와 단어를 확인하세요.",
+  }[kind];
+  return { kind, msg, score: best * 100 };
+}
+
+function markDone(id) { if (!state.done.has(id)) { state.done.add(id); store.set("akapen.done", [...state.done]); renderProgress(); } }
+
+async function grade() {
+  const d = state.current;
+  const mine = els.jaInput.value.trim();
+  if (!mine) { els.jaInput.focus(); return; }
+  stopSampling();
+  stopSpeech(); // 답을 제출했으므로 듣기 종료 → 버튼은 「말하기」로
+  const tries = (state.session.get(d.id)?.tries || 0) + 1;
+  remember(d.id, { tries });
+  els.gradeBtn.disabled = true; // 채점이 끝나면 다시 켜져서 답을 고쳐 재채점할 수 있음
+  els.result.hidden = false;
+  els.result.dataset.open = "1";
+  renderCompare(mine, d.ja);
+  markCompare("pending");
+  $("acceptRow").hidden = true;
+  renderStatic(d);
+  markDone(d.id);
+
+  const local = localVerdict(mine, d);
+
+  if (state.sample === undefined) state.sample = await resolveSample();
+  if (!state.sample) {
+    setMode("문자 비교");
+    setVerdict(local.kind, local.msg, local.score);
+    markCompare(local.kind);
+    renderAcceptControl(d, mine, local.kind);
+    els.aiPanel.hidden = true;
+    recordResult(d, mine, local.kind, local.score, null, "문자 비교");
+    remember(d.id, { mine, snap: { ...local, mode: "문자 비교", ai: null } });
+    unlockRegrade();
+    els.result.scrollIntoView({ behavior: "smooth", block: "start" });
+    return;
+  }
+
+  setMode("AI 채점");
+  setVerdict("pending", "Claude가 답안을 읽고 있습니다…");
+  els.aiPanel.hidden = false;
+  els.aiBody.innerHTML = `<div class="thinking"><span class="spin"></span><span>차이점·추천·단어 설명을 작성 중입니다. 5~30초 걸릴 수 있어요.</span><button type="button" class="btn danger" id="stopBtn" style="margin-left:auto">중단</button></div>`;
+  $("stopBtn").onclick = () => stopSampling(true);
+  els.result.scrollIntoView({ behavior: "smooth", block: "start" });
+
+  const ctl = new AbortController();
+  state.ctl = ctl;
+  try {
+    const r = await state.sample.json(buildPrompt(d, mine), { signal: ctl.signal, modelTier: "default" });
+    if (ctl.signal.aborted) return;
+    renderAI(r, mine, d, local);
+  } catch (e) {
+    if (state.ctl !== ctl) return;
+    handleSampleError(e, local);
+  } finally {
+    if (state.ctl === ctl) state.ctl = null;
+    unlockRegrade();
+  }
+}
+
+// 채점 모드 라벨에 몇 번째 채점인지 붙임
+function setMode(mode) {
+  const tries = state.session.get(state.current?.id)?.tries || 0;
+  els.verdictMode.textContent = tries > 1 ? `${mode} · ${tries}회째` : mode;
+}
+// 채점이 끝난 뒤 입력란과 버튼을 다시 열어 답을 고쳐 재채점할 수 있게 함
+function unlockRegrade() {
+  els.jaInput.disabled = false;
+  els.gradeBtn.disabled = false;
+  els.gradeBtn.textContent = "다시 채점하기";
+}
+
+function stopSampling(showNote) {
+  if (state.ctl) { state.ctl.abort(); state.ctl = null; }
+  if (showNote && !els.result.hidden) {
+    const mine = els.jaInput.value.trim();
+    const local = localVerdict(mine, state.current);
+    setMode("문자 비교");
+    setVerdict(local.kind, local.msg, local.score);
+    markCompare(local.kind);
+    renderAcceptControl(state.current, mine, local.kind);
+    els.aiBody.innerHTML = `<p class="note">AI 채점을 중단했습니다. 위 판정은 문자 비교 결과입니다.</p>`;
+    unlockRegrade();
+    recordResult(state.current, mine, local.kind, local.score, null, "문자 비교");
+    remember(state.current.id, { mine, snap: { ...local, mode: "문자 비교", ai: null } });
+  }
+}
+
+function buildPrompt(d, mine) {
+  return [
+    "당신은 한국인 학습자를 가르치는 일본어 교사(JLPT N3 수준 작문 지도)입니다. 학습자가 한국어 문장을 일본어로 번역했습니다. 모범 번역과 비교해 채점하고 피드백을 주세요.",
+    "",
+    `[한국어 원문] ${d.ko}`,
+    `[모범 번역] ${d.ja}`,
+    d.alt && d.alt.length ? `[허용되는 다른 번역] ${d.alt.join(" / ")}` : "",
+    `[연습 중인 문형] ${d.grammar?.point || "(없음)"}`,
+    `[학습자 답안] ${mine}`,
+    "",
+    "평가 기준: (1) 원문 의미 전달 (2) 조사·활용·한자 오류 (3) 정중체/반말체가 원문과 일치하는지 (4) 자연스러움. 가장 중요한 원칙: 모범 번역은 하나의 예시일 뿐입니다. 어휘·어순·문형이 모범 번역과 달라도 문법적으로 맞고 원문 의미를 자연스럽게 전달하면 반드시 'correct'(acceptable=true)로 판정하세요. 연습 중인 문형을 쓰지 않았더라도 다른 올바른 표현을 썼다면 correct 이며, 문형 사용은 recommendations 에서 제안만 하세요. 'differences' 에는 실제 오류(조사·활용·오역·어색한 표현)만 넣고, 단순히 다른 표현은 넣지 마세요. 사소한 오류 1~2곳이면 'minor', 의미가 달라지거나 비문이면 'major'.",
+    "모든 설명은 한국어로, 간결하게 쓰세요. 일본어 단어에는 읽기(히라가나)를 붙이세요.",
+    "",
+    "다음 JSON 객체만 출력하세요(코드 펜스·설명 없이):",
+    '{"verdict":"correct|minor|major","acceptable":true|false,"score":0~100 정수,"summary":"한 문장 총평","differences":[{"mine":"학습자가 쓴 표현","model":"모범/올바른 표현","why":"차이·오류 이유 한두 문장"}],"recommendations":["추천 표현·주의점 (최대 3개)"],"user_words":[{"w":"학습자가 쓴 단어","r":"읽기","m":"뜻","comment":"적절성·뉘앙스 한 줄"}],"corrected":"학습자 답을 최소한으로 고친 자연스러운 문장"}',
+    "differences 는 실제 차이가 있을 때만(최대 4개), user_words 는 학습자가 쓴 단어 중 모범 번역과 다르거나 설명이 필요한 것 최대 4개. 답이 완벽하면 differences 는 빈 배열, corrected 는 학습자 답 그대로.",
+  ].filter(Boolean).join("\n");
+}
+
+function renderAI(r, mine, d, local, record = true) {
+  if (!r || typeof r !== "object") return handleSampleError({ code: "invalid_json" }, local);
+  const kind = ["correct", "minor", "major"].includes(r.verdict) ? r.verdict : local.kind;
+  const score = Number.isFinite(+r.score) ? +r.score : local.score;
+  const msg = r.summary || local.msg;
+  setVerdict(kind, msg, score);
+  markCompare(kind);
+  renderAcceptControl(d, mine, kind);
+  let savedNow = false;
+  if (record) {
+    recordResult(d, mine, kind, score, r, "AI 채점");
+    remember(d.id, { mine, snap: { kind, msg, score, mode: "AI 채점", ai: r } });
+    if (kind === "correct") { savedNow = acceptAnswer(d, mine, false); if (savedNow) renderStatic(d); }
+  }
+
+  const parts = [];
+  if (kind === "correct" && normalize(mine) !== normalize(d.ja)) {
+    parts.push(`<p class="okline">표현은 모범 답안과 다르지만 올바른 답입니다.${savedNow ? " 이 답을 허용 답안으로 저장했습니다." : ""}</p>`);
+  }
+  const diffs = Array.isArray(r.differences) ? r.differences.filter(x => x && (x.mine || x.model)) : [];
+  if (diffs.length) {
+    parts.push(`<div><h3>모범 답안과 다른 점</h3><div class="diffs">${diffs.map(x => `
+      <div class="diff">
+        <span class="k">내 답</span><span class="mine ja">${esc(x.mine || "—")}</span>
+        <span class="k">권장</span><span class="model ja">${esc(x.model || "—")}</span>
+        ${x.why ? `<span class="why">${esc(x.why)}</span>` : ""}
+      </div>`).join("")}</div></div>`);
+  } else {
+    parts.push(`<div><h3>모범 답안과 다른 점</h3><p class="note">지적할 차이가 없습니다.</p></div>`);
+  }
+  if (r.corrected && normalize(r.corrected) !== normalize(mine)) {
+    parts.push(`<div><h3>내 답을 최소 수정한 문장</h3><div class="corrected ja">${esc(r.corrected)}</div></div>`);
+  }
+  const recs = Array.isArray(r.recommendations) ? r.recommendations.filter(Boolean) : [];
+  if (recs.length) parts.push(`<div><h3>추천</h3><ul>${recs.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>`);
+  const uw = Array.isArray(r.user_words) ? r.user_words.filter(x => x && x.w) : [];
+  if (uw.length) {
+    parts.push(`<div><h3>내가 쓴 단어</h3><div class="vocab">${uw.map(v => `
+      <div class="vw"><div class="w ja">${esc(v.w)}<small>${esc(v.r || "")}</small></div><div class="m">${esc(v.m || "")}</div>${v.comment ? `<div class="n">${esc(v.comment)}</div>` : ""}</div>`).join("")}</div></div>`);
+  }
+  els.aiBody.innerHTML = parts.join("");
+}
+
+function handleSampleError(e, local) {
+  const code = e && e.code || "upstream_error";
+  setMode("문자 비교");
+  setVerdict(local.kind, local.msg, local.score);
+  markCompare(local.kind);
+  renderAcceptControl(state.current, els.jaInput.value.trim(), local.kind);
+  if (code !== "cancelled") {
+    const mine = els.jaInput.value.trim();
+    recordResult(state.current, mine, local.kind, local.score, null, "문자 비교");
+    remember(state.current.id, { mine, snap: { ...local, mode: "문자 비교", ai: null } });
+  }
+  const hide =["not_granted", "sampling_disabled", "not_declared", "capability_disabled", "capability_removed"];
+  if (hide.includes(code)) {
+    state.sample = null;
+    els.aiPanel.hidden = true;
+    els.aiStatus.textContent = "AI 채점을 사용할 수 없어 문자 비교로 판정합니다.";
+    return;
+  }
+  if (code === "cancelled") return;
+  const msg = {
+    bad_key: "API 키가 거부되었습니다. 하단 「AI 설정」에서 키를 확인해 주세요.",
+    invalid_request: "요청이 거부되었습니다. 답안을 조금 바꿔 다시 시도해 주세요.",
+    rate_limited: "요청이 많아 잠시 쉬어야 합니다. 조금 뒤 다시 채점해 주세요.",
+    session_expired: "로그인이 만료되었습니다. 다시 로그인한 뒤 채점해 주세요.",
+    invalid_json: "AI 응답을 읽지 못했습니다. 다시 채점해 보세요.",
+    refused: "이 입력은 AI가 평가하지 않았습니다. 답안을 바꿔 다시 시도해 주세요.",
+    empty_completion: "AI가 답을 내지 못했습니다. 다시 채점해 보세요.",
+  }[code] || "AI 연결이 끊겼습니다. 다시 채점해 보세요.";
+  els.aiBody.innerHTML = `<p class="err">${esc(msg)}</p><button type="button" class="btn" id="retryBtn">다시 채점</button>`;
+  $("retryBtn").onclick = () => grade();
+}
+
+/* ---------- AI 백엔드: claude.ai 뷰어의 sample 기능, 없으면 사용자가 넣은 API 키 ---------- */
+async function resolveSample() {
+  try {
+    if (window.claude && typeof window.claude.use === "function") {
+      const s = await window.claude.use("sample");
+      if (s) return { kind: "claude", json: (input, opts) => s.json(input, opts) };
+    }
+  } catch {}
+  const key = store.get("akapen.apikey", "");
+  if (key) return { kind: "apikey", json: (input, opts) => apiJSON(key, input, opts) };
+  return null;
+}
+
+// Anthropic Messages API 직접 호출 (정적 페이지용). 오류는 sample 과 같은 {code,message} 모양으로 던짐.
+async function apiJSON(key, prompt, opts = {}) {
+  let res;
+  try {
+    res = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      signal: opts.signal,
+      headers: {
+        "content-type": "application/json",
+        "x-api-key": key,
+        "anthropic-version": "2023-06-01",
+        "anthropic-dangerous-direct-browser-access": "true",
+        "anthropic-beta": "server-side-fallback-2026-07-01",
+      },
+      body: JSON.stringify({
+        model: "claude-opus-5",
+        max_tokens: 4096,
+        output_config: { effort: "medium" },
+        fallbacks: "default",
+        messages: [{ role: "user", content: prompt }],
+      }),
+    });
+  } catch (e) {
+    if (e && e.name === "AbortError") throw { code: "cancelled", message: "aborted" };
+    throw { code: "upstream_error", message: String(e) };
+  }
+  if (!res.ok) {
+    let msg = ""; try { msg = (await res.json())?.error?.message || ""; } catch {}
+    if (res.status === 401 || res.status === 403) throw { code: "bad_key", message: msg };
+    if (res.status === 429) throw { code: "rate_limited", message: msg };
+    if (res.status === 400) throw { code: "invalid_request", message: msg };
+    throw { code: "upstream_error", message: msg || `HTTP ${res.status}` };
+  }
+  const data = await res.json();
+  if (data.stop_reason === "refusal") throw { code: "refused", message: data.stop_details?.explanation || "" };
+  const text = (data.content || []).filter(b => b.type === "text").map(b => b.text).join("\n").trim();
+  if (!text) throw { code: "empty_completion", message: "no text" };
+  const parsed = parseLooseJSON(text);
+  if (parsed === undefined) throw { code: "invalid_json", message: "no JSON", text };
+  return parsed;
+}
+function parseLooseJSON(text) {
+  const tries = [text];
+  const fence = text.match(/```(?:json)?\s*([\s\S]*?)```/i); if (fence) tries.push(fence[1]);
+  const a = text.indexOf("{"), b = text.lastIndexOf("}"); if (a >= 0 && b > a) tries.push(text.slice(a, b + 1));
+  for (const t of tries) { try { return JSON.parse(t); } catch {} }
+  return undefined;
+}
+
+/* ---------- AI 설정 (API 키) ---------- */
+function openAiSettings() {
+  const cur = store.get("akapen.apikey", "");
+  $("apiKeyInput").value = cur;
+  $("apiKeyState").textContent = state.sample?.kind === "claude"
+    ? "현재 claude.ai 안에서 열려 있어 Claude 계정으로 채점합니다. API 키는 필요 없습니다."
+    : cur ? "API 키가 이 기기에 저장되어 있습니다." : "API 키가 없습니다. 문자 비교로만 판정합니다.";
+  fillVoiceSelect();
+  $("aiDialog").showModal();
+}
+async function saveApiKey(remove) {
+  const v = remove ? "" : $("apiKeyInput").value.trim();
+  store.set("akapen.apikey", v);
+  state.sample = await resolveSample();
+  updateAiStatus();
+  $("aiDialog").close();
+}
+function updateAiStatus() {
+  const s = state.sample;
+  els.aiStatus.textContent = !s ? "이 화면에서는 AI 채점 대신 문자 비교로 판정합니다."
+    : s.kind === "claude" ? "AI 채점 사용 가능 (첫 채점 시 허용을 묻습니다)"
+    : "AI 채점 사용 가능 (내 API 키, Claude Opus 5)";
+  if (state.view === "notebook") renderNotebook();
+}
+
+/* ---------- reveal (no grading) ---------- */
+function reveal() {
+  const d = state.current;
+  stopSampling();
+  stopSpeech();
+  const mine = els.jaInput.value.trim();
+  els.result.hidden = false;
+  els.result.dataset.open = "1";
+  els.verdictMode.textContent = "모범 답안";
+  if (mine) {
+    const local = localVerdict(mine, d);
+    setVerdict(local.kind, local.msg, local.score);
+    renderCompare(mine, d.ja);
+    markCompare(local.kind);
+    renderAcceptControl(d, mine, local.kind);
+    recordResult(d, mine, local.kind, local.score, null, "문자 비교");
+    remember(d.id, { mine, snap: { ...local, mode: "모범 답안", ai: null } });
+  } else {
+    markCompare("pending");
+    renderAcceptControl(d, "", "pending");
+    setVerdict("pending", "답을 입력하지 않고 모범 답안을 열었습니다. 오답 노트에 「미답」으로 기록됩니다.");
+    els.verdictPill.textContent = "미답";
+    renderCompare("", d.ja);
+    recordResult(d, "", "major", 0, null, "미답");
+    remember(d.id, { mine: "", snap: { kind: "pending", msg: "", score: null, mode: "모범 답안", ai: null } });
+  }
+  renderStatic(d);
+  els.aiPanel.hidden = true;
+  markDone(d.id);
+  els.result.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+/* ---------- 오답 노트 ---------- */
+function saveNotes() { store.set("akapen.notes", state.notes); renderNbCount(); }
+function renderNbCount() {
+  const open = state.notes.filter(n => !n.resolved).length;
+  els.nbCount.textContent = open ? ` ${open}` : "";
+}
+// 채점 결과를 기록. correct 면 기존 기록을 '해결'로 바꾸고, 아니면 최신 오답으로 저장(문장당 1건).
+function recordResult(d, mine, kind, score, ai, mode) {
+  if (!d) return;
+  const i = state.notes.findIndex(n => n.id === d.id);
+  const prev = i >= 0 ? state.notes[i] : null;
+  const attempts = (prev?.attempts || 0) + 1;
+  if (kind === "correct") {
+    if (prev) { state.notes[i] = { ...prev, resolved: true, attempts, resolvedAt: Date.now(), lastCorrect: mine }; saveNotes(); }
+    return;
+  }
+  const entry = {
+    id: d.id, set: d.set, ko: d.ko, model: d.ja, point: d.grammar?.point || "",
+    mine, kind, score: Math.round(score || 0), mode, ts: Date.now(), attempts, resolved: false,
+    summary: ai?.summary || "",
+    differences: Array.isArray(ai?.differences) ? ai.differences.filter(x => x && (x.mine || x.model)).slice(0, 4) : [],
+    recommendations: Array.isArray(ai?.recommendations) ? ai.recommendations.filter(Boolean).slice(0, 3) : [],
+    corrected: ai?.corrected || "",
+  };
+  if (i >= 0) state.notes[i] = entry; else state.notes.unshift(entry);
+  saveNotes();
+}
+
+function fmtWhen(ts) {
+  const d = new Date(ts), now = new Date();
+  const same = d.toDateString() === now.toDateString();
+  return same ? d.toLocaleTimeString("ko-KR", { hour: "2-digit", minute: "2-digit" }) : d.toLocaleDateString("ko-KR", { month: "numeric", day: "numeric" });
+}
+const kindLabel = { correct: "일치", minor: "거의 일치", major: "차이 있음" };
+
+function renderNotebook() {
+  const notes = state.notes.slice().sort((a, b) => b.ts - a.ts);
+  const open = notes.filter(n => !n.resolved), resolved = notes.filter(n => n.resolved);
+  els.stTotal.textContent = notes.length;
+  els.stOpen.textContent = open.length;
+  els.stResolved.textContent = resolved.length;
+  els.stAttempts.textContent = notes.reduce((s, n) => s + (n.attempts || 1), 0);
+
+  const counts = new Map();
+  for (const n of open) if (n.point) counts.set(n.point, (counts.get(n.point) || 0) + 1);
+  const weak = [...counts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 6);
+  els.weakPoints.innerHTML = weak.length
+    ? weak.map(([p, c]) => `<span class="chip ja">${esc(p)} <b>${c}</b></span>`).join("")
+    : `<span class="note">아직 없습니다.</span>`;
+
+  const f = els.nbFilter.value;
+  const list = f === "open" ? open : f === "resolved" ? resolved : notes;
+  els.retryAllBtn.disabled = open.length === 0;
+  els.summarizeBtn.disabled = open.length === 0 || state.sample === null;
+  els.copyBtn.disabled = notes.length === 0;
+  els.clearNbBtn.disabled = notes.length === 0;
+
+  if (!list.length) {
+    els.nbList.innerHTML = `<div class="panel empty">${notes.length ? "이 조건에 맞는 문장이 없습니다." : "아직 기록이 없습니다. 연습 화면에서 문장을 채점하면 틀린 문장이 여기에 모입니다."}<br><button type="button" class="btn primary" data-act="go-practice">연습하러 가기</button></div>`;
+    return;
+  }
+  els.nbList.innerHTML = list.map(n => {
+    const ops = n.mine ? diffChars(n.mine, n.model) : [];
+    const mineHtml = n.mine
+      ? ops.filter(o => o.t !== "ins").map(o => o.t === "del" ? `<span class="del">${esc(o.s)}</span>` : esc(o.s)).join("")
+      : `<span class="note">(미답)</span>`;
+    const why = [
+      ...n.differences.map(x => `<li><span class="mine ja">${esc(x.mine || "—")}</span> → <span class="model ja">${esc(x.model || "—")}</span>${x.why ? ` · ${esc(x.why)}` : ""}</li>`),
+      ...n.recommendations.map(x => `<li>${esc(x)}</li>`),
+    ];
+    return `<article class="nb ${n.resolved ? "resolved" : ""}" data-id="${esc(n.id)}">
+      <div class="nb-meta">
+        <span class="chip muted">${esc(n.id)}</span>
+        <span class="chip ja">${esc(n.point)}</span>
+        <span class="pill ${n.resolved ? "correct" : n.kind}">${n.resolved ? `해결 (${n.attempts}회째)` : (n.mode === "미답" ? "미답" : kindLabel[n.kind] || n.kind)}</span>
+        ${n.attempts > 1 && !n.resolved ? `<span>${n.attempts}회 시도</span>` : ""}
+        <span class="when">${fmtWhen(n.ts)} · ${esc(n.mode)}</span>
+      </div>
+      <p class="ko">${esc(n.ko)}</p>
+      <div class="pair">
+        <span class="k">내 답</span><span class="ja">${mineHtml}</span>
+        <span class="k">모범</span><span class="model">${esc(n.model)}</span>
+        ${n.resolved && n.lastCorrect ? `<span class="k">맞춘 답</span><span class="ja" style="color:var(--green)">${esc(n.lastCorrect)}</span>` : ""}
+      </div>
+      ${n.summary ? `<p class="note" style="margin:0">${esc(n.summary)}</p>` : ""}
+      ${why.length ? `<ul class="why">${why.join("")}</ul>` : ""}
+      <div class="nb-actions">
+        <button type="button" class="btn" data-act="retry">다시 풀기</button>
+        <button type="button" class="btn" data-act="speak" data-text="${esc(n.model)}">모범답안 읽기</button>
+        <button type="button" class="btn" data-act="remove">기록 삭제</button>
+      </div>
+    </article>`;
+  }).join("");
+}
+
+function switchView(v) {
+  state.view = v;
+  const nb = v === "notebook";
+  els.qcard.hidden = nb;
+  els.result.hidden = nb || els.result.dataset.open !== "1";
+  els.notebook.hidden = !nb;
+  els.tabPractice.setAttribute("aria-selected", String(!nb));
+  els.tabNotebook.setAttribute("aria-selected", String(nb));
+  if (nb) renderNotebook();
+  else els.jaInput.focus({ preventScroll: true });
+}
+
+function retryIds(ids) {
+  state.retryQueue = ids.slice();
+  switchView("practice");
+  next();
+}
+
+function notesToText() {
+  const lines = ["赤ペン 번역노트 — 오답 정리 (" + new Date().toLocaleDateString("ko-KR") + ")", ""];
+  for (const n of state.notes.slice().sort((a, b) => b.ts - a.ts)) {
+    lines.push(`[${n.id}] ${n.point}  ${n.resolved ? "(해결)" : "(" + (kindLabel[n.kind] || n.kind) + ")"}`);
+    lines.push(`  원문: ${n.ko}`);
+    lines.push(`  내 답: ${n.mine || "(미답)"}`);
+    lines.push(`  모범: ${n.model}`);
+    for (const x of n.differences) lines.push(`  - ${x.mine || "—"} → ${x.model || "—"}${x.why ? " : " + x.why : ""}`);
+    for (const x of n.recommendations) lines.push(`  - 추천: ${x}`);
+    lines.push("");
+  }
+  return lines.join("\n");
+}
+
+async function summarize() {
+  if (state.sample === undefined) state.sample = await resolveSample();
+  if (!state.sample) { els.summarizeBtn.disabled = true; return; }
+  const open = state.notes.filter(n => !n.resolved).sort((a, b) => b.ts - a.ts).slice(0, 40);
+  if (!open.length) return;
+  if (state.sumCtl) state.sumCtl.abort();
+  const ctl = new AbortController(); state.sumCtl = ctl;
+  els.summaryPanel.hidden = false;
+  els.summaryMeta.textContent = `못 맞춘 ${open.length}문장 기준`;
+  els.summaryBody.innerHTML = `<div class="thinking"><span class="spin"></span><span>틀린 문장들을 읽고 공통 패턴을 찾는 중입니다…</span><button type="button" class="btn danger" id="sumStop" style="margin-left:auto">중단</button></div>`;
+  $("sumStop").onclick = () => ctl.abort();
+  els.summaryPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+
+  const body = open.map((n, i) => [
+    `${i + 1}. [문형 ${n.point}] 원문: ${n.ko}`,
+    `   학습자 답: ${n.mine || "(미답)"}`,
+    `   모범 번역: ${n.model}`,
+    n.differences.length ? `   지적된 차이: ${n.differences.map(x => `${x.mine || "—"}→${x.model || "—"}${x.why ? "(" + x.why + ")" : ""}`).join("; ")}` : "",
+  ].filter(Boolean).join("\n")).join("\n");
+
+  const prompt = [
+    "당신은 한국인 학습자를 가르치는 일본어 교사입니다. 아래는 학습자가 한국어→일본어 번역 연습에서 틀린 문장 목록입니다. 개별 문장을 다시 채점하지 말고, 반복되는 오류 패턴을 찾아 학습 우선순위와 연습 방법을 한국어로 정리하세요.",
+    "", body, "",
+    "다음 JSON 객체만 출력하세요(코드 펜스 없이):",
+    '{"overview":"전체 경향 2~3문장","patterns":[{"title":"패턴 이름(예: 〜ようと思う 와 〜つもり 혼동)","detail":"무엇이 왜 틀렸는지 2~3문장","fix":"올바른 사용 규칙 한두 문장","examples":["관련된 문장 번호와 한 줄 교정 (최대 3개)"]}],"priorities":["지금 가장 먼저 고칠 것 순서대로 최대 3개"],"drills":["추천 연습 방법 최대 3개"]}',
+    "patterns 는 많아야 5개, 실제로 2회 이상 보이거나 의미에 큰 영향을 주는 것 위주로. 일본어 표현에는 읽기를 괄호로 붙이세요.",
+  ].join("\n");
+
+  try {
+    const r = await state.sample.json(prompt, { signal: ctl.signal, modelTier: "default", cache: false });
+    if (ctl.signal.aborted) return;
+    renderSummary(r);
+  } catch (e) {
+    if (state.sumCtl !== ctl) return;
+    if (e?.code === "cancelled") { els.summaryBody.innerHTML = `<p class="note">정리를 중단했습니다.</p>`; return; }
+    const hide = ["not_granted", "sampling_disabled", "not_declared", "capability_disabled", "capability_removed"];
+    if (hide.includes(e?.code)) { state.sample = null; els.summaryBody.innerHTML = `<p class="note">AI 정리를 사용할 수 없습니다. 「텍스트로 복사」로 목록을 내보낼 수 있어요.</p>`; els.summarizeBtn.disabled = true; return; }
+    els.summaryBody.innerHTML = `<p class="err">${esc(e?.code === "rate_limited" ? "요청이 많아 잠시 쉬어야 합니다. 조금 뒤 다시 눌러 주세요." : "AI 응답을 받지 못했습니다. 다시 눌러 주세요.")}</p>`;
+  } finally {
+    if (state.sumCtl === ctl) state.sumCtl = null;
+  }
+}
+
+function renderSummary(r) {
+  if (!r || typeof r !== "object") { els.summaryBody.innerHTML = `<p class="err">AI 응답을 읽지 못했습니다. 다시 눌러 주세요.</p>`; return; }
+  const parts = [];
+  if (r.overview) parts.push(`<p style="margin:0">${esc(r.overview)}</p>`);
+  const pats = Array.isArray(r.patterns) ? r.patterns.filter(p => p && p.title) : [];
+  if (pats.length) parts.push(`<div><h3>반복되는 오류 패턴</h3><div style="display:grid;gap:8px">${pats.map(p => `
+    <div class="pat"><b class="ja">${esc(p.title)}</b>${p.detail ? `<p>${esc(p.detail)}</p>` : ""}${p.fix ? `<p><b>규칙:</b> ${esc(p.fix)}</p>` : ""}${Array.isArray(p.examples) && p.examples.length ? `<div class="ex ja">${p.examples.map(esc).join("<br>")}</div>` : ""}</div>`).join("")}</div></div>`);
+  const pr = Array.isArray(r.priorities) ? r.priorities.filter(Boolean) : [];
+  if (pr.length) parts.push(`<div><h3>먼저 고칠 것</h3><ol>${pr.map(x => `<li>${esc(x)}</li>`).join("")}</ol></div>`);
+  const dr = Array.isArray(r.drills) ? r.drills.filter(Boolean) : [];
+  if (dr.length) parts.push(`<div><h3>추천 연습</h3><ul>${dr.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>`);
+  els.summaryBody.innerHTML = parts.join("") || `<p class="note">정리할 내용이 없습니다.</p>`;
+}
+
+els.alts.addEventListener("click", (e) => {
+  const b = e.target.closest("button[data-unaccept]"); if (!b || !state.current) return;
+  unacceptAnswer(state.current, b.dataset.unaccept);
+});
+els.tabPractice.addEventListener("click", () => switchView("practice"));
+els.tabNotebook.addEventListener("click", () => switchView("notebook"));
+els.nbFilter.addEventListener("change", renderNotebook);
+els.retryAllBtn.addEventListener("click", () => retryIds(state.notes.filter(n => !n.resolved).sort((a, b) => b.ts - a.ts).map(n => n.id)));
+els.summarizeBtn.addEventListener("click", summarize);
+els.copyBtn.addEventListener("click", async () => {
+  const t = notesToText();
+  try { await navigator.clipboard.writeText(t); els.copyBtn.textContent = "복사됨"; }
+  catch { window.prompt("아래 내용을 복사하세요", t); }
+  setTimeout(() => { els.copyBtn.textContent = "텍스트로 복사"; }, 1500);
+});
+els.clearNbBtn.addEventListener("click", () => {
+  if (!confirm("오답 노트의 모든 기록을 지울까요? 되돌릴 수 없습니다.")) return;
+  state.notes = []; saveNotes(); els.summaryPanel.hidden = true; renderNotebook();
+});
+els.nbList.addEventListener("click", (e) => {
+  const btn = e.target.closest("button[data-act]"); if (!btn) return;
+  const act = btn.dataset.act;
+  if (act === "go-practice") return switchView("practice");
+  const id = btn.closest(".nb")?.dataset.id; if (!id) return;
+  if (act === "retry") retryIds([id]);
+  if (act === "speak") speakJa(btn.dataset.text, btn);
+  if (act === "remove") { state.notes = state.notes.filter(n => n.id !== id); saveNotes(); renderNotebook(); }
+});
+
+/* ---------- 음성 입력 (Web Speech API, ja-JP) ---------- */
+const speech = { rec: null, active: false, wanted: false, base: "", final: "", silent: false }; // wanted: 사용자가 끄기 전까지 계속 듣기, silent: 채점 등으로 종료되어 라벨을 「말하기」로 둠
+function setupSpeech() {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const micBtn = $("micBtn"), micHint = $("micHint"), micLabel = $("micLabel");
+  if (!SR) return; // 지원하지 않는 브라우저(Firefox 등)에서는 버튼을 숨긴 채 둠
+  micBtn.hidden = false;
+  const rec = new SR();
+  rec.lang = "ja-JP";
+  rec.interimResults = true;
+  rec.continuous = true;         // 버튼을 다시 누를 때까지 계속 듣기 (브라우저가 끊으면 onend에서 재시작)
+  rec.maxAlternatives = 1;
+  speech.rec = rec;
+
+  const setActive = (on) => {
+    speech.active = on;
+    micBtn.setAttribute("aria-pressed", String(on));
+    micLabel.textContent = on ? "듣는 중… (다시 누르면 중지)" : "말하기";
+    micHint.hidden = !on;
+    micHint.textContent = on ? "일본어로 말해 주세요. 끝나면 버튼을 다시 누르세요. (새로 누르면 입력란이 비워집니다)" : "";
+  };
+  const compose = (finalText, interim) => {
+    // 시작 시점의 입력란 내용(base) 뒤에 인식 결과를 이어 붙임. 중간 결과는 회색으로 보이지 않으므로 그대로 넣음.
+    const sep = speech.base && !/[\s。、]$/.test(speech.base) ? " " : "";
+    els.jaInput.value = speech.base + sep + finalText + interim;
+    els.jaInput.scrollTop = els.jaInput.scrollHeight;
+  };
+
+  rec.onstart = () => setActive(true);
+  rec.onresult = (e) => {
+    let interim = "";
+    for (let i = e.resultIndex; i < e.results.length; i++) {
+      const t = e.results[i][0].transcript;
+      if (e.results[i].isFinal) speech.final += t; else interim += t;
+    }
+    compose(speech.final, interim);
+  };
+  rec.onerror = (e) => {
+    // 침묵·일시 중단은 계속 듣기 모드에서 무시하고 onend 에서 재시작
+    if (speech.wanted && (e.error === "no-speech" || e.error === "aborted")) return;
+    speech.wanted = false;
+    setActive(false);
+    const msg = {
+      "not-allowed": "마이크 사용이 차단되어 있습니다. 브라우저 주소창의 사이트 설정에서 마이크를 허용해 주세요.",
+      "service-not-allowed": "이 환경에서는 음성 인식을 쓸 수 없습니다.",
+      "no-speech": "음성이 감지되지 않았습니다. 다시 눌러 말해 주세요.",
+      "audio-capture": "마이크를 찾을 수 없습니다.",
+      "network": "음성 인식 서버에 연결하지 못했습니다. 네트워크를 확인해 주세요.",
+      "aborted": "",
+    }[e.error];
+    if (msg) { micHint.hidden = false; micHint.textContent = msg; }
+  };
+  rec.onend = () => {
+    if (speech.wanted) { // 브라우저가 세션을 끊은 경우: 사용자가 끄기 전까지 다시 시작
+      setTimeout(() => {
+        if (!speech.wanted) return;
+        try { rec.start(); }
+        catch { speech.wanted = false; setActive(false); micHint.hidden = false; micHint.textContent = "듣기가 중단되었습니다. 「말하기」를 다시 눌러 주세요."; }
+      }, 150);
+      return;
+    }
+    setActive(false);
+    compose(speech.final, "");
+    if (!speech.silent && els.jaInput.value.trim()) micLabel.textContent = "다시 녹음하기";
+    speech.silent = false;
+    if (state.current) remember(state.current.id, { mine: els.jaInput.value });
+    els.jaInput.focus({ preventScroll: true });
+  };
+
+  micBtn.addEventListener("click", () => {
+    if (speech.wanted) { speech.wanted = false; rec.stop(); return; }
+    // 새로 듣기 시작: 입력란을 비우고 처음부터 받아 적음
+    speech.wanted = true;
+    els.jaInput.value = "";
+    speech.base = "";
+    speech.final = "";
+    if (state.current) remember(state.current.id, { mine: "" });
+    micHint.hidden = true;
+    try { rec.start(); } catch { /* 이미 시작된 상태 등 */ }
+  });
+}
+/* ---------- 모범 답안 읽기 (Web Speech Synthesis, ja-JP) ---------- */
+const tts = { current: null, btn: null, voice: undefined };
+const MALE_JA = /Hattori|Keita|Otoya|Ichiro|Daichi|Naoki|Takumi|Kenji|男/i;
+// 자연스러운 여성 음성 우선순위 (Edge의 Microsoft Natural → Chrome의 Google → Apple Enhanced/Premium → Apple 기본)
+const PREFERRED_JA = [/Nanami.*(Natural|Online)/i, /Nanami/i, /Aoi/i, /Mayu/i, /Google.*(日本語|Japanese)/i, /O-?Ren/i, /Kyoko.*(Enhanced|Premium|拡張)/i, /Kyoko/i, /Sayaka/i, /Haruka/i, /Ayumi/i];
+function jaVoices() {
+  if (!("speechSynthesis" in window)) return [];
+  return speechSynthesis.getVoices().filter(v => /^ja([-_]|$)/i.test(v.lang));
+}
+function jaVoice() {
+  const ja = jaVoices();
+  if (!ja.length) return null;
+  const want = store.get("akapen.voice", "");
+  const chosen = want && ja.find(v => v.name === want);
+  if (chosen) return chosen;
+  for (const re of PREFERRED_JA) { const v = ja.find(x => re.test(x.name)); if (v) return v; }
+  return ja.find(v => !MALE_JA.test(v.name)) || ja[0];
+}
+function speakJa(text, btn) {
+  if (!("speechSynthesis" in window) || !text) return;
+  if (tts.current) { // 읽는 중에 다시 누르면 중지
+    speechSynthesis.cancel();
+    const same = tts.btn === btn;
+    tts.current = null; markSpeaking(tts.btn, false); tts.btn = null;
+    if (same) return;
+  }
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = "ja-JP";
+  u.rate = 0.95;
+  u.pitch = 1.05;
+  const v = jaVoice(); if (v) u.voice = v;
+  u.onend = u.onerror = () => { if (tts.current === u) { tts.current = null; markSpeaking(btn, false); tts.btn = null; } };
+  tts.current = u; tts.btn = btn; markSpeaking(btn, true);
+  speechSynthesis.cancel(); // iOS 에서 이전 큐가 남아 있으면 시작이 안 되는 경우 방지
+  speechSynthesis.speak(u);
+}
+function markSpeaking(btn, on) {
+  if (!btn) return;
+  btn.setAttribute("aria-pressed", String(on));
+  const lbl = btn.querySelector("#speakLabel");
+  if (lbl) lbl.textContent = on ? "읽는 중… (누르면 중지)" : "모범답안 읽기";
+  else btn.textContent = on ? "읽는 중… (중지)" : "모범답안 읽기";
+}
+function stopTts() { if ("speechSynthesis" in window) speechSynthesis.cancel(); if (tts.btn) markSpeaking(tts.btn, false); tts.current = null; tts.btn = null; }
+function setupTts() {
+  if (!("speechSynthesis" in window)) return;
+  $("speakBtn").hidden = false;
+  $("speakBtn").addEventListener("click", () => speakJa(state.current?.ja || "", $("speakBtn")));
+  // 음성 목록은 비동기로 채워짐
+  if (typeof speechSynthesis.onvoiceschanged !== "undefined") speechSynthesis.onvoiceschanged = () => { fillVoiceSelect(); };
+  jaVoice();
+  $("voiceSelect").addEventListener("change", () => { store.set("akapen.voice", $("voiceSelect").value); });
+  $("voicePreview").addEventListener("click", () => speakJa("こんにちは。これは日本語の読み上げです。", $("voicePreview")));
+}
+function fillVoiceSelect() {
+  const sel = $("voiceSelect"); if (!sel) return;
+  const ja = jaVoices(); const cur = jaVoice();
+  sel.innerHTML = `<option value="">자동 (가장 자연스러운 여성 음성)</option>` +
+    ja.map(v => `<option value="${esc(v.name)}">${esc(v.name)}${v.localService ? "" : " (온라인)"}${MALE_JA.test(v.name) ? " · 남성" : ""}</option>`).join("");
+  sel.value = store.get("akapen.voice", "");
+  $("voiceState").textContent = !ja.length ? "이 기기에 일본어 음성이 없습니다. 아래 안내를 참고해 설치해 주세요."
+    : `현재 사용: ${cur ? cur.name : "-"} · 설치된 일본어 음성 ${ja.length}개`;
+}
+
+function stopSpeech() {
+  speech.wanted = false;
+  if (speech.active && speech.rec) { speech.silent = true; try { speech.rec.stop(); } catch {} }
+  // onend 가 늦게 와도 버튼 표시는 즉시 되돌림
+  const b = $("micBtn"); if (b) { b.setAttribute("aria-pressed", "false"); $("micLabel").textContent = "말하기"; $("micHint").hidden = true; }
+}
+
+/* ---------- events ---------- */
+els.hintBtn.addEventListener("click", () => {
+  const d = state.current;
+  const open = els.hintText.hidden;
+  els.hintText.hidden = !open;
+  els.hintText.innerHTML = open ? `문형 <b class="ja">${esc(d.grammar?.point || "")}</b> 을(를) 사용해 보세요.` : "";
+  els.hintBtn.textContent = open ? "힌트 닫기" : "문형 힌트 보기";
+});
+els.gradeBtn.addEventListener("click", grade);
+els.revealBtn.addEventListener("click", reveal);
+els.nextBtn.addEventListener("click", next);
+els.prevBtn.addEventListener("click", prev);
+els.jaInput.addEventListener("input", () => { if (state.current) remember(state.current.id, { mine: els.jaInput.value }); });
+els.jaInput.addEventListener("keydown", (e) => {
+  if ((e.metaKey || e.ctrlKey) && e.key === "Enter") { e.preventDefault(); if (!els.gradeBtn.disabled) grade(); }
+});
+document.addEventListener("keydown", (e) => {
+  if (!e.altKey || state.view !== "practice") return;
+  if (e.key === "ArrowLeft") { e.preventDefault(); prev(); }
+  else if (e.key === "ArrowRight") { e.preventDefault(); next(); }
+});
+els.setFilter.addEventListener("change", () => {
+  state.filter = els.setFilter.value;
+  store.set("akapen.filter", state.filter);
+  buildDeck();
+  next();
+});
+els.resetBtn.addEventListener("click", () => {
+  if (!confirm("풀었던 문장 기록을 지우고 처음부터 다시 시작할까요?")) return;
+  state.done = new Set();
+  store.set("akapen.done", []);
+  buildDeck();
+  next();
+});
+
+/* ---------- boot ---------- */
+function boot() {
+  const sets = [...new Set(DATA.map(d => d.set))];
+  els.setFilter.innerHTML = `<option value="all">전체 (${DATA.length}문장)</option>` +
+    sets.map(s => `<option value="${esc(s)}">${esc(s)} (${DATA.filter(d => d.set === s).length})</option>`).join("");
+  if (!sets.includes(state.filter)) state.filter = "all";
+  els.setFilter.value = state.filter;
+  buildDeck();
+  next();
+  renderNbCount();
+  setupSpeech();
+  setupTts();
+  resolveSample().then(s => { state.sample = s; updateAiStatus(); });
+  $("aiSettingsBtn").addEventListener("click", openAiSettings);
+  $("apiKeySave").addEventListener("click", () => saveApiKey(false));
+  $("apiKeyRemove").addEventListener("click", () => saveApiKey(true));
+  $("apiKeyClose").addEventListener("click", () => $("aiDialog").close());
+  // 독립 배포(GitHub Pages 등)에서만 서비스 워커 등록: 홈 화면 추가·오프라인 열람
+  if ("serviceWorker" in navigator && !window.claude && location.protocol === "https:") {
+    navigator.serviceWorker.register("./sw.js").catch(() => {});
+  }
+}
+boot();
+</script>

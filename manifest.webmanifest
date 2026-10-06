@@ -1,0 +1,16 @@
+{
+  "name": "赤ペン 번역노트",
+  "short_name": "赤ペン",
+  "description": "한국어 문장을 일본어로 번역하고 AI 피드백으로 교정하는 연습장",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#EDF0F3",
+  "theme_color": "#2B4C7E",
+  "lang": "ko",
+  "icons": [
+    { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
